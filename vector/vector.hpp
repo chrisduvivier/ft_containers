@@ -52,12 +52,13 @@ namespace ft
 			**	Constructs a container with n elements. Each element is a copy of val.
 			*/
 			explicit	vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : 
-				_alloc(alloc), _size(n), _capacity(n)
+				_alloc(alloc), _size(0), _capacity(n)
 			{
 				_array = _alloc.allocate(n);
 				for (size_type i = 0; i < n; i++)
 				{
 					_alloc.construct(&_array[i], val);
+					_size++;
 				}
 			}
 
@@ -98,6 +99,8 @@ namespace ft
 			*	   	   Iterators		*
 			****************************/
 
+
+
 			/****************************
 			*	   	   Capacity			*
 			****************************/
@@ -112,6 +115,19 @@ namespace ft
 			size_type maxsize() const { return (this->_size); }
 
 			size_type capacity() const { return (this->_capacity); }
+
+			/*	Resizes the container so that it contains n elements.
+			*	If n < container size, the content is reduced to its first n elements, removing those beyond (and destroying them).
+			*	If n > container size, the content is expanded by inserting at the end as many elements as needed to reach a size of n.
+			*	If val is specified, the new elements are initialized as copies of val, otherwise, they are value-initialized.
+			*	If n > container capacity, an automatic reallocation of the allocated storage space takes place. */
+			// void resize (size_type n, value_type val = value_type()) 
+			// {
+			// 	if (n < this->size())
+			// 	{
+
+			// 	}
+			// }
 
 
 			/****************************
