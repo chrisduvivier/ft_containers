@@ -3,21 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:46:24 by cduvivie          #+#    #+#              #
-#    Updated: 2021/09/27 11:59:24 by user42           ###   ########.fr        #
+#    Updated: 2021/10/01 14:49:06 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	a.out
 CC			:=	clang++
-FLAGS	 	:=	-Wall -Wextra -Werror
+FLAGS	 	:=	-Wall -Wextra -Werror -std=c++98
 RM 			:=	/bin/rm -rf
 OBJDIR		:= ./obj/
 
 SRCS		:=	main.cpp
-				
 
 OBJ			:= $(SRCS:.cpp=.o)
 OBJS 		:= $(addprefix $(OBJDIR), $(OBJ))

@@ -33,13 +33,25 @@ namespace ft
 			**	(1) empty container constructor (default constructor)
 			**	Constructs an empty container, with no elements.
 			*/
-			explicit 	vector (const allocator_type& alloc = allocator_type()) :
-				_alloc(alloc),
-				_start(nullptr),
-				_end(nullptr),
-				_capacity(0)
-			{ }
+			explicit 	vector(const allocator_type& alloc = allocator_type()) :
+				_alloc(alloc), _size(0), _capacity(0)
+            {
+                _array = _alloc.allocate(_capacity);
+			}
 
+			/*
+			**	(2) fill constructor
+			**	Constructs a container with n elements. Each element is a copy of val.
+			*/
+			explicit	vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : 
+				_alloc(alloc), _size(n), _capacity(n)
+			{
+				_array = _alloc.allocate(n);
+				for (size_type i = 0; i < n; i++)
+				{
+					_alloc.construct(&_array[i], val);
+				}
+			}
 
 			/*
 			**	Think of the _alloc object as an array of objects. Therefore we need to destroy each obj in the array,
@@ -47,24 +59,28 @@ namespace ft
 			*/
 			~vector()
 			{
-				pointer tmp = this->_start;
-				for (size_type i = 0; i < _size; i++)
+				for (size_type i = 0; i < this->size(); i++)
 				{
-					_alloc.destroy(tmp);
-					tmp++;
+					_alloc.destroy(&_array[i]);
 				}
-				_size = 0;
-				_alloc.deallocate(_start, _capacity);
 			}
 
+			u_int32_t	capacity()
+			{
+				return (this->_capacity);
+			}
+
+			u_int32_t	size()
+			{
+				return (this->_size);
+			}
 
 		private:
 
 			allocator_type  _alloc;						/*	allocator calss holding object	*/
-			pointer         _start;						/*	pointer to the first object		*/
-			pointer         _end;						/*	pointer to the last object		*/
-			u_int32_t		_size;						/*	current size of the obj 		*/
-			u_int32_t		_capacity;					/*	current capacity of the obj 	*/
+			pointer			_array;						/*	Pointer on an array of T values	*/
+			size_type		_size;						/*	current size of the obj 		*/
+			size_type		_capacity;					/*	current capacity of the obj 	*/
 	};
 
 	// std::ostream &			operator<<( std::ostream & o, vector const & i );
