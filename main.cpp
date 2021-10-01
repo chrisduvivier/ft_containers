@@ -16,6 +16,7 @@
 
 int main(void)
 {
-	ft::vector<int> first;    // empty vector of ints
+	ft::vector<int> empty_vector;    // empty vector of ints
+	
     return (0);
 }
