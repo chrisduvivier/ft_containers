@@ -11,6 +11,10 @@ namespace ft
 	class vector
 	{
 		public:
+			
+			/****************************
+			*	   Member types  		*
+			****************************/
 
 			/* Type of the elements allocated by the object (aliased as member type value_type). */
 			typedef				T									value_type;
@@ -28,6 +32,10 @@ namespace ft
 			// difference_type
 
 			typedef typename	allocator_type::size_type		size_type;
+
+			/****************************
+			*	   Member functions		*
+			****************************/
 
 			/*
 			**	(1) empty container constructor (default constructor)
@@ -54,25 +62,86 @@ namespace ft
 			}
 
 			/*
-			**	Think of the _alloc object as an array of objects. Therefore we need to destroy each obj in the array,
-			**	and then destroy the array itself.
+			**	(3) range constructor
+			**	Constructs a container with as many elements as the range [first,last),
+			**	with each element constructed from its corresponding element in that range, in the same order.
 			*/
+			
+			// TODO once we have an iterator
+			// template <class InputIterator>
+         	// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+
+			/*
+			**	(4) copy constructor
+			**	Constructs a container with a copy of each of the elements in x, in the same order.
+			*/
+			
+			vector (const vector& x)
+			{
+				(void)x;
+			}
+			 
+
+			/*	Think of the _alloc object as an array of objects. Therefore we need to destroy each obj in the array,
+			*	and then destroy the array itself. */
 			~vector()
 			{
 				for (size_type i = 0; i < this->size(); i++)
 				{
 					_alloc.destroy(&_array[i]);
 				}
+				// deallocate space for five ints
+				_alloc.deallocate(_array, this->capacity());
 			}
 
-			u_int32_t	capacity()
-			{
-				return (this->_capacity);
-			}
+			/****************************
+			*	   	   Iterators		*
+			****************************/
 
-			u_int32_t	size()
+			/****************************
+			*	   	   Capacity			*
+			****************************/
+
+			/* Returns the number of elements in the vector. */
+			size_type size() const { return (this->_size); }
+			
+			/*	Returns the maximum number of elements that the vector can hold.
+			*	This is the maximum potential size the container can reach due to known system or library implementation limitations,
+			*	but the container is by no means guaranteed to be able to reach that size:
+			*	it can still fail to allocate storage at any point before that size is reached. */
+			size_type maxsize() const { return (this->_size); }
+
+			size_type capacity() const { return (this->_capacity); }
+
+
+			/****************************
+			*		Element access		*
+			****************************/
+
+			// Access element (public member function )
+			// operator[]
+			
+			// Access element (public member function )
+			// at
+			
+			// Access first element (public member function )
+			// front
+			
+			// Access last element (public member function )
+			// back
+
+			/****************************
+			*		  Modifiers			*
+			****************************/
+			
+			/****************************
+			*		  Allocator			*
+			****************************/
+
+			/*	Returns a copy of the allocator object associated with the vector. */
+			allocator_type get_allocator() const
 			{
-				return (this->_size);
+
 			}
 
 		private:

@@ -10,10 +10,8 @@ In a nutshell: using `new`, `delete` is very handy because it automates the cons
 
 All STL container use Allocator class for memory allocation. The allocator will be the object holding the data for our STLs: `allocator_type  _alloc;` the main attribute to hold the data structure (beware that `allocator_type` is just an typedef of `Alloc`, which in turn, is the class `class Alloc = std::allocator<T>`). 
 
-Some example here:
-https://www.geeksforgeeks.org/stdallocator-in-cpp-with-examples/
-To check functions/return types etc:
-https://en.cppreference.com/w/cpp/named_req/Allocator
+Some example here: https://www.geeksforgeeks.org/stdallocator-in-cpp-with-examples/
+To check functions/return types etc: https://en.cppreference.com/w/cpp/named_req/Allocator
 
 2. cry
 
