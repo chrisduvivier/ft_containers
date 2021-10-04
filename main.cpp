@@ -32,5 +32,6 @@ int main(void)
 	ft::vector<int> empty_vector;    	// empty vector of ints
 	ft::vector<int> five_vector(5, 5);	// size of 5 with values 5
 
+	std::cout << five_vector[0] << std::endl;
     return (0);
 }

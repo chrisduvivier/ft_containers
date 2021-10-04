@@ -134,8 +134,25 @@ namespace ft
 			*		Element access		*
 			****************************/
 
-			// Access element (public member function )
-			// operator[]
+			/*	Returns a reference to the element at position n in the vector container.
+				Behavior is undefined when accessing out-of-range (throw exception in out case).	*/
+			reference operator[] (size_type n)
+			{
+				if (n < 0 || n >= this->size())
+				{
+					throw std::out_of_range("Accessing out of range element in vector\n");
+				}
+				return (_array[n]);
+			}
+
+			const_reference operator[] (size_type n) const
+			{
+				if (n < 0 || n >= this->size())
+				{
+					throw std::out_of_range("Accessing out of range element in vector\n");
+				}
+				return (_array[n]);
+			}
 			
 			// Access element (public member function )
 			// at
@@ -171,5 +188,4 @@ namespace ft
 	// std::ostream &			operator<<( std::ostream & o, vector const & i );
 
 }
-
-#endif /* ********************************************************** VECTOR_H */
+#endif
