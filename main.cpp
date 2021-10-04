@@ -33,5 +33,50 @@ int main(void)
 	ft::vector<int> five_vector(5, 5);	// size of 5 with values 5
 
 	std::cout << five_vector[0] << std::endl;
+
+	{
+		ft::vector<int> myvector (5);   // 10 zero-initialized ints
+		// assign some values:
+		for (unsigned i=0; i<myvector.size(); i++)
+		{
+			myvector.at(i)=i;
+		}
+
+		// std::cout << "myvector.front() is now " << myvector.front() << '\n';
+		// std::cout << "myvector.back() is now " << myvector.back() << '\n';
+		std::cout << "myvector contains:";
+		for (unsigned i = 0; i < myvector.size(); i++)
+			std::cout << ' ' << myvector.at(i);
+		std::cout << '\n';
+	}
+
+	{
+		ft::vector<int> foo (3, 0);
+		ft::vector<int> bar (5, 0);
+
+		bar = foo;
+		foo = ft::vector<int>();
+
+		std::cout << "Size of foo: " << int(foo.size()) << '\n';
+		std::cout << "Size of bar: " << int(bar.size()) << '\n';
+	}
+
+	// {
+	// 	// // set some initial content:
+	// 	ft::vector<int> myvector (5);   // 10 zero-initialized ints
+	// 	// assign some values:
+	// 	for (unsigned i=0; i<myvector.size(); i++)
+	// 	{
+	// 		myvector.at(i)=i;
+	// 	}
+	// 	// myvector.resize(5);
+	// 	// myvector.resize(8,100);
+	// 	// myvector.resize(12);
+
+	// 	std::cout << "myvector contains:";
+	// 	for (unsigned i=0; i < myvector.size(); i++)
+	// 		std::cout << ' ' << myvector[i];
+	// 	std::cout << '\n';
+	// }
     return (0);
 }

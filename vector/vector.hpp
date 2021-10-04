@@ -81,6 +81,20 @@ namespace ft
 			{
 				(void)x;
 			}
+
+			/* Assigns new contents to the container, replacing its current contents, and modifying its size accordingly. */
+			vector& operator= (const vector& x)
+			{
+				// if (*this != x)			// TODO
+				{
+					this->_array = this->_alloc.allocate(x.capacity());
+					this->_size = x.size();
+					this->_capacity = x.capacity();
+					for (size_type i = 0; i < x.size(); i++)
+						this->_alloc.construct(&(this->_array[i]), x[i]);
+				}
+				return (*this);
+			}
 			 
 
 			/*	Think of the _alloc object as an array of objects. Therefore we need to destroy each obj in the array,
@@ -112,22 +126,72 @@ namespace ft
 			*	This is the maximum potential size the container can reach due to known system or library implementation limitations,
 			*	but the container is by no means guaranteed to be able to reach that size:
 			*	it can still fail to allocate storage at any point before that size is reached. */
-			size_type maxsize() const { return (this->_size); }
-
-			size_type capacity() const { return (this->_capacity); }
+			// size_type max_size() const { return (this->_size); }
 
 			/*	Resizes the container so that it contains n elements.
 			*	If n < container size, the content is reduced to its first n elements, removing those beyond (and destroying them).
 			*	If n > container size, the content is expanded by inserting at the end as many elements as needed to reach a size of n.
 			*	If val is specified, the new elements are initialized as copies of val, otherwise, they are value-initialized.
 			*	If n > container capacity, an automatic reallocation of the allocated storage space takes place. */
-			// void resize (size_type n, value_type val = value_type()) 
-			// {
-			// 	if (n < this->size())
-			// 	{
+			void resize (size_type n, value_type val = value_type()) 
+			{
+				if (n < this->size())	// shrink size
+				{
+					size_type i = n;
+					while ( i < this->size() )
+					{
+						_alloc.destroy(&_array[i]);
+						i++;
+					}
+					this->_size = n;
+				}
+				else if (n > this->size() && n < this->capacity())	// add element but don't change capacity
+				{
+					for (size_type i = this->size(); i < n; i++)
+					{
+						_alloc.construct(&_array[i], val);
+						this->_size++;
+					}
+				}
+				else	// create an _array with twice the previous capacity
+				{
+					size_type new_capacity = this->capacity();
+					while (new_capacity < n)		// double up until it fits 'n'
+						new_capacity *= 2;
+					this->reserve(new_capacity);
+					for (size_type i = this->size(); i < n; i++)
+						this->_alloc.construct(&this->_array[i], val);
+				}
+			}
 
-			// 	}
-			// }
+			size_type capacity() const { return (this->_capacity); }
+
+			/*	Returns whether the vector is empty (i.e. whether its size is 0). */
+			bool empty() const { return (this->size() == 0); }
+
+			/*	Requests that the vector capacity be at least enough to contain n elements.
+				If n is greater than the current vector capacity, the function causes the container to reallocate its storage increasing its capacity to n (or greater).
+				In all other cases, the function call does not cause a reallocation and the vector capacity is not affected.
+				This function has no effect on the vector size and cannot alter its elements.	*/
+			void reserve (size_type n)
+			{
+				if (n > this->capacity())
+				{
+					if (n > this->max_size())
+					{
+						throw std::length_error("size requested is greater than the maximum size (vector::max_size)\n");
+					}
+					copy = this;
+					for (size_type i = 0; i < this->size(); i++)
+						this->_alloc.destroy(&this->_array[i]);
+					this->_alloc.deallocate(this->_array, this->capacity());
+
+					this->_array = this->_alloc.allocate(n);
+					this->_capacity = n;
+					for (size_type i = 0; i < copy.size(); i++)
+						this->_alloc.construct(&this->_array[i], copy[i]);
+				}
+			}
 
 
 			/****************************
@@ -135,33 +199,40 @@ namespace ft
 			****************************/
 
 			/*	Returns a reference to the element at position n in the vector container.
-				Behavior is undefined when accessing out-of-range (throw exception in out case).	*/
-			reference operator[] (size_type n)
+				Behavior is undefined when accessing out-of-range.	*/
+			reference operator[] (size_type n) { return (_array[n]); }
+
+			const_reference operator[] (size_type n) const { return (_array[n]); }
+			
+			/*	Returns a reference to the element at position n in the vector. 
+				The function automatically checks whether n is within the bounds of valid elements in the vector,
+				throwing an out_of_range exception if it is not (i.e., if n is greater than, or equal to, its size).
+				This is in contrast with member operator[], that does not check against bounds. */
+			reference at (size_type n)
 			{
 				if (n < 0 || n >= this->size())
-				{
 					throw std::out_of_range("Accessing out of range element in vector\n");
-				}
 				return (_array[n]);
 			}
 
-			const_reference operator[] (size_type n) const
+			const_reference at (size_type n) const
 			{
 				if (n < 0 || n >= this->size())
-				{
 					throw std::out_of_range("Accessing out of range element in vector\n");
-				}
 				return (_array[n]);
 			}
 			
-			// Access element (public member function )
-			// at
-			
-			// Access first element (public member function )
-			// front
-			
-			// Access last element (public member function )
-			// back
+			/*	Returns a reference to the first element in the vector.
+				Unlike member vector::begin, which returns an iterator to this same element, this function returns a direct reference.
+				Calling this function on an empty container causes undefined behavior. */
+			reference front() { return (_array[0]); }
+			const_reference front() const { return (_array[0]); }
+
+			/*	Returns a reference to the last element in the vector.
+				Unlike member vector::end, which returns an iterator just past this element, this function returns a direct reference.
+				Calling this function on an empty container causes undefined behavior. */
+			reference back()  { return (_array[(this->size() - 1)]); }
+			const_reference back() const { return (_array[(this->size() - 1)]); }
 
 			/****************************
 			*		  Modifiers			*
