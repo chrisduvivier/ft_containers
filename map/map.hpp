@@ -1,5 +1,5 @@
-#ifndef VECTOR_HPP
-# define VECTOR_HPP
+#ifndef MAP_HPP
+# define MAP_HPP
 
 # include <iostream>
 # include <string>
@@ -8,7 +8,7 @@
 namespace ft
 {
 	template < class T, class Alloc = std::allocator<T> > // generic template
-	class vector
+	class map
 	{
 		public:
 			
@@ -145,7 +145,7 @@ namespace ft
 
 		private:
 
-			allocator_type  _alloc;						/*	allocator calss holding object	*/
+			allocator_type  _alloc;						/*	allocator class holding object	*/
 			pointer			_array;						/*	Pointer on an array of T values	*/
 			size_type		_size;						/*	current size of the obj 		*/
 			size_type		_capacity;					/*	current capacity of the obj 	*/

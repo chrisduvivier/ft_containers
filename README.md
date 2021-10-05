@@ -19,3 +19,4 @@ To check functions/return types etc: https://en.cppreference.com/w/cpp/named_req
 
 - https://www.cplusplus.com/
 - https://en.cppreference.com/w/ 
+- https://github.com/Bibeknam/algorithmtutorprograms/blob/master/data-structures/red-black-trees/RedBlackTree.cpp
