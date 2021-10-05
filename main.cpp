@@ -1,16 +1,16 @@
 #include <iostream>
 #include <string>
 #include <deque>
-// #if 0 //CREATE A REAL STL EXAMPLE
-// 	#include <map>
-// 	#include <stack>
-// 	#include <vector>
-// 	namespace ft = std;
-// #else
-// 	// #include <map.hpp>
-// 	// #include <stack.hpp>
-#include "vector/vector.hpp"
-// #endif
+#if 0 //CREATE A REAL STL EXAMPLE
+	#include <map>
+	#include <stack>
+	#include <vector>
+	namespace ft = std;
+#else
+	// #include <map.hpp>
+	// #include <stack.hpp>
+	#include "vector/vector.hpp"
+#endif
 
 #include <stdlib.h>
 
@@ -61,22 +61,104 @@ int main(void)
 		std::cout << "Size of bar: " << int(bar.size()) << '\n';
 	}
 
-	// {
-	// 	// // set some initial content:
-	// 	ft::vector<int> myvector (5);   // 10 zero-initialized ints
-	// 	// assign some values:
-	// 	for (unsigned i=0; i<myvector.size(); i++)
-	// 	{
-	// 		myvector.at(i)=i;
-	// 	}
-	// 	// myvector.resize(5);
-	// 	// myvector.resize(8,100);
-	// 	// myvector.resize(12);
+	{	// TEST PUSHBACK
+		ft::vector<int> myvector;
+
+		unsigned int_arr[] = {14, 52, 5, 35, 64, 2, 1124, 4, 10, 110};
+		for (unsigned i = 0; i < 10; i++)
+			myvector.push_back (int_arr[i]);
+
+		std::cout << "myvector contains:";
+		for (unsigned i = 0; i < myvector.size(); i++)
+			std::cout << ' ' << myvector.at(i);
+		std::cout << '\n';
+	}
+
+	{	// TEST RESERVE
+		ft::vector<int>::size_type sz;
+
+		ft::vector<int> foo;
+		sz = foo.capacity();
+		std::cout << "making foo grow:\n";
+		for (int i=0; i<100; ++i) {
+			foo.push_back(i);
+			if (sz != foo.capacity()) {
+				sz = foo.capacity();
+				std::cout << "capacity changed: " << sz << '\n';
+			}
+		}
+
+		ft::vector<int> bar;
+		sz = bar.capacity();
+		bar.reserve(100);   // this is the only difference with foo above
+		std::cout << "making bar grow:\n";
+		for (int i=0; i<100; ++i) {
+			bar.push_back(i);
+			if (sz!=bar.capacity()) {
+				sz = bar.capacity();
+				std::cout << "capacity changed: " << sz << '\n';
+			}
+		}
+	}
+
+	{	// TEST RESIZE
+		// // // set some initial content:
+		// ft::vector<int> myvector (5);   // 10 zero-initialized ints
+		// // assign some values:
+		// for (unsigned i=0; i<myvector.size(); i++)
+		// {
+		// 	myvector.at(i)=i;
+		// }
+		// myvector.resize(5);
+		// myvector.resize(8,100);
+		// myvector.resize(12);
+
+		// std::cout << "myvector contains:";
+		// for (unsigned i=0; i < myvector.size(); i++)
+		// 	std::cout << ' ' << myvector[i];
+		// std::cout << '\n';
+
+		// std::cout << myvector.max_size() << "\n";
+	}
+
+	// {	// clear test
+	// 	ft::vector<int> myvector;
+	// 	myvector.push_back (100);
+	// 	myvector.push_back (200);
+	// 	myvector.push_back (300);
 
 	// 	std::cout << "myvector contains:";
-	// 	for (unsigned i=0; i < myvector.size(); i++)
+	// 	for (unsigned i=0; i<myvector.size(); i++)
+	// 		std::cout << ' ' << myvector[i];
+	// 	std::cout << '\n';
+
+	// 	myvector.clear();
+	// 	myvector.push_back (1101);
+	// 	myvector.push_back (2202);
+
+	// 	std::cout << "myvector contains:";
+	// 	for (unsigned i=0; i<myvector.size(); i++)
 	// 		std::cout << ' ' << myvector[i];
 	// 	std::cout << '\n';
 	// }
+
+	{	// swap test
+		ft::vector<int> foo (3,100);   // three ints with a value of 100
+		ft::vector<int> bar (5,200);   // five ints with a value of 200
+
+		foo.swap(bar);
+
+		std::cout << "foo contains:";
+		for (unsigned i=0; i < foo.size(); i++)
+			std::cout << ' ' << foo[i];
+		std::cout << '\n';
+
+		std::cout << "bar contains:";
+		for (unsigned i=0; i < bar.size(); i++)
+			std::cout << ' ' << bar[i];
+		std::cout << '\n';
+
+		return 0;
+	}
     return (0);
 }

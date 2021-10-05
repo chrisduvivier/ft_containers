@@ -5,6 +5,7 @@
 # include <string>
 # include <memory>
 
+# define MAX_SIZE_64BIT 4611686018427387903
 namespace ft
 {
 	template < class T, class Alloc = std::allocator<T> > // generic template
@@ -44,7 +45,7 @@ namespace ft
 			explicit 	vector(const allocator_type& alloc = allocator_type()) :
 				_alloc(alloc), _size(0), _capacity(0)
             {
-                _array = _alloc.allocate(_capacity);
+				_array = _alloc.allocate(_capacity);
 			}
 
 			/*
@@ -87,9 +88,13 @@ namespace ft
 			{
 				// if (*this != x)			// TODO
 				{
+					this->clear();
+					this->_alloc.deallocate(this->_array, this->capacity());
+
 					this->_array = this->_alloc.allocate(x.capacity());
 					this->_size = x.size();
 					this->_capacity = x.capacity();
+					
 					for (size_type i = 0; i < x.size(); i++)
 						this->_alloc.construct(&(this->_array[i]), x[i]);
 				}
@@ -101,11 +106,7 @@ namespace ft
 			*	and then destroy the array itself. */
 			~vector()
 			{
-				for (size_type i = 0; i < this->size(); i++)
-				{
-					_alloc.destroy(&_array[i]);
-				}
-				// deallocate space for five ints
+				this->clear();
 				_alloc.deallocate(_array, this->capacity());
 			}
 
@@ -125,8 +126,10 @@ namespace ft
 			/*	Returns the maximum number of elements that the vector can hold.
 			*	This is the maximum potential size the container can reach due to known system or library implementation limitations,
 			*	but the container is by no means guaranteed to be able to reach that size:
-			*	it can still fail to allocate storage at any point before that size is reached. */
-			// size_type max_size() const { return (this->_size); }
+			*	it can still fail to allocate storage at any point before that size is reached.
+			*	4611686018427387903 if built as 64-bit target  */
+
+			size_type max_size() const { return (MAX_SIZE_64BIT); }
 
 			/*	Resizes the container so that it contains n elements.
 			*	If n < container size, the content is reduced to its first n elements, removing those beyond (and destroying them).
@@ -174,23 +177,11 @@ namespace ft
 				In all other cases, the function call does not cause a reallocation and the vector capacity is not affected.
 				This function has no effect on the vector size and cannot alter its elements.	*/
 			void reserve (size_type n)
-			{
+			{	
+				if (n > this->max_size())
+					throw std::length_error("size requested is greater than the maximum size (vector::max_size)\n");
 				if (n > this->capacity())
-				{
-					if (n > this->max_size())
-					{
-						throw std::length_error("size requested is greater than the maximum size (vector::max_size)\n");
-					}
-					copy = this;
-					for (size_type i = 0; i < this->size(); i++)
-						this->_alloc.destroy(&this->_array[i]);
-					this->_alloc.deallocate(this->_array, this->capacity());
-
-					this->_array = this->_alloc.allocate(n);
-					this->_capacity = n;
-					for (size_type i = 0; i < copy.size(); i++)
-						this->_alloc.construct(&this->_array[i], copy[i]);
-				}
+					reallocateVec( n );
 			}
 
 
@@ -238,15 +229,51 @@ namespace ft
 			*		  Modifiers			*
 			****************************/
 			
+			/* Assigns new contents to the vector, replacing its current contents, and modifying its size accordingly */
+			/* range (1) */
+			// template <class InputIterator>
+			// void assign (InputIterator first, InputIterator last) 
+			// {
+
+			// }
+
+			// /* fill (2)	*/
+			// void assign (size_type n, const value_type& val);
+
+			/*	Adds a new element at the end of the vector, after its current last element.
+				The content of val is copied (or moved) to the new element. This effectively increases the container size by one,
+				which causes an automatic reallocation of the allocated storage space if -and only if-
+				the new vector size surpasses the current vector capacity. */
+			void push_back (const value_type& val)
+			{
+				if (this->_size + 1 > this->_capacity)
+					(this->_capacity == 0) ? reallocateVec(1) : reallocateVec( this->_capacity * 2 );
+				_alloc.construct(&_array[this->_size++], val);
+			}
+			
+			/*	Removes all elements from the vector (which are destroyed), leaving the container with a size of 0.
+				A reallocation is not guaranteed to happen, and the vector capacity is not guaranteed to change due to calling this function.
+				A typical alternative that forces a reallocation is to use swap: */
+			void clear()
+			{
+				for (size_type i = 0; i < this->_size; i++)
+					this->_alloc.destroy(&this->_array[i]);
+			}
+
+			void swap (vector& x)
+			{
+				std::swap(this->_alloc, x._alloc);
+				std::swap(this->_array, x._array);
+				std::swap(this->_size, x._size);
+				std::swap(this->_capacity, x._capacity);
+			}
+
 			/****************************
 			*		  Allocator			*
 			****************************/
 
 			/*	Returns a copy of the allocator object associated with the vector. */
-			allocator_type get_allocator() const
-			{
-
-			}
+			allocator_type get_allocator() const { return (this->_alloc); } 
 
 		private:
 
@@ -254,9 +281,35 @@ namespace ft
 			pointer			_array;						/*	Pointer on an array of T values	*/
 			size_type		_size;						/*	current size of the obj 		*/
 			size_type		_capacity;					/*	current capacity of the obj 	*/
+		
+
+			/*	Reallocate a vector with the newCapacity, and copy previous contents to the new one. 
+				Previous allocator is destroyed calling the destrcutor */
+			void	reallocateVec( size_type newCapacity )
+			{
+				pointer tmp = _alloc.allocate(newCapacity);
+				for (size_type i = 0; i < _size; ++i)
+					_alloc.construct(&tmp[i], _array[i]);
+				this->~vector();
+				this->_array = tmp;
+				this->_capacity = newCapacity;
+			}
 	};
 
-	// std::ostream &			operator<<( std::ostream & o, vector const & i );
+	/********************************
+	* Non-member function overloads	*
+	********************************/
 
+	// template <class T, class Alloc>
+	// void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+	// {
+	// 	swap(x->_alloc, y->_alloc);
+	// 	swap(x->_array, y->_array);
+	// 	swap(x->_size, y->_size);
+	// 	swap(x->_capacity, y->_capacity);
+	// }
+
+	// std::ostream &			operator<<( std::ostream & o, vector const & i );
+	
 }
 #endif
