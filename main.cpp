@@ -17,21 +17,9 @@
 int main(void)
 {
 	std::cout << "TEST\n";
-	
-	//=========== try to recreate something like this =========//
-	std::allocator<int> myAllocator;		// empty allocator of ints
-    int* arr = myAllocator.allocate(5);		// allocate space for five ints
-	myAllocator.construct(arr, 100);
-    arr[3] = 10;
-    std::cout << arr[3] << std::endl;
-    std::cout << arr[0] << std::endl;
-    myAllocator.deallocate(arr, 5);			// deallocate space for five ints
-	std::cout << "=======" << std::endl;
-	//===================================//
 
 	ft::vector<int> empty_vector;    	// empty vector of ints
 	ft::vector<int> five_vector(5, 5);	// size of 5 with values 5
-
 	std::cout << five_vector[0] << std::endl;
 
 	{
@@ -74,7 +62,28 @@ int main(void)
 		std::cout << '\n';
 	}
 
-	{	// TEST RESERVE
+	{
+		std::cout << "==== POP_BACK ====\n";
+		ft::vector<int> myvector;
+		int sum (0);
+		myvector.push_back (100);
+		myvector.push_back (200);
+		myvector.push_back (300);
+
+		std::cout << myvector[0];
+		std::cout << ' ' << myvector[1];
+		std::cout << ' ' << myvector[2];
+
+		while (!myvector.empty())
+		{
+			sum+=myvector.back();
+			myvector.pop_back();
+		}
+		std::cout << "The elements of myvector add up to " << sum << '\n';
+	}
+
+	{
+		std::cout << "==== RESERVE ====\n";
 		ft::vector<int>::size_type sz;
 
 		ft::vector<int> foo;
@@ -101,48 +110,54 @@ int main(void)
 		}
 	}
 
-	{	// TEST RESIZE
-		// // // set some initial content:
-		// ft::vector<int> myvector (5);   // 10 zero-initialized ints
-		// // assign some values:
-		// for (unsigned i=0; i<myvector.size(); i++)
-		// {
-		// 	myvector.at(i)=i;
-		// }
-		// myvector.resize(5);
-		// myvector.resize(8,100);
-		// myvector.resize(12);
+	{
+		std::cout << "==== RESIZE ====\n";
+		// set some initial content:
+		ft::vector<int> myvector (5);   // 10 zero-initialized ints
+		// assign some values:
+		for (unsigned i=0; i<myvector.size(); i++)
+		{
+			myvector.at(i)=i;
+		}
+		myvector.resize(5);
+		myvector.resize(8,100);
+		myvector.resize(12);
 
-		// std::cout << "myvector contains:";
-		// for (unsigned i=0; i < myvector.size(); i++)
-		// 	std::cout << ' ' << myvector[i];
-		// std::cout << '\n';
+		std::cout << "myvector contains:";
+		for (unsigned i=0; i < myvector.size(); i++)
+			std::cout << ' ' << myvector[i];
+		std::cout << '\n';
 
-		// std::cout << myvector.max_size() << "\n";
+		std::cout << myvector.max_size() << "\n";
 	}
 
-	// {	// clear test
-	// 	ft::vector<int> myvector;
-	// 	myvector.push_back (100);
-	// 	myvector.push_back (200);
-	// 	myvector.push_back (300);
+	{	// clear test
+		std::cout << "==== CLEAR ====\n";
+		ft::vector<int> myvector;
+		myvector.push_back (100);
+		std::cout << myvector[0];
+		myvector.push_back (200);
+		std::cout << ' ' << myvector[1];
+		myvector.push_back (300);
+		std::cout << ' ' << myvector[2];
 
-	// 	std::cout << "myvector contains:";
-	// 	for (unsigned i=0; i<myvector.size(); i++)
-	// 		std::cout << ' ' << myvector[i];
-	// 	std::cout << '\n';
+		std::cout << "myvector contains:";
+		for (unsigned i=0; i<myvector.size(); i++)
+			std::cout << ' ' << myvector[i];
+		std::cout << '\n';
 
-	// 	myvector.clear();
-	// 	myvector.push_back (1101);
-	// 	myvector.push_back (2202);
+		myvector.clear();
+		myvector.push_back (1101);
+		myvector.push_back (2202);
 
-	// 	std::cout << "myvector contains:";
-	// 	for (unsigned i=0; i<myvector.size(); i++)
-	// 		std::cout << ' ' << myvector[i];
-	// 	std::cout << '\n';
-	// }
+		std::cout << "myvector contains:";
+		for (unsigned i=0; i<myvector.size(); i++)
+			std::cout << ' ' << myvector[i];
+		std::cout << '\n';
+	}
 
 	{	// swap test
+		std::cout << "==== SWAP ====\n";
 		ft::vector<int> foo (3,100);   // three ints with a value of 100
 		ft::vector<int> bar (5,200);   // five ints with a value of 200
 

@@ -138,32 +138,24 @@ namespace ft
 			*	If n > container capacity, an automatic reallocation of the allocated storage space takes place. */
 			void resize (size_type n, value_type val = value_type()) 
 			{
-				if (n < this->size())	// shrink size
+				if (n < _size)	// shrink size
 				{
-					size_type i = n;
-					while ( i < this->size() )
-					{
-						_alloc.destroy(&_array[i]);
-						i++;
-					}
-					this->_size = n;
+					while ( n < _size )
+						pop_back();
 				}
-				else if (n > this->size() && n < this->capacity())	// add element but don't change capacity
+				else if (n > _size && n < _capacity)	// add element but don't change capacity
 				{
-					for (size_type i = this->size(); i < n; i++)
-					{
-						_alloc.construct(&_array[i], val);
-						this->_size++;
-					}
+					for (size_type i = _size; i < n; i++)
+						push_back(val);
 				}
 				else	// create an _array with twice the previous capacity
 				{
-					size_type new_capacity = this->capacity();
+					size_type new_capacity = _capacity;
 					while (new_capacity < n)		// double up until it fits 'n'
 						new_capacity *= 2;
 					this->reserve(new_capacity);
-					for (size_type i = this->size(); i < n; i++)
-						this->_alloc.construct(&this->_array[i], val);
+					for (size_type i = _size; i < n; i++)
+						_alloc.construct(&_array[i], val);
 				}
 			}
 
@@ -246,9 +238,19 @@ namespace ft
 				the new vector size surpasses the current vector capacity. */
 			void push_back (const value_type& val)
 			{
-				if (this->_size + 1 > this->_capacity)
-					(this->_capacity == 0) ? reallocateVec(1) : reallocateVec( this->_capacity * 2 );
-				_alloc.construct(&_array[this->_size++], val);
+				if (_size + 1 > _capacity)
+					(_capacity == 0) ? reallocateVec(1) : reallocateVec( _capacity * 2 );
+				_alloc.construct(&_array[_size++], val);
+			}
+
+			/* Removes the last element in the vector, effectively reducing the container size by one. */
+			void pop_back()
+			{
+				if (_size > 0)
+				{
+					_alloc.destroy(&_array[_size - 1]);
+					_size--;
+				}
 			}
 			
 			/*	Removes all elements from the vector (which are destroyed), leaving the container with a size of 0.
@@ -256,8 +258,8 @@ namespace ft
 				A typical alternative that forces a reallocation is to use swap: */
 			void clear()
 			{
-				for (size_type i = 0; i < this->_size; i++)
-					this->_alloc.destroy(&this->_array[i]);
+				while (_size > 0)
+					pop_back();
 			}
 
 			void swap (vector& x)
