@@ -290,10 +290,12 @@ namespace ft
 			void	reallocateVec( size_type newCapacity )
 			{
 				pointer tmp = _alloc.allocate(newCapacity);
-				for (size_type i = 0; i < _size; ++i)
+				size_type size = _size;
+				for (size_type i = 0; i < size; i++)
 					_alloc.construct(&tmp[i], _array[i]);
 				this->~vector();
 				this->_array = tmp;
+				this->_size = size;
 				this->_capacity = newCapacity;
 			}
 	};

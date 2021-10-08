@@ -72,7 +72,7 @@ int main(void)
 
 		std::cout << myvector[0];
 		std::cout << ' ' << myvector[1];
-		std::cout << ' ' << myvector[2];
+		std::cout << ' ' << myvector[2] << "\n";
 
 		while (!myvector.empty())
 		{
@@ -139,7 +139,7 @@ int main(void)
 		myvector.push_back (200);
 		std::cout << ' ' << myvector[1];
 		myvector.push_back (300);
-		std::cout << ' ' << myvector[2];
+		std::cout << ' ' << myvector[2] << "\n";
 
 		std::cout << "myvector contains:";
 		for (unsigned i=0; i<myvector.size(); i++)
