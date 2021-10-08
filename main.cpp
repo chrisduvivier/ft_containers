@@ -16,19 +16,16 @@
 
 int main(void)
 {
-	std::cout << "TEST\n";
-
-	ft::vector<int> empty_vector;    	// empty vector of ints
-	ft::vector<int> five_vector(5, 5);	// size of 5 with values 5
-	std::cout << five_vector[0] << std::endl;
+	std::cout << "===================TEST======================\n";
 
 	{
+		std::cout << "\n==== CONSTRUCTOR ====\n";
+		ft::vector<int> empty_vector;    	// empty vector of ints
+		ft::vector<int> five_vector(5, 5);	// size of 5 with values 5
 		ft::vector<int> myvector (5);   // 10 zero-initialized ints
 		// assign some values:
 		for (unsigned i=0; i<myvector.size(); i++)
-		{
 			myvector.at(i)=i;
-		}
 
 		// std::cout << "myvector.front() is now " << myvector.front() << '\n';
 		// std::cout << "myvector.back() is now " << myvector.back() << '\n';
@@ -36,9 +33,13 @@ int main(void)
 		for (unsigned i = 0; i < myvector.size(); i++)
 			std::cout << ' ' << myvector.at(i);
 		std::cout << '\n';
+
+		std::cout << "\n==== IS_EMPTY ====\n";
+		std::cout << empty_vector.empty() << "\n";
 	}
 
 	{
+		std::cout << "\n==== ASSIGN CONSTRUCTOR ====\n";
 		ft::vector<int> foo (3, 0);
 		ft::vector<int> bar (5, 0);
 
@@ -49,7 +50,8 @@ int main(void)
 		std::cout << "Size of bar: " << int(bar.size()) << '\n';
 	}
 
-	{	// TEST PUSHBACK
+	{
+		std::cout << "\n==== PUSH_BACK ====\n";
 		ft::vector<int> myvector;
 
 		unsigned int_arr[] = {14, 52, 5, 35, 64, 2, 1124, 4, 10, 110};
@@ -63,7 +65,7 @@ int main(void)
 	}
 
 	{
-		std::cout << "==== POP_BACK ====\n";
+		std::cout << "\n==== POP_BACK ====\n";
 		ft::vector<int> myvector;
 		int sum (0);
 		myvector.push_back (100);
@@ -83,7 +85,7 @@ int main(void)
 	}
 
 	{
-		std::cout << "==== RESERVE ====\n";
+		std::cout << "\n==== RESERVE ====\n";
 		ft::vector<int>::size_type sz;
 
 		ft::vector<int> foo;
@@ -111,7 +113,7 @@ int main(void)
 	}
 
 	{
-		std::cout << "==== RESIZE ====\n";
+		std::cout << "\n==== RESIZE ====\n";
 		// set some initial content:
 		ft::vector<int> myvector (5);   // 10 zero-initialized ints
 		// assign some values:
@@ -128,11 +130,12 @@ int main(void)
 			std::cout << ' ' << myvector[i];
 		std::cout << '\n';
 
+		std::cout << "\n==== MAX_SIZE ====\n\n";
 		std::cout << myvector.max_size() << "\n";
 	}
 
 	{	// clear test
-		std::cout << "==== CLEAR ====\n";
+		std::cout << "\n=== CLEAR ====\n";
 		ft::vector<int> myvector;
 		myvector.push_back (100);
 		std::cout << myvector[0];
@@ -157,7 +160,7 @@ int main(void)
 	}
 
 	{	// swap test
-		std::cout << "==== SWAP ====\n";
+		std::cout << "\n==== SWAP ====\n";
 		ft::vector<int> foo (3,100);   // three ints with a value of 100
 		ft::vector<int> bar (5,200);   // five ints with a value of 200
 
