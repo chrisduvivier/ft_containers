@@ -1,158 +1,178 @@
 #ifndef MAP_HPP
-# define MAP_HPP
+#define MAP_HPP
 
-# include <iostream>
-# include <string>
-# include <memory>
+#include <iostream>
+#include <string>
+#include <memory>
+#include "pair.hpp"
+#include "rb_tree.hpp"
 
 namespace ft
 {
-	template < class T, class Alloc = std::allocator<T> > // generic template
-	class map
+	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T>>>
+	class map;
 	{
-		public:
-			
-			/****************************
-			*	   Member types  		*
-			****************************/
+	public:
+		/****************************
+		*	   Member types  		*
+		****************************/
 
-			/* Type of the elements allocated by the object (aliased as member type value_type). */
-			typedef				T									value_type;
-			
-			typedef				Alloc								allocator_type;
-			typedef typename	allocator_type::reference			reference;
-			typedef typename	allocator_type::const_reference		const_reference;
-			typedef typename	allocator_type::pointer				pointer;
-			typedef typename	allocator_type::const_pointer		const_pointer;
+		/* Type of the elements allocated by the object (aliased as member type value_type). */
+		typedef Key key_type;
+		typedef T mapped_type;
+		typedef ft::pair<const Key, T> value_type;
+		typedef Compare key_compare;
+		typedef size_t	size_type;
 
-			// iterator
-			// const_iterator
-			// reverse_iterator
-			// const_reverse_iterator
-			// difference_type
 
-			typedef typename	allocator_type::size_type		size_type;
+		typedef Alloc allocator_type;
+		typedef typename allocator_type::reference reference;
+		typedef typename allocator_type::const_reference const_reference;
+		typedef typename allocator_type::pointer pointer;
+		typedef typename allocator_type::const_pointer const_pointer;
 
-			/****************************
-			*	   Member functions		*
-			****************************/
+		// iterator
+		// const_iterator
+		// reverse_iterator
+		// const_reverse_iterator
+		// difference_type
 
-			/*
-			**	(1) empty container constructor (default constructor)
-			**	Constructs an empty container, with no elements.
-			*/
-			explicit 	vector(const allocator_type& alloc = allocator_type()) :
-				_alloc(alloc), _size(0), _capacity(0)
-            {
-                _array = _alloc.allocate(_capacity);
-			}
+		/****************************
+		*	   Member functions		*
+		****************************/
 
-			/*
-			**	(2) fill constructor
-			**	Constructs a container with n elements. Each element is a copy of val.
-			*/
-			explicit	vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : 
-				_alloc(alloc), _size(n), _capacity(n)
-			{
-				_array = _alloc.allocate(n);
-				for (size_type i = 0; i < n; i++)
-				{
-					_alloc.construct(&_array[i], val);
-				}
-			}
+		/*
+		**	(1) empty container constructor (default constructor)
+		**	Constructs an empty container, with no elements.
+		*/
+		explicit map(	const key_compare &comp = key_compare(), 
+						const allocator_type &alloc = allocator_type());
 
-			/*
-			**	(3) range constructor
-			**	Constructs a container with as many elements as the range [first,last),
-			**	with each element constructed from its corresponding element in that range, in the same order.
-			*/
-			
-			// TODO once we have an iterator
-			// template <class InputIterator>
-         	// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+		/*
+		**	(2) fill constructor
+		**	Constructs a container with n elements. Each element is a copy of val.
+		*/
+		template <class InputIterator>
+		map(InputIterator first, 
+			InputIterator last,
+			const key_compare &comp = key_compare(),
+			const allocator_type &alloc = allocator_type());
 
-			/*
+		/*
+		**	(3) range constructor
+		**	Constructs a container with as many elements as the range [first,last),
+		**	with each element constructed from its corresponding element in that range, in the same order.
+		*/
+
+		// TODO once we have an iterator
+		// template <class InputIterator>
+		// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+
+		/*
 			**	(4) copy constructor
 			**	Constructs a container with a copy of each of the elements in x, in the same order.
 			*/
-			
-			vector (const vector& x)
-			{
-				(void)x;
-			}
-			 
 
-			/*	Think of the _alloc object as an array of objects. Therefore we need to destroy each obj in the array,
+		map(const map &x)
+		{
+			(void)x;
+		}
+
+		/*	Think of the _alloc object as an array of objects. Therefore we need to destroy each obj in the array,
 			*	and then destroy the array itself. */
-			~vector()
-			{
-				for (size_type i = 0; i < this->size(); i++)
-				{
-					_alloc.destroy(&_array[i]);
-				}
-				// deallocate space for five ints
-				_alloc.deallocate(_array, this->capacity());
-			}
+		~vector()
+		{
+		}
 
-			/****************************
-			*	   	   Iterators		*
-			****************************/
+		/****************************
+		*	   	   Iterators		*
+		****************************/
 
-			/****************************
-			*	   	   Capacity			*
-			****************************/
+		//Return iterator to beginning (public member function )
+		begin();
+		//Return iterator to end (public member function )
+		end();
+		//Return reverse iterator to reverse beginning (public member function )
+		rbegin();
+		//Return reverse iterator to reverse end (public member function )
+		rend();
 
-			/* Returns the number of elements in the vector. */
-			size_type size() const { return (this->_size); }
-			
-			/*	Returns the maximum number of elements that the vector can hold.
+
+		/****************************
+		*	   	   Capacity			*
+		****************************/
+
+		//Test whether container is empty (public member function )
+		empty();
+
+		/* Returns the number of elements in the vector. */
+		size_type size() const { return (this->_size); }
+
+		/*	Returns the maximum number of elements that the vector can hold.
 			*	This is the maximum potential size the container can reach due to known system or library implementation limitations,
 			*	but the container is by no means guaranteed to be able to reach that size:
 			*	it can still fail to allocate storage at any point before that size is reached. */
-			size_type maxsize() const { return (this->_size); }
+		size_type maxsize() const { return (this->_size); }
 
-			size_type capacity() const { return (this->_capacity); }
 
-			/****************************
-			*		Element access		*
-			****************************/
+		/****************************
+		*		Element access		*
+		****************************/
 
-			// Access element (public member function )
-			// operator[]
-			
-			// Access element (public member function )
-			// at
-			
-			// Access first element (public member function )
-			// front
-			
-			// Access last element (public member function )
-			// back
+		// Access element (public member function )
+		// operator[]
 
-			/****************************
-			*		  Modifiers			*
-			****************************/
-			
-			/****************************
-			*		  Allocator			*
-			****************************/
+		/****************************
+		*		  Modifiers			*
+		****************************/
 
-			/*	Returns a copy of the allocator object associated with the vector. */
-			allocator_type get_allocator() const
-			{
+		//Insert elements (public member function )
+		insert();
+		//Erase elements (public member function )
+		erase();
+		//Swap content (public member function )
+		swap();
+		//Clear content (public member function )
+		clear();
 
-			}
+		/****************************
+		*		  Observers			*
+		****************************/
 
-		private:
+		//Return key comparison object (public member function )
+		key_comp();
+		//Return value comparison object (public member function )
+		value_comp();
 
-			allocator_type  _alloc;						/*	allocator class holding object	*/
-			pointer			_array;						/*	Pointer on an array of T values	*/
-			size_type		_size;						/*	current size of the obj 		*/
-			size_type		_capacity;					/*	current capacity of the obj 	*/
+		/****************************
+		*		  Operations		*
+		****************************/
+
+		//Get iterator to element (public member function )
+		find();
+		//Count elements with a specific key (public member function )
+		count();
+		//Return iterator to lower bound (public member function )
+		lower_bound();
+		//Return iterator to upper bound (public member function )
+		upper_bound();
+		//Get range of equal elements (public member function )
+		equal_range();
+
+		/****************************
+		*		  Allocator			*
+		****************************/
+
+		/*	Returns a copy of the allocator object associated with the vector. */
+		allocator_type get_allocator() const
+		{
+		}
+
+	private:
+		allocator_type _alloc; /*	allocator class holding object	*/
+		RBTree<value_type>	_rbt;
 	};
 
-	// std::ostream &			operator<<( std::ostream & o, vector const & i );
+} 
 
-}
-
-#endif /* ********************************************************** VECTOR_H */
+#endif /* ********************************************************** MAP_H */
