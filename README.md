@@ -15,7 +15,11 @@ To check functions/return types etc: https://en.cppreference.com/w/cpp/named_req
 
 2. cry
 
+3. Implement all functions except iterator:
+All function templates are given, so prety straitforward. Just be careful with the order in which you implement the functions, because some of them depend on other member functions. (e.g. resize)
+
 ## Reference
 
 - https://www.cplusplus.com/
 - https://en.cppreference.com/w/ 
+- The bible of custom iterator: "Writing a custom iterator in modern C++" [https://internalpointers.com/post/writing-custom-iterators-modern-cpp]

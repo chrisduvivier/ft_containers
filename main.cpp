@@ -175,8 +175,6 @@ int main(void)
 		for (unsigned i=0; i < bar.size(); i++)
 			std::cout << ' ' << bar[i];
 		std::cout << '\n';
-
-		return 0;
 	}
     return (0);
 }
