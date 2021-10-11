@@ -69,9 +69,9 @@ namespace ft
 		// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 
 		/*
-			**	(4) copy constructor
-			**	Constructs a container with a copy of each of the elements in x, in the same order.
-			*/
+		**	(4) copy constructor
+		**	Constructs a container with a copy of each of the elements in x, in the same order.
+		*/
 
 		map(const map &x)
 		{
@@ -80,7 +80,7 @@ namespace ft
 
 		/*	Think of the _alloc object as an array of objects. Therefore we need to destroy each obj in the array,
 			*	and then destroy the array itself. */
-		~vector()
+		~map()
 		{
 		}
 
@@ -89,13 +89,13 @@ namespace ft
 		****************************/
 
 		//Return iterator to beginning (public member function )
-		begin();
+		iterator begin();
 		//Return iterator to end (public member function )
-		end();
+		iterator end();
 		//Return reverse iterator to reverse beginning (public member function )
-		rbegin();
+		iterator rbegin();
 		//Return reverse iterator to reverse end (public member function )
-		rend();
+		iterator rend();
 
 
 		/****************************

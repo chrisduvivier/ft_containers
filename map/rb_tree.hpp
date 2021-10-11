@@ -4,8 +4,6 @@
 
 #include <iostream>
 #include "pair.hpp"
-// data structure that represents a node in the tree
-
 
 // class RBTree implements the operations in Red Black Tree
 template<class T>
