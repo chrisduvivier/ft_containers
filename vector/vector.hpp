@@ -5,6 +5,8 @@
 # include <string>
 # include <memory>
 
+# include "../iterator/random_access_iterator.hpp"
+
 # define MAX_SIZE_64BIT 4611686018427387903
 namespace ft
 {
@@ -18,20 +20,21 @@ namespace ft
 			****************************/
 
 			/* Type of the elements allocated by the object (aliased as member type value_type). */
-			typedef				T									value_type;
-			typedef				Alloc								allocator_type;
-			typedef typename	allocator_type::reference			reference;
-			typedef typename	allocator_type::const_reference		const_reference;
-			typedef typename	allocator_type::pointer				pointer;
-			typedef typename	allocator_type::const_pointer		const_pointer;
+			typedef				T											value_type;
+			typedef				Alloc										allocator_type;
+			typedef typename	allocator_type::reference					reference;
+			typedef typename	allocator_type::const_reference				const_reference;
+			typedef typename	allocator_type::pointer						pointer;
+			typedef typename	allocator_type::const_pointer				const_pointer;
 
-			// iterator
-			// const_iterator
+			typedef			ft::random_access_iterator<value_type>			iterator;
+			typedef			ft::random_access_iterator<const value_type>	const_iterator;
+
 			// reverse_iterator
 			// const_reverse_iterator
 			// difference_type
 
-			typedef typename	allocator_type::size_type		size_type;
+			typedef typename	allocator_type::size_type					size_type;
 
 			/****************************
 			*	   Member functions		*
@@ -113,7 +116,13 @@ namespace ft
 			*	   	   Iterators		*
 			****************************/
 
-
+			/*	Returns an iterator pointing to the first element in the vector.
+			*	returns a random access iterator pointing to it.
+			*	If the container is empty, the returned iterator value shall not be dereferenced. */
+			iterator begin() { return (iterator( &_array[0] )); }
+			const_iterator begin() const { return (iterator(&_array[0] )); }
+			iterator end() { return (iterator( &_array[0 + this->size()] )); }
+			const_iterator end() const { return (iterator(&_array[0 + this->size()] )); }
 
 			/****************************
 			*	   	   Capacity			*
