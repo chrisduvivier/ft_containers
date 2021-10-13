@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <map>
 #include "pair.hpp"
 #include "rb_tree.hpp"
 
@@ -23,19 +24,30 @@ namespace ft
 		typedef ft::pair<const Key, T> value_type;
 		typedef Compare key_compare;
 		typedef size_t	size_type;
-
+		typedef ptrdiff_t difference_type;
+		class value_compare : public std::binary_function<value_type, value_type, bool>
+		{
+			friend class map;
+		private:
+			key_compare comp;
+		public:
+			value_compare(const key_compare &x) : comp(x) {}
+			bool operator()(const value_type &x, const value_type &y) const
+			{
+				return comp(x.first, y.first);
+			}
+		};
 
 		typedef Alloc allocator_type;
 		typedef typename allocator_type::reference reference;
 		typedef typename allocator_type::const_reference const_reference;
 		typedef typename allocator_type::pointer pointer;
 		typedef typename allocator_type::const_pointer const_pointer;
-
-		// iterator
-		// const_iterator
-		// reverse_iterator
-		// const_reverse_iterator
-		// difference_type
+		typedef RBTree<value_type,value_compare> 	tree;
+		typedef TreeIterator<value_type> iterator;
+		typedef ConstTreeIterator<value_type> const_iterator;
+		typedef ft::reverse_iterator<iterator> reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 		/****************************
 		*	   Member functions		*
@@ -45,13 +57,18 @@ namespace ft
 		**	(1) empty container constructor (default constructor)
 		**	Constructs an empty container, with no elements.
 		*/
+
 		explicit map(	const key_compare &comp = key_compare(), 
 						const allocator_type &alloc = allocator_type());
 
+
+
 		/*
-		**	(2) fill constructor
-		**	Constructs a container with n elements. Each element is a copy of val.
+		**	(2) range constructor
+		**	Constructs a container with as many elements as the range [first,last),
+		**	with each element constructed from its corresponding element in that range, in the same order.
 		*/
+
 		template <class InputIterator>
 		map(InputIterator first, 
 			InputIterator last,
@@ -59,17 +76,7 @@ namespace ft
 			const allocator_type &alloc = allocator_type());
 
 		/*
-		**	(3) range constructor
-		**	Constructs a container with as many elements as the range [first,last),
-		**	with each element constructed from its corresponding element in that range, in the same order.
-		*/
-
-		// TODO once we have an iterator
-		// template <class InputIterator>
-		// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
-
-		/*
-		**	(4) copy constructor
+		**	(3) copy constructor
 		**	Constructs a container with a copy of each of the elements in x, in the same order.
 		*/
 
@@ -80,6 +87,7 @@ namespace ft
 
 		/*	Think of the _alloc object as an array of objects. Therefore we need to destroy each obj in the array,
 			*	and then destroy the array itself. */
+
 		~map()
 		{
 		}
@@ -171,6 +179,7 @@ namespace ft
 	private:
 		allocator_type _alloc; /*	allocator class holding object	*/
 		RBTree<value_type>	_rbt;
+
 	};
 
 } 

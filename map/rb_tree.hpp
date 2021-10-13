@@ -570,7 +570,133 @@ private:
 		}
 		// cout<<root->left->data<<endl;
 	}
-
-
 };
 
+template <typename T>
+	class TreeIterator : public iterator<std::bidirectional_iterator_tag,
+										 typename ft::iterator_traits<T *>::value_type>
+	{
+	public:
+		typedef TreeNode<T> *node_ptr;
+		typedef T value_type;
+
+		TreeIterator(node_ptr pos = nullptr) : current(pos), end(findEnd(current))
+		{
+		}
+
+		TreeIterator(TreeIterator const &other)
+		{
+			*this = other;
+		}
+
+		TreeIterator &operator=(TreeIterator const &other)
+		{
+			if (this != &other)
+			{
+				this->current = other.current;
+				this->end = other.end;
+			}
+			return *this;
+		}
+
+		~TreeIterator() {}
+
+		bool operator==(TreeIterator const &other) const
+		{
+			return (this->current == other.current);
+		}
+
+		bool operator!=(TreeIterator const &other) const
+		{
+			return (this->current != other.current);
+		}
+
+		value_type &operator*() const
+		{
+			return this->current->value;
+		}
+
+		value_type *operator->() const
+		{
+			return &(this->current->value);
+		}
+
+		TreeIterator &operator++()
+		{
+			if (this->current == end)
+			{
+				this->current = nullptr;
+				return *this;
+			}
+			if (this->current->right != nullptr)
+			{
+				this->current = this->current->right;
+				while (this->current->left != nullptr)
+					this->current = this->current->left;
+			}
+			else
+			{
+				while (this->current->isRightChild)
+				{
+					this->current = this->current->parent;
+				}
+				this->current = this->current->parent;
+			}
+			return *this;
+		}
+
+		TreeIterator operator++(int)
+		{
+			TreeIterator tmp(*this);
+			++(*this);
+			return tmp;
+		}
+
+		TreeIterator &operator--()
+		{
+			if (this->current == nullptr)
+				return *this;
+			if (this->current->left != nullptr)
+			{
+				this->current = this->current->left;
+				while (this->current->right != nullptr)
+					this->current = this->current->right;
+			}
+			else
+			{
+				if (this->current->isRightChild)
+				{
+					this->current = this->current->parent;
+				}
+			}
+			return *this;
+		}
+
+		TreeIterator operator--(int)
+		{
+			TreeIterator tmp(*this);
+			--(*this);
+			return tmp;
+		}
+
+		node_ptr const &asPointer() const
+		{
+			return this->current;
+		}
+
+	protected:
+		node_ptr current;
+		node_ptr end;
+
+		// define find end
+		node_ptr findEnd(node_ptr curr) const
+		{
+			if (curr == nullptr)
+				return nullptr;
+			while (curr->parent != nullptr)
+				curr = curr->parent;
+			while (curr->right != nullptr)
+				curr = curr->right;
+			return curr;
+		}
+	};
