@@ -5,8 +5,10 @@
 #include <iostream>
 #include "pair.hpp"
 
+namespace ft
+{
 // class RBTree implements the operations in Red Black Tree
-template<class T>
+template<class T, class Compare, class Alloc = std::allocator<T>>
 class RBTree
 {
 	public:
@@ -572,131 +574,123 @@ private:
 	}
 };
 
-template <typename T>
-	class TreeIterator : public iterator<std::bidirectional_iterator_tag,
-										 typename ft::iterator_traits<T *>::value_type>
+/*
+	**		MAP ITERATOR
+	*/
+	
+	template <	class Category, class T, class not_const_T = T>
+	class map_iterator
 	{
-	public:
-		typedef TreeNode<T> *node_ptr;
-		typedef T value_type;
+		public:
+			typedef typename T::value_type				value_type;
+			typedef typename not_const_T::Node			Node;
+			typedef typename T::key_type				key_type;
+			typedef typename T::mapped_type				mapped_type;
+			typedef	typename T::key_compare				key_compare;
+			typedef typename T::pointer   				pointer;
+			typedef typename T::reference 				reference;
+			typedef ptrdiff_t							difference_type;
+			typedef Category							iterator_category;
 
-		TreeIterator(node_ptr pos = nullptr) : current(pos), end(findEnd(current))
-		{
-		}
-
-		TreeIterator(TreeIterator const &other)
-		{
-			*this = other;
-		}
-
-		TreeIterator &operator=(TreeIterator const &other)
-		{
-			if (this != &other)
-			{
-				this->current = other.current;
-				this->end = other.end;
+			map_iterator() {}
+			map_iterator(const map_iterator<Category, not_const_T> &toCopy) : _ptr(toCopy.base()), _end(toCopy.end()) {}
+			map_iterator(Node* node, Node* end) {
+				this->_ptr = node;
+				this->_end = end;
 			}
-			return *this;
-		}
+			virtual ~map_iterator() {}
 
-		~TreeIterator() {}
-
-		bool operator==(TreeIterator const &other) const
-		{
-			return (this->current == other.current);
-		}
-
-		bool operator!=(TreeIterator const &other) const
-		{
-			return (this->current != other.current);
-		}
-
-		value_type &operator*() const
-		{
-			return this->current->value;
-		}
-
-		value_type *operator->() const
-		{
-			return &(this->current->value);
-		}
-
-		TreeIterator &operator++()
-		{
-			if (this->current == end)
-			{
-				this->current = nullptr;
+			Node*			base() const { return this->_ptr; }
+			Node*			end() const { return this->_end; }
+			
+			// operators : assignment
+			// map_iterator&	operator=(Node* ptr) { this->_ptr = ptr; return *this; }
+			map_iterator&	operator=(const map_iterator<Category, not_const_T> &toCopy) {
+				this->_ptr = toCopy._ptr;
+				this->_end = toCopy._end;
 				return *this;
 			}
-			if (this->current->right != nullptr)
+
+			// operators : member access
+			reference   	operator*() const { return this->_ptr->value; }
+			pointer     	operator->() const { return &(operator*()); }
+
+			// operators : increment / decrement
+			map_iterator&   operator++()
 			{
-				this->current = this->current->right;
-				while (this->current->left != nullptr)
-					this->current = this->current->left;
-			}
-			else
-			{
-				while (this->current->isRightChild)
+				// find the smallest greater
+				if (this->_ptr->right)
 				{
-					this->current = this->current->parent;
+					this->_ptr = this->_ptr->right->min();
+					return *this;
 				}
-				this->current = this->current->parent;
-			}
-			return *this;
-		}
-
-		TreeIterator operator++(int)
-		{
-			TreeIterator tmp(*this);
-			++(*this);
-			return tmp;
-		}
-
-		TreeIterator &operator--()
-		{
-			if (this->current == nullptr)
+				else if (this->_ptr->parent)
+				{
+					// find first previous greater node
+					key_type key = this->_ptr->value.first;
+					Node *tmp = this->_ptr->parent;
+					while (tmp && this->_key_comp(tmp->value.first, key))
+						tmp = tmp->parent;
+					if (tmp)
+					{
+						this->_ptr = tmp;
+						return *this;
+					}
+				}
+				this->_ptr = this->_end;
 				return *this;
-			if (this->current->left != nullptr)
-			{
-				this->current = this->current->left;
-				while (this->current->right != nullptr)
-					this->current = this->current->right;
 			}
-			else
+			
+			map_iterator    operator++(int) { map_iterator tmp = *this; ++*this; return tmp; }
+			
+			map_iterator&   operator--()
 			{
-				if (this->current->isRightChild)
+				// find the greatest smaller
+				if (this->_ptr == this->_end)
 				{
-					this->current = this->current->parent;
+					this->_ptr = this->_ptr->parent;
+					return *this;
 				}
+				else if (this->_ptr->left)
+				{
+					this->_ptr = this->_ptr->left->max();
+					return *this;
+				}
+				else if (this->_ptr->parent)
+				{
+					// find first previous smaller node
+					key_type key = this->_ptr->value.first;
+					Node *tmp = this->_ptr->parent;
+					while (tmp && this->_key_comp(key, tmp->value.first))
+						tmp = tmp->parent;
+					if (tmp)
+					{
+						this->_ptr = tmp;
+						return *this;
+					}
+				}
+				else
+				{
+					// undefined
+				}
+				
+				return *this;
 			}
-			return *this;
-		}
+			
+			map_iterator    operator--(int) { map_iterator tmp = *this; --*this; return tmp; }
 
-		TreeIterator operator--(int)
-		{
-			TreeIterator tmp(*this);
-			--(*this);
-			return tmp;
-		}
+			// operators : comparison
+			friend bool		operator== (const map_iterator& lhs, const map_iterator& rhs) {
+				return lhs._ptr == rhs._ptr; }
+			friend bool 	operator!= (const map_iterator& lhs, const map_iterator& rhs) {
+				return lhs._ptr != rhs._ptr; }
 
-		node_ptr const &asPointer() const
-		{
-			return this->current;
-		}
-
-	protected:
-		node_ptr current;
-		node_ptr end;
-
-		// define find end
-		node_ptr findEnd(node_ptr curr) const
-		{
-			if (curr == nullptr)
-				return nullptr;
-			while (curr->parent != nullptr)
-				curr = curr->parent;
-			while (curr->right != nullptr)
-				curr = curr->right;
-			return curr;
-		}
+		private:
+			Node*		_ptr;
+			Node*		_end;
+			key_compare	_key_comp;
 	};
+}
+
+}
+#endif
