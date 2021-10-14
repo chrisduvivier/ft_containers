@@ -40,21 +40,39 @@ namespace ft
 					this->_ptr = ref._ptr;
 				return (*this);
 			}
-
+			// ==
+			// +=
+			// -=
+			
 			/* Can be dereferenced as an rvalue (if in a dereferenceable state). */
 			reference 			operator*() { return *_ptr; }
 			const reference 	operator*() const { return *_ptr; }
 			pointer 			operator->()  { return _ptr; }
+			reference			operator[](int i) { return this->_ptr[i]; }
 
 			// Prefix increment
 			It& operator++() { _ptr++; return *this; }
 			// Postfix increment
-			It& operator++(int) { It tmp = *this; ++(_ptr); return (tmp); }
+			It operator++(int) { It tmp = *this; ++(_ptr); return (tmp); }
+			// Prefix decrement
+			It& operator--() { _ptr--; return *this; }
+			// Postfix decrement
+			It operator--(int) { It tmp = *this; --(_ptr); return (tmp); }
+
+			// arithmetics
+			friend It	operator+(const It& a, difference_type b) { return vector_iterator(a._ptr + b); }
+			friend It	operator+(difference_type b, const It& a) { return vector_iterator(a._ptr + b); }
+			friend It	operator-(const It& a, difference_type b) { return vector_iterator(a._ptr - b); }
+			friend It	operator-(difference_type b, const It& a) { return vector_iterator(a._ptr - b); }
+			friend difference_type	operator-(const It& a, const It& b) { return (a._ptr - b._ptr); }
 
 			// comparable with another iterator
 			friend bool operator== (const It& a, const It& b) { return (a._ptr == b._ptr); }
 			friend bool operator!= (const It& a, const It& b) { return (a._ptr != b._ptr); }
-
+			friend bool operator<= (const It& a, const It& b) { return (a._ptr <= b._ptr); }
+			friend bool operator>= (const It& a, const It& b) { return (a._ptr >= b._ptr); }
+			friend bool operator< (const It& a, const It& b) { return (a._ptr < b._ptr); }
+			friend bool operator> (const It& a, const It& b) { return (a._ptr > b._ptr); }
 		private:
 			pointer				_ptr;
 

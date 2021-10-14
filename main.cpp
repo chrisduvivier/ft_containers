@@ -187,5 +187,24 @@ int main(void)
 			std::cout << ' ' << *it;
 		std::cout << '\n';
 	}
+
+	{
+		std::cout << "\n==== ITERATOR OPERATIONS ====\n";
+		ft::vector<int> foo;
+		for(int i = 0; i < 20; i++)
+			foo.push_back(i);
+		ft::vector<int>::iterator it_begin;
+		ft::vector<int>::iterator it_end;
+		it_begin = foo.begin();
+		it_end = foo.end();
+		std::cout << (it_begin > it_end) << std::endl;
+		std::cout << *it_begin << std::endl;
+		std::cout << *(--it_end) << std::endl;
+		it_end = foo.begin();
+		std::cout << (it_begin == it_end) << std::endl;
+		std::cout << (it_begin[5]) << std::endl;
+		
+	}
+
     return (0);
 }
