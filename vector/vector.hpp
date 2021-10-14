@@ -119,10 +119,10 @@ namespace ft
 			/*	Returns an iterator pointing to the first element in the vector.
 			*	returns a random access iterator pointing to it.
 			*	If the container is empty, the returned iterator value shall not be dereferenced. */
-			iterator begin() { return (iterator( &_array[0] )); }
-			const_iterator begin() const { return (iterator(&_array[0] )); }
-			iterator end() { return (iterator( &_array[0 + this->size()] )); }
-			const_iterator end() const { return (iterator(&_array[0 + this->size()] )); }
+			iterator begin() { return (iterator( _array )); }
+			const_iterator begin() const { return (iterator(_array )); }
+			iterator end() { return (iterator(_array + this->size())); }
+			const_iterator end() const { return (iterator(_array + this->size() )); }
 
 			/****************************
 			*	   	   Capacity			*

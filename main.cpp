@@ -189,16 +189,69 @@ int main(void)
 	}
 
 	{
-		std::cout << "\n==== ITERATOR OPERATIONS ====\n";
+		std::cout << "\n==== ITERATOR OPERATIONS ====\n\n";
 		ft::vector<int> foo;
-		for(int i = 0; i < 20; i++)
+		for (int i = 0; i < 50; i++)
 			foo.push_back(i);
+		std::cout << "size " << foo.size() << std::endl;
+		std::cout << "capacity " << foo.capacity() << std::endl;
+		std::cout << "end " << *(--foo.end()) << std::endl;
+		
+		std::cout << "Vector foo countains: ";
+		for (unsigned i=0; i < foo.size(); i++)
+			std::cout << foo[i] << ' ';
+		std::cout << std::endl << "iterator it_begin = foo.begin()"<< std::endl;
+		std::cout << 			  "iterator it_end = foo.end()"<< std::endl << std::endl;
 		ft::vector<int>::iterator it_begin;
 		ft::vector<int>::iterator it_end;
 		it_begin = foo.begin();
 		it_end = foo.end();
-		std::cout << (it_begin > it_end) << std::endl;
-		std::cout << *it_begin << std::endl;
+		std::cout << "size " << foo.size() << std::endl;
+		//std::cout << "array" << foo.size() << std::endl;
+		
+		std::cout << "--(*it_end) = " << *(--it_end) << std::endl; // 9
+		std::cout << "front " << foo.front()<< std::endl;;
+		std::cout <<  "back " << foo.back()<< std::endl;;
+		std::cout << "\n--increment/decrement--\n\n";
+
+		std::cout << "*it_begin = " << *it_begin << std::endl; // 0 
+		std::cout << "*(++it_begin) = " << *(++it_begin) << std::endl; // 1
+		std::cout << "*(it_begin++) = " << (*it_begin)++ << std::endl; // 1 
+		std::cout << "*it_begin = " << *it_begin << std::endl; //2
+		
+		std::cout << "foo.end() points to the memory that is adjacent to the last element of the vector\nWe have to decrement it to access the last element" << std::endl;
+		std::cout << "*(--it_end) = " << *(--it_end) << std::endl; // 9 
+		std::cout << "*(it_end--) = " << *(it_end--) << std::endl; // 9
+		std::cout << "*it_end = " << *it_end << std::endl; // 8
+
+		std::cout << "\n--comparisons--\n\n";
+
+		std::cout << std::boolalpha; // outputs booleans as 'true' or 'false' instead of 1's or 0's
+		std::cout << "it_begin > it_end:	" << (it_begin > it_end) << std::endl;
+		std::cout << "it_begin < it_end:	" << (it_begin < it_end) << std::endl;
+		std::cout << "it_begin <= it_end:	" << (it_begin <= it_end) << std::endl;
+		std::cout << "it_begin >= it_end:	" << (it_begin >= it_end) << std::endl;
+		std::cout << "it_begin == it_end:	" << (it_begin == it_end) << std::endl;
+		std::cout << "it_end = it_begin" <<  std::endl;
+		
+		it_end = it_begin;
+		
+		std::cout << "it_begin > it_end:	" << (it_begin > it_end) << std::endl;
+		std::cout << "it_begin < it_end:	" << (it_begin < it_end) << std::endl;
+		std::cout << "it_begin <= it_end:	" << (it_begin <= it_end) << std::endl;
+		std::cout << "it_begin >= it_end:	" << (it_begin >= it_end) << std::endl;
+		std::cout << "it_begin == it_end:	" << (it_begin == it_end) << std::endl << std::endl;
+		
+		std::cout << "back to normal : ";
+		std::cout << "it_end = foo.end()" <<  std::endl;
+		it_end = foo.end();
+
+		std::cout << "\n--accessors--\n\n";
+
+
+
+		std::cout << "\n--operations--\n\n";
+
 		std::cout << *(--it_end) << std::endl;
 		it_end = foo.begin();
 		std::cout << (it_begin == it_end) << std::endl;
