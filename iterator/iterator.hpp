@@ -41,9 +41,9 @@ namespace ft
 	/* Empty class to identify the category of an iterator as a <name of category> iterator: */
 	struct input_iterator_tag {};
 	struct output_iterator_tag {};
-	struct forward_iterator_tag {};
-	struct bidirectional_iterator_tag {};
-	struct random_access_iterator_tag {};
+	struct forward_iterator_tag : public input_iterator_tag {};
+	struct bidirectional_iterator_tag : public forward_iterator_tag {};
+	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 	
 	/*
 	* std::iterator_traits is the type trait class that provides uniform interface to the properties of LegacyIterator types.
