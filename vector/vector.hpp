@@ -71,18 +71,33 @@ namespace ft
 			**	with each element constructed from its corresponding element in that range, in the same order.
 			*/
 			
-			// TODO once we have an iterator
-			// template <class InputIterator>
-         	// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+			template <class InputIterator>
+			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): 
+				_alloc(alloc), _size(0), _capacity(0)
+			{
+				for (InputIterator it = first; first < last; first++)
+					this->_size++;
+				this->_capacity = _size;
+				this->_array = _alloc.allocate(_size);
+				int i = 0;
+				for (InputIterator it = first; first < last; first++)
+				{
+					_alloc.construct(&_array[i], *it);
+					i++;
+				}
+			}
+			
 
 			/*
 			**	(4) copy constructor
 			**	Constructs a container with a copy of each of the elements in x, in the same order.
 			*/
 			
-			vector (const vector& x)
+			vector (const vector& x): _alloc(x._alloc), _size(x._size), _capacity(x._capacity)
 			{
-				(void)x;
+				this->_array = this->_alloc.allocate(x.capacity());
+				for (size_type i = 0; i < x.size(); i++)
+						this->_alloc.construct(&(this->_array[i]), x[i]);
 			}
 
 			/* Assigns new contents to the container, replacing its current contents, and modifying its size accordingly. */

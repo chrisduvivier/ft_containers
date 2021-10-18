@@ -191,7 +191,7 @@ int main(void)
 	{
 		std::cout << "\n==== ITERATOR OPERATIONS ====\n\n";
 		ft::vector<int> foo;
-		for (int i = 0; i < 50; i++)
+		for (int i = 0; i < 10; i++)
 			foo.push_back(i);
 		std::cout << "size " << foo.size() << std::endl;
 		std::cout << "capacity " << foo.capacity() << std::endl;
@@ -251,17 +251,30 @@ int main(void)
 		for (size_t i = 0; i < foo.size(); i++)
 			std::cout << it_begin[i] << " ";
 		std::cout << std::endl;
-		for (size_t i = 1; i < foo.size(); i++)
+		for (size_t i = 1; i <= foo.size(); i++)
 			std::cout << it_end[-i] << " ";
 
+		std::cout << "\n--range construct--\n\n";
+		ft::vector<int> bar(it_begin, it_end);
 
-		std::cout << "\n--operations--\n\n";
+		std::cout << "Vector bar size: " << bar.size() << std::endl;
+		std::cout << "Vector bar capacity: " << bar.capacity() << std::endl;
+		bar.push_back(50);
+			std::cout << "Vector bar size: " << bar.size() << std::endl;
+		std::cout << "Vector bar capacity: " << bar.capacity() << std::endl;
+		std::cout << "Vector bar countains: ";
 
-		std::cout << *(--it_end) << std::endl;
-		it_end = foo.begin();
-		std::cout << (it_begin == it_end) << std::endl;
-		std::cout << (it_begin[5]) << std::endl;
-		
+		for (unsigned i=0; i < bar.size(); i++)
+			std::cout << bar[i] << ' ';
+		std::cout << "\n--copy construct--\n\n";
+
+		ft::vector<int> test(bar);
+		std::cout << "Vector test size: " << test.size() << std::endl;
+		std::cout << "Vector test capacity: " << test.capacity() << std::endl;
+		std::cout << "Vector test countains: ";
+
+		for (unsigned i=0; i < test.size(); i++)
+			std::cout << test[i] << ' ';
 	}
 
     return (0);
