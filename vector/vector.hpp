@@ -324,4 +324,5 @@ namespace ft
 	// std::ostream &			operator<<( std::ostream & o, vector const & i );
 	
 }
+
 #endif

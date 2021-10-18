@@ -40,9 +40,15 @@ namespace ft
 					this->_ptr = ref._ptr;
 				return (*this);
 			}
-			// ==
-			// +=
-			// -=
+			It & operator+=(difference_type n){
+				this->_ptr += n;
+				return (*this);
+			}
+			It & operator-=(difference_type n){
+				this->_ptr -= n;
+				return (*this);
+			}
+		
 			
 			/* Can be dereferenced as an rvalue (if in a dereferenceable state). */
 			reference 			operator*() { return *_ptr; }

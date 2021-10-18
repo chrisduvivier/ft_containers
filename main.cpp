@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#if 0 //CREATE A REAL STL EXAMPLE
+#if 1 //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
@@ -216,9 +216,9 @@ int main(void)
 
 		std::cout << "*it_begin = " << *it_begin << std::endl; // 0 
 		std::cout << "*(++it_begin) = " << *(++it_begin) << std::endl; // 1
-		std::cout << "*(it_begin++) = " << (*it_begin)++ << std::endl; // 1 
+		std::cout << "*(it_begin++) = " << *(it_begin++) << std::endl; // 1 
 		std::cout << "*it_begin = " << *it_begin << std::endl; //2
-		
+
 		std::cout << "foo.end() points to the memory that is adjacent to the last element of the vector\nWe have to decrement it to access the last element" << std::endl;
 		std::cout << "*(--it_end) = " << *(--it_end) << std::endl; // 9 
 		std::cout << "*(it_end--) = " << *(it_end--) << std::endl; // 9
@@ -243,11 +243,16 @@ int main(void)
 		std::cout << "it_begin == it_end:	" << (it_begin == it_end) << std::endl << std::endl;
 		
 		std::cout << "back to normal : ";
-		std::cout << "it_end = foo.end()" <<  std::endl;
+		std::cout << "it_end = foo.end(), it_begin = foo.begin() " <<  std::endl;
 		it_end = foo.end();
-
+		it_begin = foo.begin();
 		std::cout << "\n--accessors--\n\n";
 
+		for (size_t i = 0; i < foo.size(); i++)
+			std::cout << it_begin[i] << " ";
+		std::cout << std::endl;
+		for (size_t i = 1; i < foo.size(); i++)
+			std::cout << it_end[-i] << " ";
 
 
 		std::cout << "\n--operations--\n\n";
