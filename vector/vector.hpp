@@ -71,16 +71,19 @@ namespace ft
 			**	with each element constructed from its corresponding element in that range, in the same order.
 			*/
 			
+
+			// !!! that enable-if part needs to be recoded, what does it do ? 
 			template <class InputIterator>
-			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): 
+			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),\
+					typename std::enable_if<!std::is_integral<InputIterator>::value>::type * = 0): 
 				_alloc(alloc), _size(0), _capacity(0)
 			{
-				for (InputIterator it = first; first < last; first++)
+				for (InputIterator it = first; it < last; it++)
 					this->_size++;
 				this->_capacity = _size;
-				this->_array = _alloc.allocate(_size);
+				this->_array = _alloc.allocate(this->_capacity);
 				int i = 0;
-				for (InputIterator it = first; first < last; first++)
+				for (InputIterator it = first; it != last; it++)
 				{
 					_alloc.construct(&_array[i], *it);
 					i++;
@@ -255,6 +258,7 @@ namespace ft
 			// /* fill (2)	*/
 			// void assign (size_type n, const value_type& val);
 
+
 			/*	Adds a new element at the end of the vector, after its current last element.
 				The content of val is copied (or moved) to the new element. This effectively increases the container size by one,
 				which causes an automatic reallocation of the allocated storage space if -and only if-
@@ -337,7 +341,17 @@ namespace ft
 	// }
 
 	// std::ostream &			operator<<( std::ostream & o, vector const & i );
-	
+
+	/********************************
+	* Non-member operators overloads*
+	********************************/
+
+	//bool operator== (const ft::vector& lhs, const ft::vector& rhs) { return (lhs._ptr == rhs._ptr); }
+	//bool operator!= (const ft::vector& lhs, const ft::vector& rhs) { return (lhs._ptr != rhs._ptr); }
+	//bool operator<= (const ft::vector& lhs, const ft::vector& rhs) { return (lhs._ptr <= rhs._ptr); }
+	//bool operator>= (const ft::vector& lhs, const ft::vector& rhs) { return (lhs._ptr >= rhs._ptr); }
+	//bool operator< (const ft::vector& lhs, const ft::vector& rhs) { return (lhs._ptr < rhs._ptr); }
+	//bool operator> (const ft::vector& lhs, const ft::vector& ths) { return (lhs._ptr > rhs._ptr); }
 }
 
 #endif
