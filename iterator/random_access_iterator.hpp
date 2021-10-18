@@ -48,8 +48,9 @@ namespace ft
 				this->_ptr -= n;
 				return (*this);
 			}
-		
 			
+			pointer*			base() const { return this->_ptr; }
+
 			/* Can be dereferenced as an rvalue (if in a dereferenceable state). */
 			reference 			operator*() { return *_ptr; }
 			const reference 	operator*() const { return *_ptr; }
