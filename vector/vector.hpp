@@ -7,6 +7,7 @@
 
 # include "../iterator/random_access_iterator.hpp"
 # include "../iterator/reverse_iterator.hpp"
+# include "../utils/utils.hpp"
 
 # define MAX_SIZE_64BIT 4611686018427387903
 namespace ft
@@ -71,12 +72,10 @@ namespace ft
 			**	Constructs a container with as many elements as the range [first,last),
 			**	with each element constructed from its corresponding element in that range, in the same order.
 			*/
-			
 
-			// !!! that enable-if part needs to be recoded, what does it do ? 
 			template <class InputIterator>
 			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),\
-					typename std::enable_if<!std::is_integral<InputIterator>::value>::type * = 0): 
+					typename ft::enable_if<!std::is_integral<InputIterator>::value>::type * = 0): 
 				_alloc(alloc), _size(0), _capacity(0)
 			{
 				for (InputIterator it = first; it < last; it++)
@@ -250,14 +249,14 @@ namespace ft
 			
 			/* Assigns new contents to the vector, replacing its current contents, and modifying its size accordingly */
 			/* range (1) */
-			// template <class InputIterator>
-			// void assign (InputIterator first, InputIterator last) 
-			// {
+			template <class InputIterator>
+			void assign (InputIterator first, InputIterator last) 
+			 {
 
-			// }
+			 }
 
-			// /* fill (2)	*/
-			// void assign (size_type n, const value_type& val);
+			 /* fill (2)	*/
+			void assign (size_type n, const value_type& val);
 
 
 			/*	Adds a new element at the end of the vector, after its current last element.
