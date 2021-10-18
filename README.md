@@ -23,3 +23,4 @@ All function templates are given, so prety straitforward. Just be careful with t
 - https://www.cplusplus.com/
 - https://en.cppreference.com/w/ 
 - The bible of custom iterator: "Writing a custom iterator in modern C++" [https://internalpointers.com/post/writing-custom-iterators-modern-cpp]
+- `friend` function: [https://www.section.io/engineering-education/introduction-to-friend-functions-in-c++/#:~:text=A%20friend%20function%20is%20a,of%20its%20members%20are%20friends]

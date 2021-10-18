@@ -6,6 +6,7 @@
 # include <memory>
 
 # include "../iterator/random_access_iterator.hpp"
+# include "../iterator/reverse_iterator.hpp"
 
 # define MAX_SIZE_64BIT 4611686018427387903
 namespace ft

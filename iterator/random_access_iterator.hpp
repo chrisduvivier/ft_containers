@@ -49,7 +49,7 @@ namespace ft
 				return (*this);
 			}
 			
-			pointer*			base() const { return this->_ptr; }
+			pointer				base() const { return this->_ptr; }
 
 			/* Can be dereferenced as an rvalue (if in a dereferenceable state). */
 			reference 			operator*() { return *_ptr; }
