@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 #include <memory>
-
+namespace ft
+{
 /* If B is true, std::enable_if has a public member typedef type, equal to T; otherwise, there is no member typedef. */
 template <bool B, class T = void>
 struct enable_if
@@ -82,12 +83,6 @@ struct is_integral<long long>
 };
 
 template <>
-struct is_integral<int>
-{
-	static const bool value = true;
-};
-
-template <>
 struct is_integral<unsigned char>
 {
 	static const bool value = true;
@@ -116,7 +111,5 @@ struct is_integral<unsigned long long>
 {
 	static const bool value = true;
 };
-
-typedef
-
+} // namespace ft
 #endif
