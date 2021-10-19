@@ -18,6 +18,14 @@ To check functions/return types etc: https://en.cppreference.com/w/cpp/named_req
 3. Implement all functions except iterator:
 All function templates are given, so prety straitforward. Just be careful with the order in which you implement the functions, because some of them depend on other member functions. (e.g. resize)
 
+## Reverse_iterator
+- First need to finish the base_iterator (random_iterator in our implementation).
+- Using the base_iterator, you can instantiate the reverse_iterator 
+- All the TODOs of reverse_iterator [https://www.cplusplus.com/reference/iterator/reverse_iterator]
+- Notes:
+    - construtor of rev_iter have an offset of -1, when compared with base_iterator.This means you have to shift the iterator by 1 in the constructor.
+    - When calling `base`, you return the base_iterator. More importantly, you return the iterator + 1 to take into account the offset.
+
 ## Reference
 
 - https://www.cplusplus.com/
