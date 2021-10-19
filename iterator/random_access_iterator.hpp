@@ -67,10 +67,10 @@ namespace ft
 			It operator--(int) { It tmp = *this; --(_ptr); return (tmp); }
 
 			// arithmetics
-			friend It	operator+(const It& a, difference_type b) { return vector_iterator(a._ptr + b); }
-			friend It	operator+(difference_type b, const It& a) { return vector_iterator(a._ptr + b); }
-			friend It	operator-(const It& a, difference_type b) { return vector_iterator(a._ptr - b); }
-			friend It	operator-(difference_type b, const It& a) { return vector_iterator(a._ptr - b); }
+			friend It	operator+(const It& a, difference_type b) { return It(a._ptr + b); }
+			friend It	operator+(difference_type b, const It& a) { return It(a._ptr + b); }
+			friend It	operator-(const It& a, difference_type b) { return It(a._ptr - b); }
+			friend It	operator-(difference_type b, const It& a) { return It(a._ptr - b); }
 			friend difference_type	operator-(const It& a, const It& b) { return (a._ptr - b._ptr); }
 
 			// comparable with another iterator
