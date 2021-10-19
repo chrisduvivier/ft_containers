@@ -291,10 +291,20 @@ namespace ft
 
 			void swap (vector& x)
 			{
-				std::swap(this->_alloc, x._alloc);
-				std::swap(this->_array, x._array);
-				std::swap(this->_size, x._size);
-				std::swap(this->_capacity, x._capacity);
+				allocator_type  tmp_alloc = this->_alloc;
+				pointer			tmp_array = this->_array;
+				size_type		tmp_size = this->_size;
+				size_type		tmp_capacity = this->_capacity;
+
+				this->_alloc = x._alloc;
+				this->_array = x._array;
+				this->_size = x._size;
+				this->_capacity = x._capacity;
+
+				x._alloc = tmp_alloc;
+				x._array = tmp_array;
+				x._size = tmp_size;
+				x._capacity = tmp_capacity;
 			}
 
 			/****************************
