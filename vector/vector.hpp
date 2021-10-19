@@ -250,10 +250,7 @@ namespace ft
 			/* Assigns new contents to the vector, replacing its current contents, and modifying its size accordingly */
 			/* range (1) */
 			template <class InputIterator>
-			void assign (InputIterator first, InputIterator last) 
-			 {
-
-			 }
+			void assign (InputIterator first, InputIterator last);
 
 			 /* fill (2)	*/
 			void assign (size_type n, const value_type& val);
