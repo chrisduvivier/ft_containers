@@ -275,6 +275,14 @@ int main(void)
 
 		for (unsigned i=0; i < test.size(); i++)
 			std::cout << test[i] << ' ';
+		std::cout << "\n--assign--\n\n";
+		ft::vector<int> test2(2,2);
+		test2.assign(it_begin, it_end);
+		for (unsigned i=0; i < test2.size(); i++)
+			std::cout << test2[i] << ' ';
+	}
+	{
+		
 	}
     return (0);
 }

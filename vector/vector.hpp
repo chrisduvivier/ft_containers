@@ -250,7 +250,27 @@ namespace ft
 			/* Assigns new contents to the vector, replacing its current contents, and modifying its size accordingly */
 			/* range (1) */
 			template <class InputIterator>
-			void assign (InputIterator first, InputIterator last);
+			void assign (InputIterator first, InputIterator last)
+			{
+				size_type new_size = last - first; // check how much space is needed 
+				std::cout << "(assign) new_size: " << new_size << std::endl;
+				std::cout << "(assign) capacity: " << _capacity << std::endl;
+
+				if (new_size > this->max_size())
+					throw std::length_error("size requested is greater than the maximum size (vector::max_size)\n");
+				for (size_t i = 0; i < _size; i++)
+					_alloc.destroy(&_array[i]);
+				if (new_size > _capacity) // not enough space in current config, reallocating needed size
+				{
+					_alloc.deallocate(_array, _capacity);
+					_capacity = new_size;
+					_array = _alloc.allocate(_capacity);
+				}
+				size_t i = 0;
+				for (InputIterator it = first; it != last; it++) //assigning values to new spaces
+					_alloc.construct(&_array[i++], *it);
+				_size = new_size; // updating _size
+			}
 
 			 /* fill (2)	*/
 			void assign (size_type n, const value_type& val);
