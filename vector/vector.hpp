@@ -101,10 +101,10 @@ public:
 ✅    void push_back(const value_type& x);
 ✅    void pop_back();
 
-    iterator insert(const_iterator position, const value_type& x);
-    template <class InputIterator>
-    iterator insert(iterator position, initializer_list<value_type> il);
-    iterator insert(iterator position, InputIterator first, InputIterator last);
+🏗️    iterator insert(const_iterator position, const value_type& x);
+🏗️    template <class InputIterator>
+        void insert (iterator position, size_type n, const value_type& val);
+🏗️    iterator insert(iterator position, InputIterator first, InputIterator last);
 
     iterator erase(iterator position);
     iterator erase(iterator first, iterator last);
@@ -184,9 +184,9 @@ namespace ft
 		**	with each element constructed from its corresponding element in that range, in the same order.
 		*/
 
-		template <class InputIterator>
+		template <typename InputIterator>
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
-			   typename ft::enable_if<!std::is_integral<InputIterator>::value>::type * = 0) : _alloc(alloc), _size(0), _capacity(0)
+			   typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0) : _alloc(alloc), _size(0), _capacity(0)
 		{
 			for (InputIterator it = first; it < last; it++)
 				this->_size++;
@@ -362,7 +362,7 @@ namespace ft
 		/* Assigns new contents to the vector, replacing its current contents, and modifying its size accordingly */
 		/* range (1) */
 		template <class InputIterator>
-		void assign(InputIterator first, InputIterator last, typename ft::enable_if<!std::is_integral<InputIterator>::value>::type * = 0)
+		void assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0)
 		{
 			std::cout << "(assign) iterator overload used" << std::endl;
 
@@ -386,8 +386,6 @@ namespace ft
 		/* fill (2)	*/
 		void assign(size_type n, const value_type &val)
 		{
-			std::cout << "(assign) file overload used" << std::endl;
-
 			if (n > this->max_size())
 				throw std::length_error("size requested is greater than the maximum size (vector::max_size)\n");
 			for (size_t i = 0; i < _size; i++)
@@ -424,6 +422,48 @@ namespace ft
 				_alloc.destroy(&_array[_size - 1]);
 				_size--;
 			}
+		}
+
+		/* The vector is extended by inserting new elements before the element at the specified position,
+		** effectively increasing the container size by the number of elements inserted.
+		** This causes an automatic reallocation of the allocated storage space if -and only if- 
+		** the new vector size surpasses the current vector capacity. */
+
+		/* single element (1) */
+
+		iterator insert(iterator position, const value_type& val)
+		{
+			size_t i = 0;
+			size_t j = _size;
+			iterator it = begin();
+			while (it + i != position && i < _size)
+				i++;
+			if (_capacity < _size + 1)
+				reserve(_size + 1);
+			while (j > i)
+			{
+				_array[j] = _array[j - 1];
+				j--;
+			}	
+			_array[i] = val;
+			_size++;
+			return (iterator(&_array[i]));
+		}
+
+		/* fill (2) */
+		
+		void insert (iterator position, size_type n, const value_type& val)
+		{
+			while (n--)
+				position = insert(position, val);
+		}
+
+		/* range  (3) */
+		template <class InputIterator>
+		iterator insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0)
+		{
+			for (iterator it = first; it != last; it++)
+				position = insert(position, *it) + 1;
 		}
 
 		/*	Removes all elements from the vector (which are destroyed), leaving the container with a size of 0.

@@ -280,6 +280,9 @@ int main(void)
 		test2.assign(it_begin, it_end);
 		for (unsigned i=0; i < test2.size(); i++)
 			std::cout << test2[i] << ' ';
+		test2.insert(test2.begin(),9, 9);
+		for (unsigned i=0; i < test2.size(); i++)
+			std::cout << test2[i] << ' ';
 	}
 	{
 		
