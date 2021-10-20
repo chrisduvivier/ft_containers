@@ -5,7 +5,6 @@
 # include <string>
 # include <memory>
 # include "iterator.hpp"
-# include "../utils/utils.hpp"
 
 /*
 	This is a base class template that can be used to derive iterator classes from it.
@@ -31,7 +30,7 @@ namespace ft
 			typedef	typename ft::iterator<random_access_iterator_tag, T>::difference_type	difference_type;
 			
 			/* iterator Constructor: default, parameter, copy, assign */
-			random_access_iterator() : _ptr(ft::nullptr) {}
+			random_access_iterator() : _ptr(nullptr) {}
 			random_access_iterator(pointer ptr) : _ptr(ptr) {}
 			random_access_iterator(const It& ref) : _ptr(ref._ptr) {}
 			virtual ~random_access_iterator() {}
