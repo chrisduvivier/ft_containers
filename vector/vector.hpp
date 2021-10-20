@@ -129,7 +129,7 @@ public:
 
 namespace ft
 {
-	template <class T, class Alloc = std::allocator<T>> // generic template
+	template <class T, class Alloc = std::allocator<T> > // generic template
 	class vector
 	{
 	public:
@@ -171,7 +171,7 @@ namespace ft
 		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) : _alloc(alloc), _size(0), _capacity(n)
 		{
 			_array = _alloc.allocate(n);
-			for (size_type i = 0;  < n; i++)
+			for (size_type i = 0; i < n; i++)
 			{
 				_alloc.construct(&_array[i], val);
 				_size++;
@@ -186,7 +186,7 @@ namespace ft
 
 		template <class InputIterator>
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
-			   typename ft::enable_if<!std::is_integral<InputIterator>::value>::type * = 0) : _alloc(alloc), _size(0), _capacity(0)
+			   typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0) : _alloc(alloc), _size(0), _capacity(0)
 		{
 			for (InputIterator it = first; it < last; it++)
 				this->_size++;
@@ -362,7 +362,7 @@ namespace ft
 		/* Assigns new contents to the vector, replacing its current contents, and modifying its size accordingly */
 		/* range (1) */
 		template <class InputIterator>
-		void assign(InputIterator first, InputIterator last, typename ft::enable_if<!std::is_integral<InputIterator>::value>::type * = 0)
+		void assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0)
 		{
 			std::cout << "(assign) iterator overload used" << std::endl;
 
