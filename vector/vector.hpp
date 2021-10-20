@@ -129,7 +129,7 @@ public:
 
 namespace ft
 {
-	template <class T, class Alloc = std::allocator<T>> // generic template
+	template <class T, class Alloc = std::allocator<T> > // generic template
 	class vector
 	{
 	public:
@@ -171,7 +171,7 @@ namespace ft
 		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) : _alloc(alloc), _size(0), _capacity(n)
 		{
 			_array = _alloc.allocate(n);
-			for (size_type i = 0;  < n; i++)
+			for (size_type i = 0; i < n; i++)
 			{
 				_alloc.construct(&_array[i], val);
 				_size++;
