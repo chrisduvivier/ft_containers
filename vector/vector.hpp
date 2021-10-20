@@ -250,12 +250,11 @@ namespace ft
 			/* Assigns new contents to the vector, replacing its current contents, and modifying its size accordingly */
 			/* range (1) */
 			template <class InputIterator>
-			void assign (InputIterator first, InputIterator last)
+			void assign (InputIterator first, InputIterator last, typename ft::enable_if<!std::is_integral<InputIterator>::value>::type * = 0)
 			{
-				size_type new_size = last - first; // check how much space is needed 
-				std::cout << "(assign) new_size: " << new_size << std::endl;
-				std::cout << "(assign) capacity: " << _capacity << std::endl;
+				std::cout << "(assign) iterator overload used"  << std::endl;
 
+				size_type new_size = last - first; // check how much space is needed 
 				if (new_size > this->max_size())
 					throw std::length_error("size requested is greater than the maximum size (vector::max_size)\n");
 				for (size_t i = 0; i < _size; i++)
@@ -273,7 +272,24 @@ namespace ft
 			}
 
 			 /* fill (2)	*/
-			void assign (size_type n, const value_type& val);
+			void assign (size_type n, const value_type& val)
+			{
+				std::cout << "(assign) size overload used"  << std::endl;
+
+				if (n > this->max_size())
+					throw std::length_error("size requested is greater than the maximum size (vector::max_size)\n");
+				for (size_t i = 0; i < _size; i++)
+					_alloc.destroy(&_array[i]);
+				if (n > _capacity) // not enough space in current config, reallocating needed size
+				{
+					_alloc.deallocate(_array, _capacity);
+					_capacity = n;
+					_array = _alloc.allocate(_capacity);
+				}
+				for (size_t i = 0; i < n; i++)
+					_alloc.construct(&_array[i], val);
+				_size = n;
+			}
 
 
 			/*	Adds a new element at the end of the vector, after its current last element.
