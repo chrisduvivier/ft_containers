@@ -466,6 +466,31 @@ namespace ft
 				position = insert(position, *it) + 1;
 		}
 
+		/* Removes from the vector either a single element (position) or a range of elements ([first,last)).
+		** This effectively reduces the container size by the number of elements removed, which are destroyed. */ 
+
+		iterator erase(iterator position)
+		{
+			iterator replace_pos = position;
+			while (replace_pos < end())
+			{
+				*replace_pos = *(replace_pos + 1); // removes the value at 'position' and shift all the following positions
+				replace_pos++;
+			}
+			_size--;
+			return (position);
+		}
+
+		iterator erase(iterator first, iterator last)
+		{
+			while(first != last)
+			{
+				erase(first);
+				last--;
+			}
+			return(first);
+		}
+
 		/*	Removes all elements from the vector (which are destroyed), leaving the container with a size of 0.
 		A reallocation is not guaranteed to happen, and the vector capacity is not guaranteed to change due to calling this function.
 		A typical alternative that forces a reallocation is to use swap: */
