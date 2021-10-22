@@ -290,6 +290,7 @@ int main(void)
 		test2.erase(test2.begin(), test2.begin() + 5);
 		for (unsigned i=0; i < test2.size(); i++)
 			std::cout << test2[i] << ' ';
+			std::cout << std::endl;
 	}
 	{
 		
