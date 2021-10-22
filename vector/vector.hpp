@@ -281,7 +281,6 @@ namespace ft
 		{
 			if (n < _size) // shrink size
 			{
-
 				while (n < _size)
 					pop_back();
 			}
@@ -293,11 +292,12 @@ namespace ft
 			else // create an _array with twice the previous capacity
 			{
 				size_type new_capacity = (_capacity > 0) ? _capacity : 1;
-				while (new_capacity < n) // double up until it fits 'n'
+				while (new_capacity < n) 		// double up until it fits 'n' -> this allows a margin for more potential elements to be added.
 					new_capacity *= 2;
-				this->reserve(new_capacity);
+				this->reserve(new_capacity);	// Reserve a new array with new_capacity, and copy previous content to it.
 				for (size_type i = _size; i < n; i++)
 					_alloc.construct(&_array[i], val);
+				this->_size = n;
 			}
 		}
 
@@ -544,9 +544,9 @@ namespace ft
 
 		void reallocateVec(size_type newCapacity)
 		{
-			pointer tmp = _alloc.allocate(newCapacity);
-			size_type size = _size;
-			for (size_type i = 0; i < size; i++)
+			pointer tmp = _alloc.allocate(newCapacity);		// create new array with newCap
+			size_type size = _size;							// keep previous size
+			for (size_type i = 0; i < size; i++)			
 				_alloc.construct(&tmp[i], _array[i]);
 			this->~vector();
 			this->_array = tmp;

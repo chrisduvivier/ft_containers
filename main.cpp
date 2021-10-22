@@ -10,6 +10,12 @@
 	// #include <map.hpp>
 	// #include <stack.hpp>
 	#include "vector/vector.hpp"
+	#include <vector>
+	#define RESET "\e[0m"
+	#define GREEN "\e[92m"
+	#define BLUE "\e[94m"
+	#define MAGENTA "\e[35m"
+	#define BOLD "\e[1m"
 #endif
 
 #include <stdlib.h>
@@ -91,44 +97,57 @@ int main(void)
 		ft::vector<int> foo;
 		sz = foo.capacity();
 		std::cout << "making foo grow:\n";
-		for (int i=0; i<100; ++i) {
-			foo.push_back(i);
-			if (sz != foo.capacity()) {
+		for (int i=0; i<30; ++i) {
+			foo.push_back(i);				// resizing is done in push_back.
+			if (sz != foo.capacity()) {		// previous cap is now unequal to current cap.
 				sz = foo.capacity();
-				std::cout << "capacity changed: " << sz << '\n';
+				std::cout << "foo: ";
+				for (unsigned i=0; i < foo.size(); i++)
+					std::cout << foo[i] << ' ';
+				std::cout << std::endl;
+				std::cout << "capacity changed: " << foo.capacity() << '\n';
+				std::cout << " - - - - - - - - - - " << '\n';
 			}
 		}
+		std::cout << "foo: " << '\n';
+		for (unsigned i=0; i < foo.size(); i++)
+			std::cout << foo[i] << ' ';
+		std::cout << std::endl;
 
 		ft::vector<int> bar;
 		sz = bar.capacity();
-		bar.reserve(100);   // this is the only difference with foo above
+		bar.reserve(30);   // this is the only difference with foo above
 		std::cout << "making bar grow:\n";
-		for (int i=0; i<100; ++i) {
+		for (int i=0; i<30; ++i) {
 			bar.push_back(i);
 			if (sz!=bar.capacity()) {
 				sz = bar.capacity();
 				std::cout << "capacity changed: " << sz << '\n';
 			}
 		}
+		std::cout << "bar: " << '\n';
+		for (unsigned i=0; i < bar.size(); i++)
+			std::cout << bar[i] << ' ';
+		std::cout << std::endl;
 	}
 
 	{
 		std::cout << "\n==== RESIZE ====\n";
+		ft::vector<int> myvector;
+
 		// set some initial content:
-		ft::vector<int> myvector (5);   // 10 zero-initialized ints
-		// assign some values:
-		for (unsigned i=0; i<myvector.size(); i++)
-		{
-			myvector.at(i)=i;
-		}
+		for (int i=1;i<10;i++) myvector.push_back(i);
+
 		myvector.resize(5);
 		myvector.resize(8,100);
 		myvector.resize(12);
 
 		std::cout << "myvector contains:";
-		for (unsigned i=0; i < myvector.size(); i++)
+		for (size_t i=0;i < myvector.size(); i++)
 			std::cout << ' ' << myvector[i];
 		std::cout << '\n';
+
+		/* expected: myvector contains: 1 2 3 4 5 100 100 100 0 0 0 0 */
 
 		std::cout << "\n==== MAX_SIZE ====\n\n";
 		std::cout << myvector.max_size() << "\n";
@@ -313,8 +332,29 @@ int main(void)
 
 	}
 	{
-		ft::vector<std::string> v1;
-		v1.resize(10, "test");
+		std::cout << BLUE << "\n>Resize" << RESET << std::endl;
+		ft::vector<int> v1;
+		std::vector<int> v2;
+
+		std::cout << "v1 ft: \n";
+		std::cout << "v1.size(): " << v1.size() << " v1.capacity(): " << v1.capacity() << "\n";
+
+		std::cout << "v2 std: \n";
+		std::cout << "v2.size(): " << v2.size() << " v2.capacity(): " << v2.capacity() << "\n";
+
+		v1.resize(10, 8);
+		v2.resize(10, 8);
+
+		std::cout << "v1.size(): " << v1.size() << " v1.capacity(): " << v1.capacity() << "\n";
+		for (unsigned i=0; i < v1.size(); i++)
+			std::cout << v1[i] << ' ';
+			std::cout << std::endl;
+		std::cout << "v2.size(): " << v2.size() << " v2.capacity(): " << v2.capacity() << "\n";
+		for (unsigned i=0; i < v2.size(); i++)
+			std::cout << v2[i] << ' ';
+			std::cout << std::endl;
+
+		
 	}
     return (0);
 }
