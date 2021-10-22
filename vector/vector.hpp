@@ -148,8 +148,8 @@ namespace ft
 		typedef typename allocator_type::const_pointer const_pointer;
 		typedef ft::random_access_iterator<value_type> iterator;
 		typedef ft::random_access_iterator<const value_type> const_iterator;
-		typedef ft::reverse_iterator<value_type> reverse_iterator;
-		typedef ft::reverse_iterator<const value_type> const_reverse_iterator;
+		typedef ft::reverse_iterator<iterator> reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 		/****************************
 		*	   Member functions		*
@@ -250,6 +250,11 @@ namespace ft
 		const_iterator begin() const { return (iterator(_array)); }
 		iterator end() { return (iterator(_array + this->size())); }
 		const_iterator end() const { return (iterator(_array + this->size())); }
+
+		reverse_iterator       rbegin() { return reverse_iterator(this->end()); }
+		// const_reverse_iterator rbegin()		const;
+		reverse_iterator       rend() { return reverse_iterator(this->begin()); }
+		// const_reverse_iterator rend()		const;
 
 		/****************************
 		*	   	   Capacity			*
