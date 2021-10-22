@@ -247,9 +247,9 @@ namespace ft
 		*	If the container is empty, the returned iterator value shall not be dereferenced. */
 
 		iterator begin() { return (iterator(_array)); }
-		const_iterator begin() const { return (iterator(_array)); }
+		const_iterator begin() const { return (const_iterator(_array)); }
 		iterator end() { return (iterator(_array + this->size())); }
-		const_iterator end() const { return (iterator(_array + this->size())); }
+		const_iterator end() const { return (const_iterator(_array + this->size())); }
 
 		reverse_iterator       rbegin() { return reverse_iterator(this->end()); }
 		// const_reverse_iterator rbegin()		const;
@@ -281,6 +281,7 @@ namespace ft
 		{
 			if (n < _size) // shrink size
 			{
+
 				while (n < _size)
 					pop_back();
 			}
@@ -291,7 +292,7 @@ namespace ft
 			}
 			else // create an _array with twice the previous capacity
 			{
-				size_type new_capacity = _capacity;
+				size_type new_capacity = (_capacity > 0) ? _capacity : 1;
 				while (new_capacity < n) // double up until it fits 'n'
 					new_capacity *= 2;
 				this->reserve(new_capacity);
@@ -469,6 +470,7 @@ namespace ft
 		{
 			for (iterator it = first; it != last; it++)
 				position = insert(position, *it) + 1;
+			return (position);
 		}
 
 		/* Removes from the vector either a single element (position) or a range of elements ([first,last)).
@@ -609,7 +611,7 @@ namespace ft
 	template <class T, class Alloc>
 	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 	{
-		return ((lhs == rhs) || (lhs > rhs));
+		return (!(lhs < rhs));
 	}
 } // namespace ft
 

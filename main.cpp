@@ -308,6 +308,13 @@ int main(void)
 		std::cout << ' ' << *it;
 		std::cout << '\n';
 
+
+
+
+	}
+	{
+		ft::vector<std::string> v1;
+		v1.resize(10, "test");
 	}
     return (0);
 }
