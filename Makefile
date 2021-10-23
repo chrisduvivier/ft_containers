@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+         #
+#    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:46:24 by cduvivie          #+#    #+#              #
-#    Updated: 2021/10/01 14:49:06 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/10/23 23:38:48 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ CFLAGS	+= -I $(INCDIR)
 SRCS =\
 	./srcs/main.cpp\
 	./srcs/vector.cpp\
+	./srcs/stack.cpp\
 
 HEADERS =\
 	./includes/iterator/iterator.hpp\
@@ -43,6 +44,7 @@ HEADERS =\
 	./includes/tests/tests.hpp\
 	./includes/utils/utils.hpp\
 	./includes/vector/vector.hpp\
+	./includes/stack/stack.hpp\
 
 VPATH := $(SRCDIR) $(OBJDIR) $(shell find $(SRCDIR) -type d)
 

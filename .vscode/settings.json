@@ -66,6 +66,12 @@
 		"typeinfo": "cpp",
 		"__functional_03": "cpp",
 		"list": "cpp",
-		"queue": "cpp"
+		"queue": "cpp",
+		"bit": "cpp",
+		"*.tcc": "cpp",
+		"clocale": "cpp",
+		"numeric": "cpp",
+		"random": "cpp",
+		"fstream": "cpp"
 	}
 }

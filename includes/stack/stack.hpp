@@ -4,7 +4,7 @@
 # include <iostream>
 # include <string>
 # include <memory>
-
+# include <algorithm>
 # include "../vector/vector.hpp"
 # include "../iterator/reverse_iterator.hpp"
 # include "../iterator/iterator.hpp"
@@ -162,6 +162,15 @@ namespace ft
 
 			void pop() { return (_ctnr.pop_back()); }
 
+
+			// this part comes from stl_stack.h
+
+			template<typename _T, typename C>
+			friend bool operator==(const stack<_T, C>&, const stack<_T, C>&);
+
+			template<typename _T, typename C>
+			friend bool operator<(const stack<_T, C>&, const stack<_T, C>&);
+
 			/****************************
 			*	   	   Iterators		*
 			****************************/
@@ -177,18 +186,27 @@ namespace ft
 			/****************************
 			*		  Modifiers			*
 			****************************/
-
+		
 		private:
 			container_type	_ctnr;
 	};
 
 	/********************************
-	* Non-member function overloads	*
-	********************************/
-
-	/********************************
 	* Non-member operators overloads*
 	********************************/
+	// stl_stack.h
+	template <class T, class Container>
+	bool operator== (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {return (lhs == rhs);};
+	template <class T, class Container>
+	bool operator!= (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {return !(lhs == rhs);};
+	template <class T, class Container>
+	bool operator<  (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {return (lhs < rhs);};
+	template <class T, class Container>
+	bool operator<= (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {return !(rhs < lhs);};
+	template <class T, class Container>
+	bool operator>  (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {return (rhs < lhs);};
+	template <class T, class Container>
+	bool operator>= (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {return !(lhs < rhs);};
 
 } // namespace ft
 
