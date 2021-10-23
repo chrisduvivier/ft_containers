@@ -1,16 +1,16 @@
-#ifndef STACK_HPPs
-#define STACK_HPP
+#ifndef STACK_HPP
+# define STACK_HPP
 
-#include <iostream>
-#include <string>
-#include <memory>
+# include <iostream>
+# include <string>
+# include <memory>
 
-#include "../vector/vector.hpp"
-#include "../iterator/reverse_iterator.hpp"
-#include "../iterator/iterator.hpp"
-#include "../utils/utils.hpp"
+# include "../vector/vector.hpp"
+# include "../iterator/reverse_iterator.hpp"
+# include "../iterator/iterator.hpp"
+# include "../utils/utils.hpp"
 
-#define MAX_SIZE_64BIT 4611686018427387903
+# define MAX_SIZE_64BIT 4611686018427387903
 
 /*
     vector synopsis
@@ -131,57 +131,55 @@ public:
 namespace ft
 {
 	template <class T, class Container = ft::vector<T> >
-	class stack
-	{
-	public:
-		/****************************
-		*	   Member types  		*
-		****************************/
+	class stack {
+		public:
+			/****************************
+			*	   Member types  		*
+			****************************/
 
-		/* Type of the elements allocated by the object (aliased as member type value_type). */
-		typedef T 											value_type;
-		typedef Container 									container_type;
-		typedef typename Container::Allocator::size_type 	size_type;
+			/* Type of the elements allocated by the object (aliased as member type value_type). */
+			typedef T 				value_type;
+			typedef Container 		container_type;
+			typedef size_t			size_type;
 
-		// typedef typename allocator_type::difference_type difference_type;
-		// typedef typename allocator_type::reference reference;
-		// typedef typename allocator_type::const_reference const_reference;
-		// typedef typename allocator_type::pointer pointer;
-		// typedef typename allocator_type::const_pointer const_pointer;
-		// typedef ft::random_access_iterator<value_type> iterator;
-		// typedef ft::random_access_iterator<const value_type> const_iterator;
-		// typedef ft::reverse_iterator<iterator> reverse_iterator;
-		// typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
+			/****************************
+			*	   Member functions		*
+			****************************/
 
-		/****************************
-		*	   Member functions		*
-		****************************/
+			/* Constructs a stack container adaptor object. */
+			explicit stack (const container_type& ctnr = container_type()) : _ctnr(ctnr) {}
 
-		/* Constructs a stack container adaptor object. */
-		explicit stack (const container_type& ctnr = container_type()) : _ctnr(ctnr) {};
+			bool empty() const { return ( _ctnr.empty() ); }
 
-		bool empty() const { return ( _cntr->empty() ); };
+			size_type size() const { return ( _ctnr.size() ); }
+			
+			/* Returns a reference to the top element in the stack. */
+			value_type& top() { return (_ctnr.back()); }
 
-		size_type size() const { return ( _ctnr->size() ); };
+			const value_type& top() const { return (_ctnr.back()); }
 
-		/****************************
-		*	   	   Iterators		*
-		****************************/
+			void push (const value_type& val) { return (_ctnr.push_back(val)); }
 
-		/****************************
-		*	   	   Capacity			*
-		****************************/
+			void pop() { return (_ctnr.pop_back()); }
 
-		/****************************
-		*		Element access		*
-		****************************/
+			/****************************
+			*	   	   Iterators		*
+			****************************/
 
-		/****************************
-		*		  Modifiers			*
-		****************************/
+			/****************************
+			*	   	   Capacity			*
+			****************************/
 
-	private:
-		container_type	_ctnr;
+			/****************************
+			*		Element access		*
+			****************************/
+
+			/****************************
+			*		  Modifiers			*
+			****************************/
+
+		private:
+			container_type	_ctnr;
 	};
 
 	/********************************

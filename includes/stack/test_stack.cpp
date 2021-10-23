@@ -23,31 +23,58 @@ int main(void)
 {
 	std::cout << "===================TEST STACK ======================\n";
 	{
-		std::deque<int> mydeque (3,100);          // deque with 3 elements
-		ft::vector<int> myvector (2,200);        // vector with 2 elements
+		ft::vector<int> myvector (2,200);        	// vector with 2 elements
 
-		ft::stack<int> first;                    // empty stack
-		ft::stack<int> second (mydeque);         // stack initialized to copy of deque
+		
+		// std::deque<int> mydeque (3,100);         	// deque with 3 elements
+		// ft::stack<int> second (mydeque);         	// stack initialized to copy of deque
+		// std::cout << "size of second: " << second.size() << '\n';
 
-		ft::stack<int,ft::vector<int> > third;  // empty stack using vector
+		ft::stack<int> first;                    	// empty stack
+		ft::stack<int,ft::vector<int> > third;  	// empty stack using vector
 		ft::stack<int,ft::vector<int> > fourth (myvector);
 
 		std::cout << "size of first: " << first.size() << '\n';
-		std::cout << "size of second: " << second.size() << '\n';
 		std::cout << "size of third: " << third.size() << '\n';
 		std::cout << "size of fourth: " << fourth.size() << '\n';
-		/* expected: myvector: 9 8 7 6 5 4 3 2 1 0 */
 	}
+
+	{
+		std::cout << "============== TEST PUSH ================\n";
+		ft::stack<int> mystack;
+
+		for (int i=0; i<5; ++i) mystack.push(i);
+		std::cout << "Popping out elements...";
+		while (!mystack.empty())
+		{
+			std::cout << ' ' << mystack.top();
+			mystack.pop();
+		}
+		std::cout << '\n';
+		/* expected: Popping out elements... 4 3 2 1 0 */
+	}
+
 	{
 		std::cout << "============== TEST EMPTY ================\n";
-		// ft::stack<int> mystack;
-		// int sum (0);
-		// for (int i=1;i<=10;i++) mystack.push(i);
-		// while (!mystack.empty())
-		// {
-		// 	sum += mystack.top();
-		// 	mystack.pop();
-		// }
-		// std::cout << "total: " << sum << '\n';
+		ft::stack<int> mystack;
+		int sum (0);
+		for (int i=1;i<=10;i++) mystack.push(i);
+		while (!mystack.empty())
+		{
+			sum += mystack.top();
+			mystack.pop();
+		}
+		std::cout << "total: " << sum << '\n';
+		/* expected: total: 55 */
+	}
+
+	{
+		std::cout << "============== TEST TOP ================\n";
+		ft::stack<int> mystack;
+		mystack.push(10);
+		mystack.push(20);
+		mystack.top() -= 5;
+	  	std::cout << "mystack.top() is now " << mystack.top() << '\n';
+		/* expected: mystack.top() is now 15 */
 	}
 }
