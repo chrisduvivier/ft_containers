@@ -326,6 +326,35 @@ int main(void)
 		for (ft::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
 		std::cout << ' ' << *it;
 		std::cout << '\n';
+
+
+
+
+	}
+	{
+		std::cout << BLUE << "\n>Resize" << RESET << std::endl;
+		ft::vector<int> v1;
+		std::vector<int> v2;
+
+		std::cout << "v1 ft: \n";
+		std::cout << "v1.size(): " << v1.size() << " v1.capacity(): " << v1.capacity() << "\n";
+
+		std::cout << "v2 std: \n";
+		std::cout << "v2.size(): " << v2.size() << " v2.capacity(): " << v2.capacity() << "\n";
+
+		v1.resize(10, 8);
+		v2.resize(10, 8);
+
+		std::cout << "v1.size(): " << v1.size() << " v1.capacity(): " << v1.capacity() << "\n";
+		for (unsigned i=0; i < v1.size(); i++)
+			std::cout << v1[i] << ' ';
+			std::cout << std::endl;
+		std::cout << "v2.size(): " << v2.size() << " v2.capacity(): " << v2.capacity() << "\n";
+		for (unsigned i=0; i < v2.size(); i++)
+			std::cout << v2[i] << ' ';
+			std::cout << std::endl;
+
+		
 	}
     return (0);
 }
