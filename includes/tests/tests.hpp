@@ -1,4 +1,3 @@
-
 #ifndef TESTS_HPP
 # define TESTS_HPP
 
@@ -12,6 +11,7 @@
 
 #define RESET "\e[0m"
 #define GREEN "\e[92m"
+#define YELLOW "\e[93m"
 #define BLUE "\e[94m"
 #define MAGENTA "\e[35m"
 #define BOLD "\e[1m"
