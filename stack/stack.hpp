@@ -1,12 +1,13 @@
-#ifndef VECTOR_HPP
-#define VECTOR_HPP
+#ifndef STACK_HPPs
+#define STACK_HPP
 
 #include <iostream>
 #include <string>
 #include <memory>
 
-#include "../iterator/random_access_iterator.hpp"
+#include "../vector/vector.hpp"
 #include "../iterator/reverse_iterator.hpp"
+#include "../iterator/iterator.hpp"
 #include "../utils/utils.hpp"
 
 #define MAX_SIZE_64BIT 4611686018427387903
@@ -129,7 +130,7 @@ public:
 
 namespace ft
 {
-	template <class T, class Alloc = std::allocator<T> > // generic template
+	template <class T, class Container = ft::vector<T> >
 	class stack
 	{
 	public:
@@ -138,22 +139,30 @@ namespace ft
 		****************************/
 
 		/* Type of the elements allocated by the object (aliased as member type value_type). */
-		typedef T value_type;
-		typedef Alloc allocator_type;
-		typedef typename allocator_type::size_type size_type;
-		typedef typename allocator_type::difference_type difference_type;
-		typedef typename allocator_type::reference reference;
-		typedef typename allocator_type::const_reference const_reference;
-		typedef typename allocator_type::pointer pointer;
-		typedef typename allocator_type::const_pointer const_pointer;
-		typedef ft::random_access_iterator<value_type> iterator;
-		typedef ft::random_access_iterator<const value_type> const_iterator;
-		typedef ft::reverse_iterator<iterator> reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
+		typedef T 											value_type;
+		typedef Container 									container_type;
+		typedef typename Container::Allocator::size_type 	size_type;
+
+		// typedef typename allocator_type::difference_type difference_type;
+		// typedef typename allocator_type::reference reference;
+		// typedef typename allocator_type::const_reference const_reference;
+		// typedef typename allocator_type::pointer pointer;
+		// typedef typename allocator_type::const_pointer const_pointer;
+		// typedef ft::random_access_iterator<value_type> iterator;
+		// typedef ft::random_access_iterator<const value_type> const_iterator;
+		// typedef ft::reverse_iterator<iterator> reverse_iterator;
+		// typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 		/****************************
 		*	   Member functions		*
 		****************************/
+
+		/* Constructs a stack container adaptor object. */
+		explicit stack (const container_type& ctnr = container_type()) : _ctnr(ctnr) {};
+
+		bool empty() const { return ( _cntr->empty() ); };
+
+		size_type size() const { return ( _ctnr->size() ); };
 
 		/****************************
 		*	   	   Iterators		*
@@ -172,7 +181,7 @@ namespace ft
 		****************************/
 
 	private:
-
+		container_type	_ctnr;
 	};
 
 	/********************************
