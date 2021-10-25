@@ -47,12 +47,12 @@ namespace ft
 			return *this;
 		}
 
-		bool operator==(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return this->first == rhs.first && this->second == rhs.second; }
-		bool operator!=(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return !(*this == rhs); }
-		bool operator<(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return this->first < rhs.first || (!(rhs.first < this->first) && this->second < rhs.second);}
-		bool operator>(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return (rhs < *this); }
-		bool operator<=(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return !(rhs < *this) ;}
-		bool operator>=(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return !(*this < rhs);}
+		bool operator==(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return this->first == rhs.first && this->second == rhs.second; }
+		bool operator!=(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return !(*this == rhs); }
+		bool operator<(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return this->first < rhs.first || (!(rhs.first < this->first) && this->second < rhs.second);}
+		bool operator>(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return (rhs < *this); }
+		bool operator<=(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return !(rhs < *this) ;}
+		bool operator>=(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return !(*this < rhs);}
 		
 	};
 
