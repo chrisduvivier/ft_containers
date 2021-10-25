@@ -1,3 +1,6 @@
+#ifndef RB_TREE_H
+#define RB_TREE_H
+
 // Red Black Tree implementation in C++
 // Author: Algorithm Tutor
 // Tutorial URL: https://algorithmtutor.com/Data-Structures/Tree/Red-Black-Trees/
@@ -8,7 +11,7 @@
 namespace ft
 {
 // class RBTree implements the operations in Red Black Tree
-template<class T, class Compare, class Alloc = std::allocator<T>>
+template<class T, class Compare, class Alloc = std::allocator<T> >
 class RBTree
 {
 	public:
@@ -692,5 +695,4 @@ private:
 	};
 }
 
-}
 #endif

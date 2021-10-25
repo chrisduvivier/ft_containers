@@ -47,12 +47,12 @@ namespace ft
 			return *this;
 		}
 
-		bool operator==(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs) { return lhs.first == rhs.first && lhs.second == rhs.second; }
-		bool operator!=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs) { return !(lhs == rhs); }
-		bool operator<(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs) { return lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second);}
-		bool operator>(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs) { return (rhs < lhs); }
-		bool operator<=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs) { return !(rhs < lhs) }
-		bool operator>=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs) { return !(lhs < rhs)}
+		bool operator==(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return this->first == rhs.first && this->second == rhs.second; }
+		bool operator!=(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return !(*this == rhs); }
+		bool operator<(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return this->first < rhs.first || (!(rhs.first < this->first) && this->second < rhs.second);}
+		bool operator>(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return (rhs < *this); }
+		bool operator<=(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return !(rhs < *this) ;}
+		bool operator>=(/*const pair<T1, T2> &lhs, */const pair<T1, T2> &rhs) { return !(*this < rhs);}
 		
 	};
 
