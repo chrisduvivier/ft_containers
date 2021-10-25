@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 16:23:49 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/10/25 18:20:49 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/10/25 18:37:52 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -627,8 +627,6 @@ private:
 			NodePtr node = searchTreeKey(key);
 			deleteNodeHelper(this->root, node->data);
 		}
-		// insert the key to the tree in its appropriate position
-		// and fix the tree
 
 	/******************************************
 	 * Insert at given key
@@ -637,7 +635,6 @@ private:
 		void insertAt(typename T::first_type key, typename T::second_type value)
 		{
 			NodePtr node = searchTreeKey(key);
-			std::cout << node << std::endl;
 			if (node == TNULL)
 			{
 				value_type p(key, value);
