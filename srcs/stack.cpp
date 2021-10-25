@@ -98,13 +98,12 @@ static void operators()
 	v2.push(3);
 	v3 = v1;
 	v4 = v2;
-	std::cout << (v1 == v3) ;
-	// check("==", (v1 == v3) == (v2 == v4));
-	// check("!=", (v1 != v3) == (v2 != v4));
-	// check(">", (v1 > v3) == (v2 > v4));
-	// check("<", (v1 < v3) == (v2 < v4));
-	// check(">=", (v1 >= v3) == (v2 >= v4));
-	// check("<=", (v1 <= v3) == (v2 <= v4));
+	check("==", (v1 == v3) == (v2 == v4));
+	check("!=", (v1 != v3) == (v2 != v4));
+	check(">", (v1 > v3) == (v2 > v4));
+	check("<", (v1 < v3) == (v2 < v4));
+	check(">=", (v1 >= v3) == (v2 >= v4));
+	check("<=", (v1 <= v3) == (v2 <= v4));
 }
 
 void test_stack(void)
