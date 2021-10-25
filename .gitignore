@@ -2,4 +2,5 @@
 *.out
 .DS_store
 *.o
-../obj/*
+obj/*
+test
