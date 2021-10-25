@@ -98,7 +98,6 @@ static void capacity()
 	check("reserve()", (v1 == v2));
 }
 
-
 static void copy_operator()
 {
 	std::cout << BLUE << "\n>Operator =" << RESET << std::endl;
@@ -311,6 +310,53 @@ static void operators()
 	check("<=", (v1 <= v3) == (v2 <= v4));
 }
 
+static void iterators()
+{
+	std::cout << BLUE << "\n>iterators" << RESET << std::endl;
+	ft::vector<int> v1;
+	std::vector<int> v2;
+	for (int i = 0; i < 10; i++)
+	{
+		v1.push_back(i);
+		v2.push_back(i);
+	}
+
+
+}
+
+#include <chrono>
+#include <utility>
+
+typedef std::chrono::high_resolution_clock::time_point TimeVar;
+
+#define duration(a) std::chrono::duration_cast<std::chrono::nanoseconds>(a).count()
+#define timeNow() std::chrono::high_resolution_clock::now()
+
+template<typename F, typename... Args>
+double funcTime(F func, Args&&... args){
+    TimeVar t1=timeNow();
+    func(std::forward<Args>(args)...);
+    return duration(timeNow()-t1);
+}
+
+void std_pushback_time(int x)
+{
+	std::vector<int> v1;
+	int i ;
+	for (i = 0; i < x; i++)
+		v1.push_back(i);
+	std::cout << i ;
+}
+
+void ft_pushback_time(int x)
+{
+	ft::vector<int> v1;
+	int i ;
+	for (i = 0; i < x; i++)
+		v1.push_back(i);
+	std::cout << i ;
+}
+
 void	test_vector()
 {
 	std::cout << MAGENTA << BOLD << "\n------------- vector ------------" << RESET << std::endl;
@@ -328,4 +374,8 @@ void	test_vector()
 	erase();
 	swap();
 	operators();
+
+	std::cout << "A 1000 std::push_back took " << funcTime(std_pushback_time, 1000000)/1000 << " ms." << std::endl;
+	std::cout << "A 1000 ft::push_back took " << funcTime(ft_pushback_time, 1000000)/1000 << " ms." << std::endl;
+	
 }
