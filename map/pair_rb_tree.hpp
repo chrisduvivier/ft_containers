@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 16:23:49 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/10/25 18:37:52 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/10/27 15:54:55 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 namespace ft
 {
 // class RBTree implements the operations in Red Black Tree
-template<class T, class Compare, class Alloc = std::allocator<T> >
-class PRBTree
+template<class T, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
+class RBTree
 {
 	public:
 	typedef T			value_type;
@@ -39,7 +39,7 @@ class PRBTree
 	};
 
 	typedef Node *NodePtr;
-		PRBTree()
+		RBTree()
 		{
 			TNULL = new Node;
 			TNULL->color = 0;

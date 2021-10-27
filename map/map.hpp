@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/26 15:42:25 by rlinkov           #+#    #+#             */
+/*   Updated: 2021/10/27 14:03:30 by rlinkov          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MAP_HPP
 #define MAP_HPP
 
@@ -6,12 +18,12 @@
 #include <memory>
 #include <map>
 #include "pair.hpp"
-#include "rb_tree.hpp"
+#include "pair_rb_tree.hpp"
 
 namespace ft
 {
-	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T>>>
-	class map;
+	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
+	class map
 	{
 	public:
 		/****************************
@@ -25,6 +37,7 @@ namespace ft
 		typedef Compare key_compare;
 		typedef size_t	size_type;
 		typedef ptrdiff_t difference_type;
+
 		class value_compare : public std::binary_function<value_type, value_type, bool>
 		{
 			friend class map;
