@@ -6,11 +6,10 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 15:48:56 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/10/25 18:39:50 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/11/05 14:38:54 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rb_tree.hpp"
 #include "pair_rb_tree.hpp"
 #include "pair.hpp"
 #include <iostream>
@@ -20,21 +19,21 @@ int main()
 {
 	std::cout << "---------- TEST RBT & PRBT----------" << std::endl << std::endl;
 
-	std::cout << std::endl << "---------- TEST RBT<int> ----------" << std::endl << std::endl;
-	{
-		ft::RBTree<int, std::less<int> >		rbt;
+	// std::cout << std::endl << "---------- TEST RBT<int> ----------" << std::endl << std::endl;
+	// {
+	// 	ft::RBTree<int, std::less<int> >		rbt;
 
-		for (size_t i = 0; i < 20; i++)
-		{
-			rbt.insert(i);
-		}
-		rbt.prettyPrint();
+	// 	for (size_t i = 0; i < 20; i++)
+	// 	{
+	// 		rbt.insert(i);
+	// 	}
+	// 	rbt.prettyPrint();
 		
-	}
+	// }
 
 	std::cout << std::endl << "---------- TEST PRBT<pair<int, int>> ----------" << std::endl << std::endl;
 	{
-		ft::PRBTree<ft::pair<int, int>, std::less<ft::pair<int, int> > >		rbt;
+		ft::RBTree<ft::pair<int, int>, std::less<ft::pair<int, int> > >		rbt;
 		ft::pair<int, int> p;
 		for (size_t i = 0; i < 20; i++)
 		{
@@ -46,7 +45,7 @@ int main()
 
 	std::cout << std::endl << "---------- TEST PRBT<pair<string, int>> ----------" << std::endl << std::endl;
 	{
-		ft::PRBTree<ft::pair<std::string, int>, std::less<ft::pair<std::string, int> > >		rbt;
+		ft::RBTree<ft::pair<std::string, int>, std::less<ft::pair<std::string, int> > >		rbt;
 		ft::pair<std::string, int> p;
 		for (size_t i = 0; i < 20; i++)
 		{
@@ -69,7 +68,7 @@ int main()
 		v.push_back(ft::pair<std::string, std::string>("0", "100"));
 		v.push_back(ft::pair<std::string, std::string>("Chris", "Nathan"));
 		
-		ft::PRBTree<ft::pair<std::string, std::string>, std::less<ft::pair<std::string, std::string> > >		rbt;
+		ft::RBTree<ft::pair<std::string, std::string>, std::less<ft::pair<std::string, std::string> > >		rbt;
 
 		for (std::vector<ft::pair<std::string, std::string> >::iterator it = v.begin(); it != v.end() ; ++it)
 		{
