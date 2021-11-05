@@ -28,6 +28,12 @@ namespace ft
 			typedef	typename ft::iterator<random_access_iterator_tag, T>::reference			reference;
 			typedef	typename ft::iterator<random_access_iterator_tag, T>::value_type		value_type;
 			typedef	typename ft::iterator<random_access_iterator_tag, T>::difference_type	difference_type;
+
+			//typedef	typename ft::iterator_traits<It>::iterator_category	iterator_category;
+			//typedef	typename ft::iterator_traits<It>::pointer			pointer;
+			//typedef	typename ft::iterator_traits<It>::reference			reference;
+			//typedef	typename ft::iterator_traits<It>::value_type		value_type;
+			//typedef	typename ft::iterator_traits<It>::difference_type	difference_type;
 			
 			/* iterator Constructor: default, parameter, copy, assign */
 			random_access_iterator() : _ptr(nullptr) {}
