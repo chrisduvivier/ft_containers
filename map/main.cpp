@@ -6,11 +6,11 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 15:48:56 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/11/05 14:38:54 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/11/05 15:58:00 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pair_rb_tree.hpp"
+#include "rb_tree.hpp"
 #include "pair.hpp"
 #include <iostream>
 #include <vector>
@@ -86,7 +86,7 @@ int main()
 		rbt.deleteNodeKey("salut");
 		std::cout << rbt.searchTreeKey("salut")->data.second << std::endl;
 
-		rbt.insertAt("4", "25");
+		rbt.insertAt("he", "25");
 		rbt.insertAt("34", "TEST");
 		rbt.prettyPrint();
 	}

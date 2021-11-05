@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pair_rb_tree.hpp                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 16:23:49 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/11/05 14:38:31 by rlinkov          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef PAIR_RB_TREE_H
-#define PAIR_RB_TREE_H
+#ifndef RB_TREE_H
+#define RB_TREE_H
 
 // Red Black Tree implementation in C++
 // Author: Algorithm Tutor
@@ -23,7 +11,7 @@
 namespace ft
 {
 // class RBTree implements the operations in Red Black Tree
-template<class T, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
+template<class T, class Compare, class Alloc = std::allocator<T> >
 class RBTree
 {
 	public:
@@ -71,7 +59,7 @@ class RBTree
 
 		// search the tree for the key k
 		// and return the corresponding node
-		NodePtr searchTree(value_type k)
+		NodePtr searchTree(int k)
 		{
 			return searchTreeHelper(this->root, k);
 		}
@@ -193,7 +181,7 @@ class RBTree
 
 		// insert the key to the tree in its appropriate position
 		// and fix the tree
-		void insert(value_type key)
+		void insert(int key)
 		{
 			// Ordinary Binary Search Insertion
 			NodePtr node = new Node;
@@ -251,13 +239,14 @@ class RBTree
 			fixInsert(node);
 		}
 
+
 		NodePtr getRoot()
 		{
 			return this->root;
 		}
 
 		// delete the node from the tree
-		void deleteNode(value_type data)
+		void deleteNode(int data)
 		{
 			deleteNodeHelper(this->root, data);
 		}
@@ -278,14 +267,14 @@ private:
 	// all the pointers are set to point to the null pointer
 	void initializeNULLNode(NodePtr node, NodePtr parent)
 	{
-		node->data = 0; //HERE ?
+		node->data = 0;
 		node->parent = parent;
 		node->left = nullptr;
 		node->right = nullptr;
 		node->color = 0;
 	}
 
-	void preOrderHelper(NodePtr node) //HERE2?
+	void preOrderHelper(NodePtr node)
 	{
 		if (node != TNULL)
 		{
@@ -315,7 +304,7 @@ private:
 		}
 	}
 
-	NodePtr searchTreeHelper(NodePtr node, value_type key)
+	NodePtr searchTreeHelper(NodePtr node, int key)
 	{
 		if (node == TNULL || key == node->data)
 		{
@@ -430,7 +419,7 @@ private:
 		v->parent = u->parent;
 	}
 
-	void deleteNodeHelper(NodePtr node, value_type key)
+	void deleteNodeHelper(NodePtr node, int key)
 	{
 		// find the node containing key
 		NodePtr z = TNULL;
@@ -581,70 +570,130 @@ private:
 			}
 
 			std::string sColor = root->color ? "RED" : "BLACK";
-			std::cout << root->data.first << "," << root->data.second << "(" << sColor << ")" << std::endl;
+			std::cout << root->data << "(" << sColor << ")" << std::endl;
 			printHelper(root->left, indent, false);
 			printHelper(root->right, indent, true);
 		}
 		// cout<<root->left->data<<endl;
 	}
-	
-	/******************************************
-	 * New Function on RBT to use with map
-	*******************************************/
-
-	/******************************************
-	 * Search by key in pair
-	*******************************************/
-	public :
-		// search a node in the tree by giving his key
-		NodePtr searchTreeKey(typename T::first_type  k)
-		{
-			return searchTreeHelperKey(this->root, k);
-		}
-
-	private:
-		NodePtr searchTreeHelperKey(NodePtr node, typename T::first_type key)
-		{
-			if (node == TNULL || key == node->data.first)
-			{
-				return node;
-			}
-
-			if (key < node->data.first)
-			{
-				return searchTreeHelperKey(node->left, key);
-			}
-			return searchTreeHelperKey(node->right, key);
-		}
-
-	/******************************************
-	 * Delete by key in pair
-	*******************************************/
-	public:
-		// delete the node from the tree by giving his key
-		void deleteNodeKey(typename T::first_type key)
-		{
-			NodePtr node = searchTreeKey(key);
-			deleteNodeHelper(this->root, node->data);
-		}
-
-	/******************************************
-	 * Insert at given key
-	*******************************************/
-	public:
-		void insertAt(typename T::first_type key, typename T::second_type value)
-		{
-			NodePtr node = searchTreeKey(key);
-			if (node == TNULL)
-			{
-				value_type p(key, value);
-				this->insert(p);
-				return ;
-			}
-			node->data.second = value;
-		}
 };
 
+/*
+	**		MAP ITERATOR
+	*/
+	
+	template <	class Category, class T, class not_const_T = T>
+	class map_iterator
+	{
+		public:
+			typedef typename T::value_type				value_type;
+			typedef typename not_const_T::Node			Node;
+			typedef typename T::key_type				key_type;
+			typedef typename T::mapped_type				mapped_type;
+			typedef	typename T::key_compare				key_compare;
+			typedef typename T::pointer   				pointer;
+			typedef typename T::reference 				reference;
+			typedef ptrdiff_t							difference_type;
+			typedef Category							iterator_category;
+
+			map_iterator() {}
+			map_iterator(const map_iterator<Category, not_const_T> &toCopy) : _ptr(toCopy.base()), _end(toCopy.end()) {}
+			map_iterator(Node* node, Node* end) {
+				this->_ptr = node;
+				this->_end = end;
+			}
+			virtual ~map_iterator() {}
+
+			Node*			base() const { return this->_ptr; }
+			Node*			end() const { return this->_end; }
+			
+			// operators : assignment
+			// map_iterator&	operator=(Node* ptr) { this->_ptr = ptr; return *this; }
+			map_iterator&	operator=(const map_iterator<Category, not_const_T> &toCopy) {
+				this->_ptr = toCopy._ptr;
+				this->_end = toCopy._end;
+				return *this;
+			}
+
+			// operators : member access
+			reference   	operator*() const { return this->_ptr->value; }
+			pointer     	operator->() const { return &(operator*()); }
+
+			// operators : increment / decrement
+			map_iterator&   operator++()
+			{
+				// find the smallest greater
+				if (this->_ptr->right)
+				{
+					this->_ptr = this->_ptr->right->min();
+					return *this;
+				}
+				else if (this->_ptr->parent)
+				{
+					// find first previous greater node
+					key_type key = this->_ptr->value.first;
+					Node *tmp = this->_ptr->parent;
+					while (tmp && this->_key_comp(tmp->value.first, key))
+						tmp = tmp->parent;
+					if (tmp)
+					{
+						this->_ptr = tmp;
+						return *this;
+					}
+				}
+				this->_ptr = this->_end;
+				return *this;
+			}
+			
+			map_iterator    operator++(int) { map_iterator tmp = *this; ++*this; return tmp; }
+			
+			map_iterator&   operator--()
+			{
+				// find the greatest smaller
+				if (this->_ptr == this->_end)
+				{
+					this->_ptr = this->_ptr->parent;
+					return *this;
+				}
+				else if (this->_ptr->left)
+				{
+					this->_ptr = this->_ptr->left->max();
+					return *this;
+				}
+				else if (this->_ptr->parent)
+				{
+					// find first previous smaller node
+					key_type key = this->_ptr->value.first;
+					Node *tmp = this->_ptr->parent;
+					while (tmp && this->_key_comp(key, tmp->value.first))
+						tmp = tmp->parent;
+					if (tmp)
+					{
+						this->_ptr = tmp;
+						return *this;
+					}
+				}
+				else
+				{
+					// undefined
+				}
+				
+				return *this;
+			}
+			
+			map_iterator    operator--(int) { map_iterator tmp = *this; --*this; return tmp; }
+
+			// operators : comparison
+			friend bool		operator== (const map_iterator& lhs, const map_iterator& rhs) {
+				return lhs._ptr == rhs._ptr; }
+			friend bool 	operator!= (const map_iterator& lhs, const map_iterator& rhs) {
+				return lhs._ptr != rhs._ptr; }
+
+		private:
+			Node*		_ptr;
+			Node*		_end;
+			key_compare	_key_comp;
+	};
 }
 
 #endif
