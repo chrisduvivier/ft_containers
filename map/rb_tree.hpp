@@ -196,7 +196,7 @@ class RBTree
 			NodePtr node = _node_alloc.allocate(1);
 			node->parent = nullptr;
 
-			node->data = key;			//problem here
+			this->_allocValue.construct(&node->data, key); //construct the key into data
 			
 			node->left = TNULL;
 			node->right = TNULL;
@@ -648,6 +648,7 @@ class RBTree
 		private:
 			
 			std::allocator<Node>	_node_alloc;
+			allocator_type			_allocValue; //Used to construct the value into data
 			NodePtr					_root;
 			NodePtr					TNULL;
 			size_type				_size;

@@ -38,7 +38,7 @@ namespace ft
 		*	   Operator overloads   *
 		****************************/
 
-		pair & operator=(const pair &other)
+		const pair & operator=(const pair &other)
 		{
 			if (this == &other)
 				return *this;
