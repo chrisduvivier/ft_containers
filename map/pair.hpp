@@ -1,7 +1,7 @@
 #ifndef PAIR_HPP
-#define PAIR_HPP
+# define PAIR_HPP
 
-#include <utility>
+# include <utility>
 
 // https://gcc.gnu.org/onlinedocs/libstdc++/libstdc++-html-USERS-4.3/a02030.html
 namespace ft
@@ -38,7 +38,7 @@ namespace ft
 		*	   Operator overloads   *
 		****************************/
 
-		pair &operator=(const pair &other)
+		pair & operator=(const pair &other)
 		{
 			if (this == &other)
 				return *this;

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rb_tree.hpp                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 16:23:49 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/11/08 14:49:03 by cduvivie         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef RB_TREE_H
 #define RB_TREE_H
 
@@ -202,12 +190,14 @@ class RBTree
 
 		// insert the key to the tree in its appropriate position
 		// and fix the tree
-		void insert(value_type key)
+		void insert(const value_type & key)
 		{
 			// Ordinary Binary Search Insertion
 			NodePtr node = _node_alloc.allocate(1);
 			node->parent = nullptr;
-			node->data = key;
+
+			node->data = key;			//problem here
+			
 			node->left = TNULL;
 			node->right = TNULL;
 			node->color = 1; // new node must be red

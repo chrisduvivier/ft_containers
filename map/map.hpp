@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map.hpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/26 15:42:25 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/11/08 11:09:30 by cduvivie         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MAP_HPP
 #define MAP_HPP
 
@@ -18,6 +6,7 @@
 #include <memory>
 #include <map>
 #include "pair.hpp"
+#include "rb_tree.hpp"
 
 namespace ft
 {
@@ -56,10 +45,10 @@ namespace ft
 		typedef typename allocator_type::pointer 				pointer;
 		typedef typename allocator_type::const_pointer 			const_pointer;
 		typedef RBTree<value_type,value_compare> 				tree;
-		typedef TreeIterator<value_type> 						iterator;
-		typedef ConstTreeIterator<value_type> 					const_iterator;
-		typedef ft::reverse_iterator<iterator> 					reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator> 			const_reverse_iterator;
+		// typedef TreeIterator<value_type> 						iterator;
+		// typedef ConstTreeIterator<value_type> 					const_iterator;
+		// typedef ft::reverse_iterator<iterator> 					reverse_iterator;
+		// typedef ft::reverse_iterator<const_iterator> 			const_reverse_iterator;
 
 		/****************************
 		*	   Member functions		*
@@ -70,10 +59,11 @@ namespace ft
 		**	Constructs an empty container, with no elements.
 		*/
 
-		explicit map(	const key_compare &comp = key_compare(), 
-						const allocator_type &alloc = allocator_type());
-
-
+		explicit map(const key_compare &comp = key_compare(), 
+					const allocator_type &alloc = allocator_type())
+		{
+			this->_tree	= RBTree<value_type>();
+		}
 
 		/*
 		**	(2) range constructor
@@ -109,13 +99,13 @@ namespace ft
 		****************************/
 
 		//Return iterator to beginning (public member function )
-		iterator begin();
-		//Return iterator to end (public member function )
-		iterator end();
-		//Return reverse iterator to reverse beginning (public member function )
-		iterator rbegin();
-		//Return reverse iterator to reverse end (public member function )
-		iterator rend();
+		// iterator begin();
+		// //Return iterator to end (public member function )
+		// iterator end();
+		// //Return reverse iterator to reverse beginning (public member function )
+		// iterator rbegin();
+		// //Return reverse iterator to reverse end (public member function )
+		// iterator rend();
 
 
 		/****************************
@@ -146,38 +136,46 @@ namespace ft
 		*		  Modifiers			*
 		****************************/
 
-		//Insert elements (public member function )
-		insert();
+		/*	The single element versions (1) return a pair, with its member pair::first set to an iterator pointing to either,
+			the newly inserted element or to the element with an equivalent key in the map.
+			The pair::second element in the pair is set to true if a new element was inserted or false if an equivalent key already existed.
+		*/
+		// pair<iterator, bool> insert (const value_type& val);
+		void insert (const value_type& val)	//tmp TODELETE.
+		{
+			this->_tree.insert(val);
+		}
+		
 		//Erase elements (public member function )
-		erase();
-		//Swap content (public member function )
-		swap();
-		//Clear content (public member function )
-		clear();
+		// erase();
+		// //Swap content (public member function )
+		// swap();
+		// //Clear content (public member function )
+		// clear();
 
-		/****************************
-		*		  Observers			*
-		****************************/
+		// /****************************
+		// *		  Observers			*
+		// ****************************/
 
-		//Return key comparison object (public member function )
-		key_comp();
-		//Return value comparison object (public member function )
-		value_comp();
+		// //Return key comparison object (public member function )
+		// key_comp();
+		// //Return value comparison object (public member function )
+		// value_comp();
 
-		/****************************
-		*		  Operations		*
-		****************************/
+		// /****************************
+		// *		  Operations		*
+		// ****************************/
 
-		//Get iterator to element (public member function )
-		find();
-		//Count elements with a specific key (public member function )
-		count();
-		//Return iterator to lower bound (public member function )
-		lower_bound();
-		//Return iterator to upper bound (public member function )
-		upper_bound();
-		//Get range of equal elements (public member function )
-		equal_range();
+		// //Get iterator to element (public member function )
+		// find();
+		// //Count elements with a specific key (public member function )
+		// count();
+		// //Return iterator to lower bound (public member function )
+		// lower_bound();
+		// //Return iterator to upper bound (public member function )
+		// upper_bound();
+		// //Get range of equal elements (public member function )
+		// equal_range();
 
 		/****************************
 		*		  Allocator			*
