@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 15:42:25 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/11/08 10:43:07 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/11/08 11:09:30 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ namespace ft
 		*	   	   Capacity			*
 		****************************/
 
-		//Test whether container is empty (public member function )
-		empty();
+		// Test whether container is empty (public member function )
+		bool empty() const;
 
 		/* Returns the number of elements in the vector. */
 		size_type size() const { return (this->_size); }
@@ -189,8 +189,7 @@ namespace ft
 		}
 
 	private:
-		allocator_type 		_alloc; /*	allocator class holding object	*/
-		RBTree<value_type>	_rbt;
+		RBTree<value_type>	_tree;
 	};
 
 } 

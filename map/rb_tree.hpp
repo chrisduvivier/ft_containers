@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 16:23:49 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/11/08 10:32:13 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/11/08 14:30:36 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,35 @@
 
 namespace ft
 {
+
 // class RBTree implements the operations in Red Black Tree
 template<class T, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
 class RBTree
 {
 	public:
-		typedef T			value_type;
-
+		typedef T				value_type;		//correspond to `pairs` in our case
+		typedef size_t			size_type;
+		
 		struct Node
 		{
-			value_type data; // holds the key/value
-			Node *parent; // pointer to the parent
-			Node *left;	  // pointer to left child
-			Node *right;  // pointer to right child
-			int color;	  // 1 -> Red, 0 -> Black
+			value_type		data; 		// holds the key/value
+			Node			*parent; 	// pointer to the parent
+			Node			*left;	  	// pointer to left child
+			Node			*right;  	// pointer to right child
+			int				color;	  	// 1 -> Red, 0 -> Black
 		};
+		
+		typedef Node													*NodePtr;
+		typedef Alloc                                					allocator_type;
+		/* 
+			Allocator for the Node. `rebind` should allow us to allocate memory for a different type... (to check)
+			https://stackoverflow.com/questions/14148756/what-does-template-rebind-do
+		 */
 
-		typedef Node *NodePtr;
+		/* Constructor */
 		RBTree()
 		{
-			TNULL = new Node;
+			TNULL = _node_alloc.allocate(1);
 			TNULL->color = 0;
 			TNULL->left = nullptr;
 			TNULL->right = nullptr;
@@ -196,7 +205,7 @@ class RBTree
 		void insert(value_type key)
 		{
 			// Ordinary Binary Search Insertion
-			NodePtr node = new Node;
+			NodePtr node = _node_alloc.allocate(1);
 			node->parent = nullptr;
 			node->data = key;
 			node->left = TNULL;
@@ -272,8 +281,6 @@ class RBTree
 		}
 
 	private:
-		NodePtr root;
-		NodePtr TNULL;
 
 		// initializes the nodes with appropirate values
 		// all the pointers are set to point to the null pointer
@@ -492,7 +499,10 @@ class RBTree
 				y->left->parent = y;
 				y->color = z->color;
 			}
-			delete z;
+			// delete z;
+			_node_alloc.destroy(z);
+			_node_alloc.deallocate(z, 1);
+			
 			if (y_original_color == 0)
 			{
 				fixDelete(x);
@@ -644,6 +654,14 @@ class RBTree
 				}
 				node->data.second = value;
 			}
+
+		private:
+			
+			std::allocator<Node>	_node_alloc;
+			NodePtr					root;
+			NodePtr					TNULL;
+			size_type				_size;
+
 };	// end of RBTree
 }	// end of namespace ft
 
