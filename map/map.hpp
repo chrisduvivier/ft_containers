@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 15:42:25 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/10/27 14:03:30 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/11/08 10:43:07 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include <memory>
 #include <map>
 #include "pair.hpp"
-#include "pair_rb_tree.hpp"
 
 namespace ft
 {
@@ -31,36 +30,36 @@ namespace ft
 		****************************/
 
 		/* Type of the elements allocated by the object (aliased as member type value_type). */
-		typedef Key key_type;
-		typedef T mapped_type;
-		typedef ft::pair<const Key, T> value_type;
-		typedef Compare key_compare;
-		typedef size_t	size_type;
-		typedef ptrdiff_t difference_type;
+		typedef Key 						key_type;
+		typedef T 							mapped_type;
+		typedef ft::pair<const Key, T> 		value_type;
+		typedef Compare 					key_compare;
+		typedef size_t						size_type;
+		typedef ptrdiff_t 					difference_type;
 
 		class value_compare : public std::binary_function<value_type, value_type, bool>
 		{
 			friend class map;
-		private:
-			key_compare comp;
-		public:
-			value_compare(const key_compare &x) : comp(x) {}
-			bool operator()(const value_type &x, const value_type &y) const
-			{
-				return comp(x.first, y.first);
-			}
+			private:
+				key_compare comp;
+			public:
+				value_compare(const key_compare &x) : comp(x) {}
+				bool operator()(const value_type &x, const value_type &y) const
+				{
+					return comp(x.first, y.first);
+				}
 		};
 
-		typedef Alloc allocator_type;
-		typedef typename allocator_type::reference reference;
-		typedef typename allocator_type::const_reference const_reference;
-		typedef typename allocator_type::pointer pointer;
-		typedef typename allocator_type::const_pointer const_pointer;
-		typedef RBTree<value_type,value_compare> 	tree;
-		typedef TreeIterator<value_type> iterator;
-		typedef ConstTreeIterator<value_type> const_iterator;
-		typedef ft::reverse_iterator<iterator> reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
+		typedef Alloc 											allocator_type;
+		typedef typename allocator_type::reference 				reference;
+		typedef typename allocator_type::const_reference 		const_reference;
+		typedef typename allocator_type::pointer 				pointer;
+		typedef typename allocator_type::const_pointer 			const_pointer;
+		typedef RBTree<value_type,value_compare> 				tree;
+		typedef TreeIterator<value_type> 						iterator;
+		typedef ConstTreeIterator<value_type> 					const_iterator;
+		typedef ft::reverse_iterator<iterator> 					reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator> 			const_reverse_iterator;
 
 		/****************************
 		*	   Member functions		*
@@ -190,9 +189,8 @@ namespace ft
 		}
 
 	private:
-		allocator_type _alloc; /*	allocator class holding object	*/
+		allocator_type 		_alloc; /*	allocator class holding object	*/
 		RBTree<value_type>	_rbt;
-
 	};
 
 } 
