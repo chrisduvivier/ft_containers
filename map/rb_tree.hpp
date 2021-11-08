@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 16:23:49 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/11/08 14:30:36 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/11/08 14:49:03 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,35 +54,35 @@ class RBTree
 			TNULL->color = 0;
 			TNULL->left = nullptr;
 			TNULL->right = nullptr;
-			root = TNULL;
+			this->_root = TNULL;
 		}
 
 		// Pre-Order traversal
 		// Node->Left Subtree->Right Subtree
 		void preorder()
 		{
-			preOrderHelper(this->root);
+			preOrderHelper(this->_root);
 		}
 
 		// In-Order traversal
 		// Left Subtree -> Node -> Right Subtree
 		void inorder()
 		{
-			inOrderHelper(this->root);
+			inOrderHelper(this->_root);
 		}
 
 		// Post-Order traversal
 		// Left Subtree -> Right Subtree -> Node
 		void postorder()
 		{
-			postOrderHelper(this->root);
+			postOrderHelper(this->_root);
 		}
 
 		// search the tree for the key k
 		// and return the corresponding node
 		NodePtr searchTree(value_type k)
 		{
-			return searchTreeHelper(this->root, k);
+			return searchTreeHelper(this->_root, k);
 		}
 
 		// find the node with the minimum key
@@ -160,7 +160,7 @@ class RBTree
 			y->parent = x->parent;
 			if (x->parent == nullptr)
 			{
-				this->root = y;
+				this->_root = y;
 			}
 			else if (x == x->parent->left)
 			{
@@ -186,7 +186,7 @@ class RBTree
 			y->parent = x->parent;
 			if (x->parent == nullptr)
 			{
-				this->root = y;
+				this->_root = y;
 			}
 			else if (x == x->parent->right)
 			{
@@ -213,7 +213,7 @@ class RBTree
 			node->color = 1; // new node must be red
 
 			NodePtr y = nullptr;
-			NodePtr x = this->root;
+			NodePtr x = this->_root;
 
 			while (x != TNULL)
 			{
@@ -232,7 +232,7 @@ class RBTree
 			node->parent = y;
 			if (y == nullptr)
 			{
-				root = node;
+				_root = node;
 			}
 			else if (node->data < y->data)
 			{
@@ -262,21 +262,21 @@ class RBTree
 
 		NodePtr getRoot()
 		{
-			return this->root;
+			return this->_root;
 		}
 
 		// delete the node from the tree
 		void deleteNode(value_type data)
 		{
-			deleteNodeHelper(this->root, data);
+			deleteNodeHelper(this->_root, data);
 		}
 
 		// print the tree structure on the screen
 		void prettyPrint()
 		{
-			if (root)
+			if (_root)
 			{
-				printHelper(this->root, "", true);
+				printHelper(this->_root, "", true);
 			}
 		}
 
@@ -341,7 +341,7 @@ class RBTree
 		void fixDelete(NodePtr x)
 		{
 			NodePtr s;
-			while (x != root && x->color == 0)
+			while (x != _root && x->color == 0)
 			{
 				if (x == x->parent->left)
 				{
@@ -377,7 +377,7 @@ class RBTree
 						x->parent->color = 0;
 						s->right->color = 0;
 						leftRotate(x->parent);
-						x = root;
+						x = _root;
 					}
 				}
 				else
@@ -414,7 +414,7 @@ class RBTree
 						x->parent->color = 0;
 						s->left->color = 0;
 						rightRotate(x->parent);
-						x = root;
+						x = _root;
 					}
 				}
 			}
@@ -425,7 +425,7 @@ class RBTree
 		{
 			if (u->parent == nullptr)
 			{
-				root = v;
+				_root = v;
 			}
 			else if (u == u->parent->left)
 			{
@@ -566,12 +566,12 @@ class RBTree
 						rightRotate(k->parent->parent);
 					}
 				}
-				if (k == root)
+				if (k == _root)
 				{
 					break;
 				}
 			}
-			root->color = 0;
+			_root->color = 0;
 		}
 
 		void printHelper(NodePtr root, std::string indent, bool last)
@@ -610,7 +610,7 @@ class RBTree
 			// search a node in the tree by giving his key
 			NodePtr searchTreeKey(typename T::first_type  k)
 			{
-				return searchTreeHelperKey(this->root, k);
+				return searchTreeHelperKey(this->_root, k);
 			}
 
 		private:
@@ -636,7 +636,7 @@ class RBTree
 			void deleteNodeKey(typename T::first_type key)
 			{
 				NodePtr node = searchTreeKey(key);
-				deleteNodeHelper(this->root, node->data);
+				deleteNodeHelper(this->_root, node->data);
 			}
 
 		/******************************************
@@ -658,7 +658,7 @@ class RBTree
 		private:
 			
 			std::allocator<Node>	_node_alloc;
-			NodePtr					root;
+			NodePtr					_root;
 			NodePtr					TNULL;
 			size_type				_size;
 
