@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 15:48:56 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/11/05 15:58:00 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/11/08 14:31:13 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,10 @@ int main()
 		rbt.deleteNode(ft::pair<std::string, std::string>("1", "2"));
 		std::cout << rbt.searchTree(ft::pair<std::string, std::string>("1", "2"))->data.first << std::endl;
 
-
+		rbt.prettyPrint();
+		
 		rbt.deleteNodeKey("salut");
 		std::cout << rbt.searchTreeKey("salut")->data.second << std::endl;
-
-		rbt.insertAt("he", "25");
-		rbt.insertAt("34", "TEST");
 		rbt.prettyPrint();
 	}
 
