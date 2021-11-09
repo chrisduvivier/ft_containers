@@ -24,11 +24,18 @@ int main()
 	std::cout << "----------------\n";
 	std::cout << pair3.first << std::endl;
 	std::cout << pair3.second << std::endl;
+	
+	std::cout << std::boolalpha;
+	std::cout << map.empty() << std::endl;
 
 	map.insert(pair);
 
 	std::cout << map.size() << std::endl;
 	std::cout << map.max_size() << std::endl;
+
+	std::cout << map["42"] << std::endl;
+
+	std::cout << map.empty() << std::endl;
 
 	return (0);
 }
