@@ -21,7 +21,7 @@ int main()
 
 	std::cout << std::endl << "---------- TEST PRBT<pair<int, int>> ----------" << std::endl << std::endl;
 	{
-		ft::RBTree<ft::pair<int, int>, std::less<ft::pair<int, int> > >		rbt;
+		ft::RBTree<ft::pair<int, int> >		rbt;
 		ft::pair<int, int> p;
 		for (size_t i = 0; i < 20; i++)
 		{
@@ -33,7 +33,7 @@ int main()
 
 	std::cout << std::endl << "---------- TEST PRBT<pair<string, int>> ----------" << std::endl << std::endl;
 	{
-		ft::RBTree<ft::pair<std::string, int>, std::less<ft::pair<std::string, int> > >		rbt;
+		ft::RBTree<ft::pair<std::string, int> >		rbt;
 		ft::pair<std::string, int> p;
 		for (size_t i = 0; i < 20; i++)
 		{
@@ -56,7 +56,7 @@ int main()
 		v.push_back(ft::pair<std::string, std::string>("0", "100"));
 		v.push_back(ft::pair<std::string, std::string>("Chris", "Nathan"));
 		
-		ft::RBTree<ft::pair<std::string, std::string>, std::less<ft::pair<std::string, std::string> > >		rbt;
+		ft::RBTree<ft::pair<std::string, std::string> >		rbt;
 
 		for (std::vector<ft::pair<std::string, std::string> >::iterator it = v.begin(); it != v.end() ; ++it)
 		{
