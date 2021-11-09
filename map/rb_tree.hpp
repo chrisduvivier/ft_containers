@@ -285,7 +285,7 @@ class RBTree
 			fixInsert(node);
 		}
 
-		NodePtr getRoot()
+		NodePtr getRoot() const
 		{
 			return this->_root;
 		}
@@ -633,14 +633,12 @@ class RBTree
 		*******************************************/
 		public :
 			// search a node in the tree by giving his key
-			NodePtr searchTreeKey(key_type  k)
-			{
+			NodePtr searchTreeKey(key_type  k) const {
 				return searchTreeHelperKey(this->_root, k);
 			}
 
 		private:
-			NodePtr searchTreeHelperKey(NodePtr node, key_type key)
-			{
+			NodePtr searchTreeHelperKey(NodePtr node, key_type key) const{
 				if (node == TNULL || key == node->data.first)
 				{
 					return node;
@@ -700,8 +698,27 @@ class RBTree
 		 * Max_size of RBTree
 		*******************************************/
 		public:
-		size_t 	max_size() {
+		size_type 	max_size() const {
 			return this->_node_alloc.max_size();
+		}
+
+		/******************************************
+		 * size of RBTree
+		*******************************************/
+		public:
+		size_type 	size() const {
+			return (sizeCalc(this->getRoot()));
+		}
+
+		size_type	sizeCalc(NodePtr node) const {
+			size_type s = 0;
+			if (node != TNULL)
+			{
+				s += sizeCalc(node->left);
+				s += sizeCalc(node->right);
+				s++;
+			}
+			return s;
 		}
 
 };	// end of RBTree
