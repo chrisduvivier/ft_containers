@@ -122,7 +122,7 @@ namespace ft
 			*	This is the maximum potential size the container can reach due to known system or library implementation limitations,
 			*	but the container is by no means guaranteed to be able to reach that size:
 			*	it can still fail to allocate storage at any point before that size is reached. */
-		size_type maxsize() const { return (this->_tree.max_size()); }
+		size_type max_size() const { return (this->_tree.max_size()); }
 
 
 		/****************************
@@ -130,7 +130,9 @@ namespace ft
 		****************************/
 
 		// Access element (public member function )
-		// operator[]
+		mapped_type&	operator[](const key_type &key){
+			return (this->_tree[key]);
+		}
 
 		/****************************
 		*		  Modifiers			*
