@@ -647,8 +647,11 @@ class RBTree
 
 		private:
 			
-			std::allocator<Node>	_node_alloc;
 			allocator_type			_allocValue; //Used to construct the value into data
+			
+			typename allocator_type::template rebind<Node>::other	_node_alloc; //using rebind
+			//std::allocator<Node>	_node_alloc;
+
 			NodePtr					_root;
 			NodePtr					TNULL;
 			size_type				_size;
