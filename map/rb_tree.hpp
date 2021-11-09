@@ -16,9 +16,19 @@ template<class T, class Compare = std::less<typename T::first_type>, class Alloc
 class RBTree
 {
 	public:
+
 		typedef T				value_type;		//correspond to `pairs` in our case
 		typedef size_t			size_type;
-		
+		typedef	Alloc						allocator_type;
+
+		typedef typename T::first_type 		key_type;
+		typedef typename T::second_type 	mapped_type;
+		typedef	Compare						key_compare;
+		typedef value_type&					reference;
+		typedef const value_type&			const_reference;
+		typedef	value_type*					pointer;
+		typedef	const value_type*			const_pointer;
+
 		struct Node
 		{
 			value_type		data; 		// holds the key/value
@@ -27,23 +37,46 @@ class RBTree
 			Node			*right;  	// pointer to right child
 			int				color;	  	// 1 -> Red, 0 -> Black
 		};
+		typedef Node*						NodePtr;
+
+	private:
+			
+		typename allocator_type::template rebind<Node>::other	_node_alloc;
+		allocator_type			_allocValue;
 		
-		typedef Node													*NodePtr;
-		typedef Alloc                                					allocator_type;
-		/* 
-			Allocator for the Node. `rebind` should allow us to allocate memory for a different type... (to check)
-			https://stackoverflow.com/questions/14148756/what-does-template-rebind-do
-		 */
+		NodePtr					_root;
+		NodePtr					TNULL;
+		size_type				_size;
+
+		key_compare				_comp;
+
+	public:
+
+		class value_compare : public std::binary_function<value_type, value_type, bool>
+		{
+			friend class RBTree;
+			private:
+				key_compare comp;
+			public:
+				value_compare(const key_compare &x) : comp(x) {}
+				bool operator()(const value_type &x, const value_type &y) const
+				{
+					return comp(x.first, y.first);
+				}
+		};
 
 		/* Constructor */
-		RBTree()
-		{
+		RBTree(const key_compare& comp = key_compare(),
+		const allocator_type& alloc = allocator_type()) : _allocValue(alloc), _comp(comp){
 			TNULL = _node_alloc.allocate(1);
 			TNULL->color = 0;
 			TNULL->left = nullptr;
 			TNULL->right = nullptr;
 			this->_root = TNULL;
 		}
+
+		/*Need a destructor ? */
+
 
 		// Pre-Order traversal
 		// Node->Left Subtree->Right Subtree
@@ -598,13 +631,13 @@ class RBTree
 		*******************************************/
 		public :
 			// search a node in the tree by giving his key
-			NodePtr searchTreeKey(typename T::first_type  k)
+			NodePtr searchTreeKey(key_type  k)
 			{
 				return searchTreeHelperKey(this->_root, k);
 			}
 
 		private:
-			NodePtr searchTreeHelperKey(NodePtr node, typename T::first_type key)
+			NodePtr searchTreeHelperKey(NodePtr node, key_type key)
 			{
 				if (node == TNULL || key == node->data.first)
 				{
@@ -623,7 +656,7 @@ class RBTree
 		*******************************************/
 		public:
 			// delete the node from the tree by giving his key
-			void deleteNodeKey(typename T::first_type key)
+			void deleteNodeKey(key_type key)
 			{
 				NodePtr node = searchTreeKey(key);
 				deleteNodeHelper(this->_root, node->data);
@@ -633,7 +666,7 @@ class RBTree
 		 * Insert at given key
 		*******************************************/
 		public:
-			void insertAt(typename T::first_type key, typename T::second_type value)
+			void insertAt(key_type key, mapped_type value)
 			{
 				NodePtr node = searchTreeKey(key);
 				if (node == TNULL)
@@ -644,17 +677,6 @@ class RBTree
 				}
 				node->data.second = value;
 			}
-
-		private:
-			
-			allocator_type			_allocValue; //Used to construct the value into data
-			
-			typename allocator_type::template rebind<Node>::other	_node_alloc; //using rebind
-			//std::allocator<Node>	_node_alloc;
-
-			NodePtr					_root;
-			NodePtr					TNULL;
-			size_type				_size;
 
 };	// end of RBTree
 }	// end of namespace ft

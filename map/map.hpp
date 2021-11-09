@@ -62,7 +62,7 @@ namespace ft
 		explicit map(const key_compare &comp = key_compare(), 
 					const allocator_type &alloc = allocator_type())
 		{
-			this->_tree	= RBTree<value_type>();
+			this->_tree	= RBTree<value_type, Compare, Alloc>(comp, alloc);
 		}
 
 		/*
@@ -187,7 +187,7 @@ namespace ft
 		}
 
 	private:
-		RBTree<value_type>	_tree;
+		RBTree<value_type, Compare, Alloc>	_tree;
 	};
 
 } 
