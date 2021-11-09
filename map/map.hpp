@@ -113,7 +113,11 @@ namespace ft
 		****************************/
 
 		// Test whether container is empty (public member function )
-		bool empty() const;
+		bool empty() const{
+			if (this->size() == 0)
+				return (true);
+			return (false);
+		}
 
 		/* Returns the number of elements in the vector. */
 		size_type size() const { return (this->_tree.size()); }
