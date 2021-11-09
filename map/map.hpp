@@ -116,13 +116,13 @@ namespace ft
 		bool empty() const;
 
 		/* Returns the number of elements in the vector. */
-		size_type size() const { return (this->_size); }
+		size_type size() const { return (this->_tree.size()); }
 
 		/*	Returns the maximum number of elements that the vector can hold.
 			*	This is the maximum potential size the container can reach due to known system or library implementation limitations,
 			*	but the container is by no means guaranteed to be able to reach that size:
 			*	it can still fail to allocate storage at any point before that size is reached. */
-		size_type maxsize() const { return (this->_size); }
+		size_type maxsize() const { return (this->_tree.max_size()); }
 
 
 		/****************************
