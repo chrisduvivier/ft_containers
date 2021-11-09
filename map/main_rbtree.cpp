@@ -5,43 +5,29 @@
 
 int main()
 {
-	std::cout << "---------- TEST RBT & PRBT----------" << std::endl << std::endl;
-
-	// std::cout << std::endl << "---------- TEST RBT<int> ----------" << std::endl << std::endl;
+	// std::cout << std::endl << "---------- TEST PRBT<pair<int, int>> ----------" << std::endl << std::endl;
 	// {
-	// 	ft::RBTree<int, std::less<int> >		rbt;
-
+	// 	ft::RBTree<ft::pair<int, int> >		rbt;
+	// 	ft::pair<int, int> p;
 	// 	for (size_t i = 0; i < 20; i++)
 	// 	{
-	// 		rbt.insert(i);
+	// 		p = ft::pair<int, int>(i, 20 - i);
+	// 		rbt.insert(p);
 	// 	}
 	// 	rbt.prettyPrint();
-		
 	// }
 
-	std::cout << std::endl << "---------- TEST PRBT<pair<int, int>> ----------" << std::endl << std::endl;
-	{
-		ft::RBTree<ft::pair<int, int> >		rbt;
-		ft::pair<int, int> p;
-		for (size_t i = 0; i < 20; i++)
-		{
-			p = ft::pair<int, int>(i, 20 - i);
-			rbt.insert(p);
-		}
-		rbt.prettyPrint();
-	}
-
-	std::cout << std::endl << "---------- TEST PRBT<pair<string, int>> ----------" << std::endl << std::endl;
-	{
-		ft::RBTree<ft::pair<std::string, int> >		rbt;
-		ft::pair<std::string, int> p;
-		for (size_t i = 0; i < 20; i++)
-		{
-			p = ft::pair<std::string, int>("Helo " + std::to_string(i) + " !", 20 - i);
-			rbt.insert(p);
-		}
-		rbt.prettyPrint();
-	}
+	// std::cout << std::endl << "---------- TEST PRBT<pair<string, int>> ----------" << std::endl << std::endl;
+	// {
+	// 	ft::RBTree<ft::pair<std::string, int> >		rbt;
+	// 	ft::pair<std::string, int> p;
+	// 	for (size_t i = 0; i < 20; i++)
+	// 	{
+	// 		p = ft::pair<std::string, int>("Helo " + std::to_string(i) + " !", 20 - i);
+	// 		rbt.insert(p);
+	// 	}
+	// 	rbt.prettyPrint();
+	// }
 
 	std::cout << std::endl << "---------- TEST PRBT<pair<string, string>> ----------" << std::endl << std::endl;
 	{
@@ -74,7 +60,17 @@ int main()
 		
 		rbt.deleteNodeKey("salut");
 		std::cout << rbt.searchTreeKey("salut")->data.second << std::endl;
+		std::cout << std::endl << "================" << std::endl << std::endl;
 		rbt.prettyPrint();
+
+		std::cout << "1     : " << rbt["1"] << std::endl;
+		std::cout << "salut : " << rbt["salut"] << std::endl;
+		std::cout << "hello : " << rbt["hello"] << std::endl;
+		std::cout << "42    : " << rbt["42"] << std::endl;
+		std::cout << "key   : " << rbt["key"] << std::endl;
+		std::cout << "4     : " << rbt["4"] << std::endl;
+		std::cout << "0     : " << rbt["0"] << std::endl;
+		std::cout << "Chris : " << rbt["Chris"] << std::endl;
 	}
 
 	return (0);
