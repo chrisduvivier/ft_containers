@@ -241,8 +241,8 @@ class RBTree
 			while (x != TNULL)
 			{
 				y = x;
-				// if (node->data < x->data)
-				if (this->_comp(key.first, node->left->data.first)) //if key.first < node->left->data.first using compare as std::less
+				if (node->data < x->data)
+				//if (this->_comp(key.first, node->left->data.first)) //if key.first < node->left->data.first using compare as std::less
 				{
 					x = x->left;
 				}
@@ -258,8 +258,8 @@ class RBTree
 			{
 				_root = node;
 			}
-			//else if (node->data < y->data)
-			else if (this->_comp(key.first, node->left->data.first))
+			else if (node->data < y->data)
+			//else if (this->_comp(key.first, node->left->data.first))
 			{
 				y->left = node;
 			}
@@ -646,8 +646,8 @@ class RBTree
 					return node;
 				}
 
-				//if (key < node->data.first)
-				if (this->_comp(key, node->data.first))
+				if (key < node->data.first)
+				//if (this->_comp(key, node->data.first))
 				{
 					return searchTreeHelperKey(node->left, key);
 				}
@@ -680,6 +680,21 @@ class RBTree
 				}
 				node->data.second = value;
 			}
+
+		/******************************************
+		 * Access mapped type by []
+		*******************************************/
+
+		mapped_type& 	operator[](const key_type& key) {
+			NodePtr node = this->searchTreeKey(key);
+			if (node != TNULL)
+			{
+				return node->data.second;
+			}
+
+			this->insert(ft::make_pair<const key_type, mapped_type>(key, mapped_type()));
+			return (*this)[key];
+		}
 
 };	// end of RBTree
 }	// end of namespace ft
