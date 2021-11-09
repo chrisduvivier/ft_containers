@@ -27,5 +27,8 @@ int main()
 
 	map.insert(pair);
 
+	std::cout << map.size() << std::endl;
+	std::cout << map.max_size() << std::endl;
+
 	return (0);
 }
