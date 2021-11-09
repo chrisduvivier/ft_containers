@@ -70,7 +70,15 @@ int main()
 		std::cout << "key   : " << rbt["key"] << std::endl;
 		std::cout << "4     : " << rbt["4"] << std::endl;
 		std::cout << "0     : " << rbt["0"] << std::endl;
-		std::cout << "Chris : " << rbt["Chris"] << std::endl;
+		std::cout << "Chris : " << rbt["Chris"] << std::endl << std::endl;
+
+		rbt.prettyPrint();
+
+		std::cout << std::endl << "Max of RBT : " << rbt.maximum(rbt.getRoot())->data.first << std::endl;
+		std::cout << "Min of RBT : " << rbt.minimum(rbt.getRoot())->data.first << std::endl << std::endl;
+
+		std::cout << "Size of RBT     : " << rbt.size() << std::endl;
+		std::cout << "Max size of RBT : " << rbt.max_size() << std::endl;
 	}
 
 	return (0);
