@@ -684,7 +684,7 @@ class RBTree
 		/******************************************
 		 * Access mapped type by []
 		*******************************************/
-
+		public:
 		mapped_type& 	operator[](const key_type& key) {
 			NodePtr node = this->searchTreeKey(key);
 			if (node != TNULL)
@@ -694,6 +694,14 @@ class RBTree
 
 			this->insert(ft::make_pair<const key_type, mapped_type>(key, mapped_type()));
 			return (*this)[key];
+		}
+
+		/******************************************
+		 * Max_size of RBTree
+		*******************************************/
+		public:
+		size_t 	max_size() {
+			return this->_node_alloc.max_size();
 		}
 
 };	// end of RBTree
