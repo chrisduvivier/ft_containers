@@ -56,6 +56,20 @@ int main()
 		test_name("insert");
 		tmp_map.insert(tmp_pair);
 
+		test_name("erase");
+		std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
+		std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
+
+	}
+
+	{
+		// test_name("	OPERATIONS FUNCTION	");
+
+		// ft::map<std::string, int> 	tmp_map;
+		// ft::pair<std::string, int>	tmp_pair("42", 19);
+
+		// tmp_map.insert(tmp_pair);
+		// test_name("find");
 	}
 
 	{

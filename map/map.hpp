@@ -157,7 +157,7 @@ namespace ft
 		/* For the key-based version (2), the function returns the number of elements erased. */
 		size_type erase (const key_type& k)
 		{
-			this->_tree.deleteNodeKey(k);
+			return (this->_tree.deleteNodeKey(k));
 		}
 
 		// void erase (iterator first, iterator last);
@@ -181,8 +181,10 @@ namespace ft
 		// *		  Operations		*
 		// ****************************/
 
-		// //Get iterator to element (public member function )
-		// find();
+		// Get iterator to element (public member function )
+		// iterator find (const key_type& k);
+		// const_iterator find (const key_type& k) const;
+
 		// //Count elements with a specific key (public member function )
 		// count();
 		// //Return iterator to lower bound (public member function )

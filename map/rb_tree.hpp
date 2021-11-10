@@ -463,7 +463,7 @@ class RBTree
 			v->parent = u->parent;
 		}
 
-		void deleteNodeHelper(NodePtr node, value_type key)
+		bool deleteNodeHelper(NodePtr node, value_type key)
 		{
 			// find the node containing key
 			NodePtr z = TNULL;
@@ -487,8 +487,8 @@ class RBTree
 
 			if (z == TNULL)
 			{
-				std::cout << "Couldn't find key in the tree" << std::endl;
-				return;
+				// std::cout << "Couldn't find key in the tree" << std::endl;
+				return (false);
 			}
 
 			y = z;
@@ -532,6 +532,7 @@ class RBTree
 			{
 				fixDelete(x);
 			}
+			return (true);
 		}
 
 		// fix the red-black tree
@@ -657,10 +658,10 @@ class RBTree
 		*******************************************/
 		public:
 			// delete the node from the tree by giving his key
-			void deleteNodeKey(key_type key)
+			size_type deleteNodeKey(key_type key)
 			{
 				NodePtr node = searchTreeKey(key);
-				deleteNodeHelper(this->_root, node->data);
+				return (deleteNodeHelper(this->_root, node->data));
 			}
 
 		/******************************************
