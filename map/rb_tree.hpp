@@ -17,8 +17,8 @@ class RBTree
 {
 	public:
 
-		typedef T				value_type;		//correspond to `pairs` in our case
-		typedef size_t			size_type;
+		typedef T							value_type;		//correspond to `pairs` in our case
+		typedef size_t						size_type;
 		typedef	Alloc						allocator_type;
 
 		typedef typename T::first_type 		key_type;

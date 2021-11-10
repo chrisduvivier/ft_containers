@@ -113,11 +113,7 @@ namespace ft
 		****************************/
 
 		// Test whether container is empty (public member function )
-		bool empty() const{
-			if (this->size() == 0)
-				return (true);
-			return (false);
-		}
+		bool empty() const { return (this->size() == 0); }
 
 		/* Returns the number of elements in the vector. */
 		size_type size() const { return (this->_tree.size()); }
@@ -134,7 +130,7 @@ namespace ft
 		****************************/
 
 		// Access element (public member function )
-		mapped_type&	operator[](const key_type &key){
+		mapped_type&	operator[](const key_type &key) {
 			return (this->_tree[key]);
 		}
 
@@ -142,18 +138,31 @@ namespace ft
 		*		  Modifiers			*
 		****************************/
 
-		/*	The single element versions (1) return a pair, with its member pair::first set to an iterator pointing to either,
+		/*
+			The single element versions (1) return a pair, with its member pair::first set to an iterator pointing to either,
 			the newly inserted element or to the element with an equivalent key in the map.
 			The pair::second element in the pair is set to true if a new element was inserted or false if an equivalent key already existed.
 		*/
+
 		// pair<iterator, bool> insert (const value_type& val);
+
 		void insert (const value_type& val)	//tmp TODELETE.
 		{
 			this->_tree.insert(val);
 		}
 		
-		//Erase elements (public member function )
-		// erase();
+		// Erase elements (public member function )
+		// void erase (iterator position);		//TODO
+
+		/* For the key-based version (2), the function returns the number of elements erased. */
+		size_type erase (const key_type& k)
+		{
+			this->_tree.deleteNodeKey(k);
+		}
+
+		// void erase (iterator first, iterator last);
+
+
 		// //Swap content (public member function )
 		// swap();
 		// //Clear content (public member function )
