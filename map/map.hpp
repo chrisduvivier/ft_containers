@@ -1,13 +1,12 @@
 #ifndef MAP_HPP
-#define MAP_HPP
+# define MAP_HPP
 
-#include <iostream>
-#include <string>
-#include <memory>
-#include <map>
-#include "pair.hpp"
-#include "rb_tree.hpp"
-
+# include <iostream>
+# include <string>
+# include <memory>
+# include <map>
+# include "pair.hpp"
+# include "rb_tree.hpp"
 namespace ft
 {
 	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
@@ -45,7 +44,11 @@ namespace ft
 		typedef typename allocator_type::pointer 				pointer;
 		typedef typename allocator_type::const_pointer 			const_pointer;
 		typedef RBTree<value_type,value_compare> 				tree;
-		// typedef TreeIterator<value_type> 						iterator;
+
+
+		/* a bidirectional iterator to value_type */
+		typedef typename tree::iterator 									iterator;
+		
 		// typedef ConstTreeIterator<value_type> 					const_iterator;
 		// typedef ft::reverse_iterator<iterator> 					reverse_iterator;
 		// typedef ft::reverse_iterator<const_iterator> 			const_reverse_iterator;
@@ -99,7 +102,12 @@ namespace ft
 		****************************/
 
 		//Return iterator to beginning (public member function )
-		// iterator begin();
+		
+		iterator begin() {
+			return ( this->_tree.begin() );
+		}
+
+
 		// //Return iterator to end (public member function )
 		// iterator end();
 		// //Return reverse iterator to reverse beginning (public member function )
@@ -146,7 +154,7 @@ namespace ft
 
 		// pair<iterator, bool> insert (const value_type& val);
 
-		void insert (const value_type& val)	//tmp TODELETE.
+		void insert(const value_type& val)	//tmp TODELETE.
 		{
 			this->_tree.insert(val);
 		}
@@ -155,7 +163,7 @@ namespace ft
 		// void erase (iterator position);		//TODO
 
 		/* For the key-based version (2), the function returns the number of elements erased. */
-		size_type erase (const key_type& k)
+		size_type erase(const key_type& k)
 		{
 			return (this->_tree.deleteNodeKey(k));
 		}

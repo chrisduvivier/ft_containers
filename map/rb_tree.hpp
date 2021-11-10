@@ -1,15 +1,27 @@
 #ifndef RB_TREE_H
-#define RB_TREE_H
+# define RB_TREE_H
 
 // Red Black Tree implementation in C++
 // Author: Algorithm Tutor
 // Tutorial URL: https://algorithmtutor.com/Data-Structures/Tree/Red-Black-Trees/
 
-#include <iostream>
-#include "pair.hpp"
+# include <iostream>
+# include "pair.hpp"
+# include "../includes/iterator/tree_iterator.hpp"
+
 
 namespace ft
 {
+
+template<class T>
+struct Node
+{
+	value_type		data; 		// holds the key/value
+	Node			*parent; 	// pointer to the parent
+	Node			*left;	  	// pointer to left child
+	Node			*right;  	// pointer to right child
+	int				color;	  	// 1 -> Red, 0 -> Black
+};
 
 // class RBTree implements the operations in Red Black Tree
 template<class T, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
@@ -37,18 +49,17 @@ class RBTree
 			Node			*right;  	// pointer to right child
 			int				color;	  	// 1 -> Red, 0 -> Black
 		};
-		typedef Node*						NodePtr;
+
+		typedef Node*						node_ptr;
+		typedef const Node*					const_node_ptr;
 
 	private:
-			
 		typename allocator_type::template rebind<Node>::other	_node_alloc;
-		allocator_type			_allocValue;
-		
-		NodePtr					_root;
-		NodePtr					TNULL;
-		size_type				_size;
-
-		key_compare				_comp;
+		allocator_type											_allocValue;
+		node_ptr												_root;
+		node_ptr												_tnull;
+		size_type												_size;
+		key_compare												_comp;
 
 	public:
 
@@ -65,14 +76,24 @@ class RBTree
 				}
 		};
 
+	/*********************
+	**		Iterator	 *
+	*********************/
+	public:
+		typedef ft::TreeIterator<value_type>			iterator;
+		typedef ft::TreeIterator<value_type>		const_iterator;
+		// typedef ft::reverse_iterator<iterator>			reverse_iterator;
+		// typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+
+
 		/* Constructor */
 		RBTree(const key_compare& comp = key_compare(),
 		const allocator_type& alloc = allocator_type()) : _allocValue(alloc), _comp(comp){
-			TNULL = _node_alloc.allocate(1);
-			TNULL->color = 0;
-			TNULL->left = nullptr;
-			TNULL->right = nullptr;
-			this->_root = TNULL;
+			_tnull = _node_alloc.allocate(1);
+			_tnull->color = 0;
+			_tnull->left = nullptr;
+			_tnull->right = nullptr;
+			this->_root = _tnull;
 		}
 
 		/*Need a destructor ? */
@@ -99,17 +120,27 @@ class RBTree
 			postOrderHelper(this->_root);
 		}
 
+		/***************************
+		 * 	ITERATOR
+		 * *************************/
+		
+		iterator	begin() { return (this->_root->parent); }
+		const_iterator	begin() const { return (this->_root->parent); }
+
+		iterator	end() { return (this->_root->_tnull); }
+		const_iterator	end() const { return (this->_root->_tnull); }
+		
 		// search the tree for the key k
 		// and return the corresponding node
-		NodePtr searchTree(value_type k)
+		node_ptr searchTree(value_type k)
 		{
 			return searchTreeHelper(this->_root, k);
 		}
 
 		// find the node with the minimum key
-		NodePtr minimum(NodePtr node)
+		node_ptr minimum(node_ptr node)
 		{
-			while (node->left != TNULL)
+			while (node->left != _tnull)
 			{
 				node = node->left;
 			}
@@ -117,9 +148,9 @@ class RBTree
 		}
 
 		// find the node with the maximum key
-		NodePtr maximum(NodePtr node)
+		node_ptr maximum(node_ptr node)
 		{
-			while (node->right != TNULL)
+			while (node->right != _tnull)
 			{
 				node = node->right;
 			}
@@ -127,20 +158,20 @@ class RBTree
 		}
 
 		// find the successor of a given node
-		NodePtr successor(NodePtr x)
+		node_ptr successor(node_ptr x)
 		{
 			// if the right subtree is not null,
 			// the successor is the leftmost node in the
 			// right subtree
-			if (x->right != TNULL)
+			if (x->right != _tnull)
 			{
 				return minimum(x->right);
 			}
 
 			// else it is the lowest ancestor of x whose
 			// left child is also an ancestor of x.
-			NodePtr y = x->parent;
-			while (y != TNULL && x == y->right)
+			node_ptr y = x->parent;
+			while (y != _tnull && x == y->right)
 			{
 				x = y;
 				y = y->parent;
@@ -149,18 +180,18 @@ class RBTree
 		}
 
 		// find the predecessor of a given node
-		NodePtr predecessor(NodePtr x)
+		node_ptr predecessor(node_ptr x)
 		{
 			// if the left subtree is not null,
 			// the predecessor is the rightmost node in the
 			// left subtree
-			if (x->left != TNULL)
+			if (x->left != _tnull)
 			{
 				return maximum(x->left);
 			}
 
-			NodePtr y = x->parent;
-			while (y != TNULL && x == y->left)
+			node_ptr y = x->parent;
+			while (y != _tnull && x == y->left)
 			{
 				x = y;
 				y = y->parent;
@@ -170,11 +201,11 @@ class RBTree
 		}
 
 		// rotate left at node x
-		void leftRotate(NodePtr x)
+		void leftRotate(node_ptr x)
 		{
-			NodePtr y = x->right;
+			node_ptr y = x->right;
 			x->right = y->left;
-			if (y->left != TNULL)
+			if (y->left != _tnull)
 			{
 				y->left->parent = x;
 			}
@@ -196,11 +227,11 @@ class RBTree
 		}
 
 		// rotate right at node x
-		void rightRotate(NodePtr x)
+		void rightRotate(node_ptr x)
 		{
-			NodePtr y = x->left;
+			node_ptr y = x->left;
 			x->left = y->right;
-			if (y->right != TNULL)
+			if (y->right != _tnull)
 			{
 				y->right->parent = x;
 			}
@@ -226,19 +257,19 @@ class RBTree
 		void insert(const value_type & key)
 		{
 			// Ordinary Binary Search Insertion
-			NodePtr node = _node_alloc.allocate(1);
+			node_ptr node = _node_alloc.allocate(1);
 			node->parent = nullptr;
 
 			this->_allocValue.construct(&node->data, key); //construct the key into data
 			
-			node->left = TNULL;
-			node->right = TNULL;
+			node->left = _tnull;
+			node->right = _tnull;
 			node->color = 1; // new node must be red
 
-			NodePtr y = nullptr;
-			NodePtr x = this->_root;
+			node_ptr y = nullptr;
+			node_ptr x = this->_root;
 
-			while (x != TNULL)
+			while (x != _tnull)
 			{
 				y = x;
 				if (node->data < x->data)
@@ -285,7 +316,7 @@ class RBTree
 			fixInsert(node);
 		}
 
-		NodePtr getRoot() const
+		node_ptr getRoot() const
 		{
 			return this->_root;
 		}
@@ -309,7 +340,7 @@ class RBTree
 
 		// initializes the nodes with appropirate values
 		// all the pointers are set to point to the null pointer
-		void initializeNULLNode(NodePtr node, NodePtr parent)
+		void initializeNULLNode(node_ptr node, node_ptr parent)
 		{
 			node->data = 0; //HERE ?
 			node->parent = parent;
@@ -318,9 +349,9 @@ class RBTree
 			node->color = 0;
 		}
 
-		void preOrderHelper(NodePtr node) //HERE2?
+		void preOrderHelper(node_ptr node) //HERE2?
 		{
-			if (node != TNULL)
+			if (node != _tnull)
 			{
 				std::cout << node->data << " ";
 				preOrderHelper(node->left);
@@ -328,9 +359,9 @@ class RBTree
 			}
 		}
 
-		void inOrderHelper(NodePtr node)
+		void inOrderHelper(node_ptr node)
 		{
-			if (node != TNULL)
+			if (node != _tnull)
 			{
 				inOrderHelper(node->left);
 				std::cout << node->data << " ";
@@ -338,9 +369,9 @@ class RBTree
 			}
 		}
 
-		void postOrderHelper(NodePtr node)
+		void postOrderHelper(node_ptr node)
 		{
-			if (node != TNULL)
+			if (node != _tnull)
 			{
 				postOrderHelper(node->left);
 				postOrderHelper(node->right);
@@ -348,9 +379,9 @@ class RBTree
 			}
 		}
 
-		NodePtr searchTreeHelper(NodePtr node, value_type key)
+		node_ptr searchTreeHelper(node_ptr node, value_type key)
 		{
-			if (node == TNULL || key == node->data)
+			if (node == _tnull || key == node->data)
 			{
 				return node;
 			}
@@ -363,9 +394,9 @@ class RBTree
 		}
 
 		// fix the rb tree modified by the delete operation
-		void fixDelete(NodePtr x)
+		void fixDelete(node_ptr x)
 		{
-			NodePtr s;
+			node_ptr s;
 			while (x != _root && x->color == 0)
 			{
 				if (x == x->parent->left)
@@ -446,7 +477,7 @@ class RBTree
 			x->color = 0;
 		}
 
-		void rbTransplant(NodePtr u, NodePtr v)
+		void rbTransplant(node_ptr u, node_ptr v)
 		{
 			if (u->parent == nullptr)
 			{
@@ -463,12 +494,12 @@ class RBTree
 			v->parent = u->parent;
 		}
 
-		bool deleteNodeHelper(NodePtr node, value_type key)
+		bool deleteNodeHelper(node_ptr node, value_type key)
 		{
 			// find the node containing key
-			NodePtr z = TNULL;
-			NodePtr x, y;
-			while (node != TNULL)
+			node_ptr z = _tnull;
+			node_ptr x, y;
+			while (node != _tnull)
 			{
 				if (node->data == key)
 				{
@@ -485,7 +516,7 @@ class RBTree
 				}
 			}
 
-			if (z == TNULL)
+			if (z == _tnull)
 			{
 				// std::cout << "Couldn't find key in the tree" << std::endl;
 				return (false);
@@ -493,12 +524,12 @@ class RBTree
 
 			y = z;
 			int y_original_color = y->color;
-			if (z->left == TNULL)
+			if (z->left == _tnull)
 			{
 				x = z->right;
 				rbTransplant(z, z->right);
 			}
-			else if (z->right == TNULL)
+			else if (z->right == _tnull)
 			{
 				x = z->left;
 				rbTransplant(z, z->left);
@@ -536,9 +567,9 @@ class RBTree
 		}
 
 		// fix the red-black tree
-		void fixInsert(NodePtr k)
+		void fixInsert(node_ptr k)
 		{
-			NodePtr u;
+			node_ptr u;
 			while (k->parent->color == 1)
 			{
 				if (k->parent == k->parent->parent->right)
@@ -600,10 +631,10 @@ class RBTree
 			_root->color = 0;
 		}
 
-		void printHelper(NodePtr root, std::string indent, bool last)
+		void printHelper(node_ptr root, std::string indent, bool last)
 		{
 			// print the tree structure on the screen
-			if (root != TNULL)
+			if (root != _tnull)
 			{
 				std::cout << indent;
 				if (last)
@@ -634,13 +665,13 @@ class RBTree
 		*******************************************/
 		public :
 			// search a node in the tree by giving his key
-			NodePtr searchTreeKey(key_type  k) const {
+			node_ptr searchTreeKey(key_type  k) const {
 				return searchTreeHelperKey(this->_root, k);
 			}
 
 		private:
-			NodePtr searchTreeHelperKey(NodePtr node, key_type key) const{
-				if (node == TNULL || key == node->data.first)
+			node_ptr searchTreeHelperKey(node_ptr node, key_type key) const{
+				if (node == _tnull || key == node->data.first)
 				{
 					return node;
 				}
@@ -660,7 +691,7 @@ class RBTree
 			// delete the node from the tree by giving his key
 			size_type deleteNodeKey(key_type key)
 			{
-				NodePtr node = searchTreeKey(key);
+				node_ptr node = searchTreeKey(key);
 				return (deleteNodeHelper(this->_root, node->data));
 			}
 
@@ -670,8 +701,8 @@ class RBTree
 		public:
 			void insertAt(key_type key, mapped_type value)
 			{
-				NodePtr node = searchTreeKey(key);
-				if (node == TNULL)
+				node_ptr node = searchTreeKey(key);
+				if (node == _tnull)
 				{
 					value_type p(key, value);
 					this->insert(p);
@@ -685,8 +716,8 @@ class RBTree
 		*******************************************/
 		public:
 		mapped_type& 	operator[](const key_type& key) {
-			NodePtr node = this->searchTreeKey(key);
-			if (node != TNULL)
+			node_ptr node = this->searchTreeKey(key);
+			if (node != _tnull)
 			{
 				return node->data.second;
 			}
@@ -711,9 +742,9 @@ class RBTree
 			return (sizeCalc(this->getRoot()));
 		}
 
-		size_type	sizeCalc(NodePtr node) const {
+		size_type	sizeCalc(node_ptr node) const {
 			size_type s = 0;
-			if (node != TNULL)
+			if (node != _tnull)
 			{
 				s += sizeCalc(node->left);
 				s += sizeCalc(node->right);

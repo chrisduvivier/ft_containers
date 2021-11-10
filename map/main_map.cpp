@@ -54,6 +54,7 @@ int main()
 		ft::pair<std::string, int>	tmp_pair("42", 19);
 
 		test_name("insert");
+		std::cout << "insert pair" << "\n";
 		tmp_map.insert(tmp_pair);
 
 		test_name("erase");
@@ -70,6 +71,28 @@ int main()
 
 		// tmp_map.insert(tmp_pair);
 		// test_name("find");
+	}
+	{
+		test_name("	Element access	");
+
+		ft::map<char,int> tmp_map;
+		test_name("[] operator");
+		tmp_map['b'] = 100;
+		tmp_map['a'] = 200;
+		tmp_map['c'] = 300;
+		std::cout << "size: " << tmp_map.size() << std::endl;
+	}
+
+	{
+		test_name("	ITERATORS	");
+		ft::map<char,int> tmp_map;
+
+		tmp_map['b'] = 100;
+		tmp_map['a'] = 200;
+		tmp_map['c'] = 300;
+
+		ft::map<char,int>::iterator it = tmp_map.begin();
+
 	}
 
 	{
