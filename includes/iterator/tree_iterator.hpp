@@ -9,11 +9,23 @@
 
 namespace ft
 {
+	template<class T>
+	struct Node
+	{
+		typedef T		value_type;	// correspond to Pair
+
+		value_type		data; 		// holds the key/value
+		Node			*parent; 	// pointer to the parent
+		Node			*left;	  	// pointer to left child
+		Node			*right;  	// pointer to right child
+		int				color;	  	// 1 -> Red, 0 -> Black
+	};
+
 	template <typename T>
 	class TreeIterator : public ft::iterator< bidirectional_iterator_tag, T >
 	{
 		public:
-			typedef typename RBTree<T>::Node	tree_node;	//tree_node correspond to Node object with the template T.
+			typedef Node<T>	tree_node;	//tree_node correspond to Node object with the template T.
 
 		protected:
 			tree_node *								_node;		// pointer to the node
@@ -31,20 +43,19 @@ namespace ft
 			// typedef	typename ft::iterator_traits<It>::difference_type	difference_type;
 			
 			/* iterator Constructor: default, parameter, copy, assign */
-			TreeIterator() : _node(nullptr) {}
+			TreeIterator() : _node() {}
 
-			TreeIterator(pointer node) : _node(node) {}
+			// TreeIterator(pointer node) : _node(node) {}
 
-			TreeIterator(const It& ref) : _node(ref._node) {}
+			// TreeIterator(const It& ref) : _node(ref._node) {}
 
-			// virtual ~TreeIterator() {}
+			virtual ~TreeIterator() {}
 
 			// It & operator=(const It& ref){
 			// 	if (*this != ref)
 			// 		this->_node = ref._node;
 			// 	return (*this);
 			// }
-
 
 			// /* Can be dereferenced as an rvalue (if in a dereferenceable state). */
 			// reference 			operator*() { return *_node; }

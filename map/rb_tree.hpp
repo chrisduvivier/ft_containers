@@ -13,16 +13,6 @@
 namespace ft
 {
 
-template<class T>
-struct Node
-{
-	value_type		data; 		// holds the key/value
-	Node			*parent; 	// pointer to the parent
-	Node			*left;	  	// pointer to left child
-	Node			*right;  	// pointer to right child
-	int				color;	  	// 1 -> Red, 0 -> Black
-};
-
 // class RBTree implements the operations in Red Black Tree
 template<class T, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
 class RBTree
@@ -124,11 +114,11 @@ class RBTree
 		 * 	ITERATOR
 		 * *************************/
 		
-		iterator	begin() { return (this->_root->parent); }
-		const_iterator	begin() const { return (this->_root->parent); }
+		iterator	begin() { return iterator(this->_root->parent); }
+		const_iterator	begin() const { return iterator(this->_root); }
 
-		iterator	end() { return (this->_root->_tnull); }
-		const_iterator	end() const { return (this->_root->_tnull); }
+		iterator	end() { return iterator(this->_root->_tnull); }
+		const_iterator	end() const { return iterator(this->_root->_tnull); }
 		
 		// search the tree for the key k
 		// and return the corresponding node
