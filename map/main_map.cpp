@@ -93,7 +93,8 @@ int main()
 
 		ft::map<char,int>::iterator it_empty;
 
-		ft::map<char,int>::iterator it = tmp_map.begin();
+		ft::map<char,int>::iterator it(tmp_map.begin());
+		std::cout << it._node_ptr->data.first << "\n";
 
 	}
 

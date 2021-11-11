@@ -7,7 +7,7 @@
 
 # include <iostream>
 # include "pair.hpp"
-
+# include "node.hpp"
 
 namespace ft
 {
@@ -19,6 +19,7 @@ class RBTree
 	public:
 
 		typedef T							value_type;		//correspond to `pairs` in our case
+		typedef ft::Node<value_type>		Node;
 		typedef size_t						size_type;
 		typedef	Alloc						allocator_type;
 
@@ -29,54 +30,6 @@ class RBTree
 		typedef const value_type&			const_reference;
 		typedef	value_type*					pointer;
 		typedef	const value_type*			const_pointer;
-
-		struct Node
-		{
-			value_type		data; 		// holds the key/value
-			Node			*parent; 	// pointer to the parent
-			Node			*left;	  	// pointer to left child
-			Node			*right;  	// pointer to right child
-			int				color;	  	// 1 -> Red, 0 -> Black
-
-			Node* leftMost()
-			{
-				Node *cursor = this;
-				if (cursor == nullptr)
-					return (nullptr);
-				while (cursor->left)
-					cursor = cursor->left;
-				return (cursor);
-			}
-
-			Node* rightMost()
-			{
-				Node *cursor = this;
-				if (cursor == nullptr)
-					return (nullptr);
-				while (cursor->right)
-					cursor = cursor->right;
-				return (cursor);
-			}
-
-			Node* getParent()
-			{
-				Node *cursor = this;
-				if (cursor == nullptr)
-					return (nullptr);
-				return (cursor->parent);
-			}
-
-			Node* getRoot()
-			{
-				Node *cursor = this;
-				if (cursor == nullptr)
-					return (nullptr);
-				while (cursor->parent)
-					cursor = cursor->parent;
-				return (cursor);
-			}
-
-		};
 
 		typedef Node*						node_ptr;
 		typedef const Node*					const_node_ptr;

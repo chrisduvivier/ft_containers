@@ -6,6 +6,7 @@
 # include <memory>
 # include "iterator.hpp"
 # include "../../map/rb_tree.hpp"
+# include "../../map/node.hpp"
 
 namespace ft
 {
@@ -13,21 +14,17 @@ namespace ft
 	class TreeIterator
 	{
 		public:
-			typedef typename	Tree::Node				Node;	//tree_node correspond to Node object with the template T.
-
-		protected:
-			Node *									_node_ptr;		// pointer to the node
-
-		public:
 			typedef typename Tree::value_type					value_type;	// correspond to Pair
-
-			typedef typename value_type::first_type 				key_type;
+			typedef typename value_type::first_type 			key_type;
 			typedef typename value_type::second_type 			mapped_type;
-			typedef	typename Tree::key_compare								key_compare;
-			typedef value_type&							reference;
-			typedef const value_type&					const_reference;
-			typedef	value_type*							pointer;
-			typedef	const value_type*					const_pointer;
+			typedef	typename Tree::key_compare					key_compare;
+
+			typedef	typename ft::Node<value_type>				Node;	//tree_node correspond to Node object with the template T.
+
+			typedef value_type&									reference;
+			typedef const value_type&							const_reference;
+			typedef	value_type*									pointer;
+			typedef	const value_type*							const_pointer;
 
 			// typedef	typename ft::iterator_traits<It>::iterator_category	iterator_category;
 			// typedef	typename ft::iterator_traits<It>::pointer			pointer;
@@ -36,15 +33,18 @@ namespace ft
 			// typedef	typename ft::iterator_traits<It>::difference_type	difference_type;
 			
 			/* iterator Constructor: default, parameter, copy, assign */
-			TreeIterator() {}
+			TreeIterator() {
+				std::cout << "**********************************************\n\n";
+			}
 
 			// TreeIterator(Node *node) : _node_ptr(node) {}
 
 			TreeIterator(Node* node) {
+				std::cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n\n";
 				this->_node_ptr = node;
 			}
 
-			// TreeIterator(const It& ref) : _node(ref._node) {}
+			TreeIterator(const TreeIterator& ref) : _node_ptr(ref._node_ptr) {}
 
 			virtual ~TreeIterator() {}
 
@@ -86,6 +86,8 @@ namespace ft
 			// // comparable with another iterator
 			// friend bool operator== (const It& a, const It& b) { return (a._node == b._node); }
 			// friend bool operator!= (const It& a, const It& b) { return (a._node != b._node); }
+
+				Node *									_node_ptr;		// pointer to the node
 	};
 }
 
