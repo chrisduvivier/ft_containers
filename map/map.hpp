@@ -172,8 +172,11 @@ namespace ft
 		// *		  Observers			*
 		// ****************************/
 
-		// //Return key comparison object (public member function )
-		// key_comp();
+		//Return key comparison object (public member function )
+		key_compare key_comp() 
+		{
+			return this->_tree.key_compare;
+		}
 		// //Return value comparison object (public member function )
 		// value_comp();
 

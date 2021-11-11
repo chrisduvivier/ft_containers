@@ -12,85 +12,103 @@ void	test_name(std::string name)
 	reset_color();
 }
 
+template<typename T>
+void print_helper(std::string description, T value)
+{
+	std::cout << description << "	:	" << value << std::endl;
+}
+
 int main()
 {
-	std::cout << "---------- TEST MAP ----------\n\n";
+	//std::cout << "---------- TEST MAP ----------\n\n";
 
-	ft::map<std::string, int> map;
+	//ft::map<std::string, int> map;
 	
-	ft::pair<std::string, int>pair("42", 19);
+	//ft::pair<std::string, int>pair("42", 19);
 	
-	std::cout << pair.first << " | " << pair.second << std::endl;
+	//std::cout << pair.first << " | " << pair.second << std::endl;
 
-	ft::pair<std::string, int> pair2(pair);
+	//ft::pair<std::string, int> pair2(pair);
 
-	std::cout << "----------------\n";
-	std::cout << pair.first << std::endl;
-	std::cout << pair.second << std::endl;
-	std::cout << "----------------\n";
-	std::cout << pair2.first << std::endl;
-	std::cout << pair2.second << std::endl;
+	//std::cout << "----------------\n";
+	//std::cout << pair.first << std::endl;
+	//std::cout << pair.second << std::endl;
+	//std::cout << "----------------\n";
+	//std::cout << pair2.first << std::endl;
+	//std::cout << pair2.second << std::endl;
 
-	ft::pair<std::string, int> pair3 = pair;
-	std::cout << "----------------\n";
-	std::cout << pair3.first << std::endl;
-	std::cout << pair3.second << std::endl;
+	//ft::pair<std::string, int> pair3 = pair;
+	//std::cout << "----------------\n";
+	//std::cout << pair3.first << std::endl;
+	//std::cout << pair3.second << std::endl;
 	
+	//std::cout << std::boolalpha;
+	//std::cout << map.empty() << std::endl;
+
+	//map.insert(pair);
+
+	//std::cout << map.size() << std::endl;
+	//std::cout << map.max_size() << std::endl;
+
+	//std::cout << map["42"] << std::endl;
+
+	//std::cout << map.empty() << std::endl;
+
+	//{
+	//	test_name("	MODIFIERS FUNCTION	");
+	//	ft::map<std::string, int> 	tmp_map;
+	//	ft::pair<std::string, int>	tmp_pair("42", 19);
+
+	//	test_name("insert");
+	//	tmp_map.insert(tmp_pair);
+
+	//	test_name("erase");
+	//	std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
+	//	std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
+
+	//}
+
+	//{
+	//	// test_name("	OPERATIONS FUNCTION	");
+
+	//	// ft::map<std::string, int> 	tmp_map;
+	//	// ft::pair<std::string, int>	tmp_pair("42", 19);
+
+	//	// tmp_map.insert(tmp_pair);
+	//	// test_name("find");
+	//}
+
+	//{
+	//	test_name("	CAPACITY FUNCTION	");
+	//	ft::map<std::string, int> 	tmp_map;
+	//	ft::pair<std::string, int>	tmp_pair("42", 19);
+
+	//	test_name("empty");
+	//	std::cout << "is_empty: " << tmp_map.empty() << std::endl;
+	//	test_name("size");
+	//	std::cout << "size: " << tmp_map.size() << std::endl;
+
+	//	tmp_map.insert(tmp_pair);
+
+	//	std::cout << "is_empty: " << tmp_map.empty() << std::endl;
+	//	std::cout << "size: " << tmp_map.size() << std::endl;
+
+	//	test_name("max_size");
+	//	std::cout << "max_size: " << tmp_map.max_size() << std::endl;
+
+	//	test_name()
+
+
+
+	//}
+
+	test_name("std map");
+	std::map<std::string, int> map;
+	std::pair<std::string, int>pair("42", 19);
 	std::cout << std::boolalpha;
-	std::cout << map.empty() << std::endl;
-
 	map.insert(pair);
-
-	std::cout << map.size() << std::endl;
-	std::cout << map.max_size() << std::endl;
-
-	std::cout << map["42"] << std::endl;
-
-	std::cout << map.empty() << std::endl;
-
-	{
-		test_name("	MODIFIERS FUNCTION	");
-		ft::map<std::string, int> 	tmp_map;
-		ft::pair<std::string, int>	tmp_pair("42", 19);
-
-		test_name("insert");
-		tmp_map.insert(tmp_pair);
-
-		test_name("erase");
-		std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
-		std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
-
-	}
-
-	{
-		// test_name("	OPERATIONS FUNCTION	");
-
-		// ft::map<std::string, int> 	tmp_map;
-		// ft::pair<std::string, int>	tmp_pair("42", 19);
-
-		// tmp_map.insert(tmp_pair);
-		// test_name("find");
-	}
-
-	{
-		test_name("	CAPACITY FUNCTION	");
-		ft::map<std::string, int> 	tmp_map;
-		ft::pair<std::string, int>	tmp_pair("42", 19);
-
-		test_name("empty");
-		std::cout << "is_empty: " << tmp_map.empty() << std::endl;
-		test_name("size");
-		std::cout << "size: " << tmp_map.size() << std::endl;
-
-		tmp_map.insert(tmp_pair);
-
-		std::cout << "is_empty: " << tmp_map.empty() << std::endl;
-		std::cout << "size: " << tmp_map.size() << std::endl;
-
-		test_name("max_size");
-		std::cout << "max_size: " << tmp_map.max_size() << std::endl;
-
-	}
-
+	print_helper("map empty", map.empty());
+	print_helper("map size", map.size());
+	
 	return (0);
 }
