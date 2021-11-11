@@ -217,6 +217,10 @@ namespace ft
 		{
 		}
 
+		RBTree<value_type, Compare, Alloc>	&getTree()
+		{
+			return _tree;
+		}
 	private:
 		RBTree<value_type, Compare, Alloc>	_tree;
 	};
