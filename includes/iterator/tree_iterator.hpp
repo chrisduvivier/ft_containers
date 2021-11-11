@@ -9,32 +9,25 @@
 
 namespace ft
 {
-	template<class T>
-	struct Node
-	{
-		typedef T		value_type;	// correspond to Pair
-
-		value_type		data; 		// holds the key/value
-		Node			*parent; 	// pointer to the parent
-		Node			*left;	  	// pointer to left child
-		Node			*right;  	// pointer to right child
-		int				color;	  	// 1 -> Red, 0 -> Black
-	};
-
-	template <typename T>
-	class TreeIterator : public ft::iterator< bidirectional_iterator_tag, T >
+	template < class Category, class Tree >
+	class TreeIterator
 	{
 		public:
-			typedef Node<T>	tree_node;	//tree_node correspond to Node object with the template T.
+			typedef typename	Tree::Node				Node;	//tree_node correspond to Node object with the template T.
 
 		protected:
-			tree_node *								_node;		// pointer to the node
+			Node *									_node_ptr;		// pointer to the node
 
 		public:
-			typedef	TreeIterator					It;			// Iterator itself
-			typedef T								value_type;	// correspond to Pair
-			typedef T*								pointer;	// Pointer to Pair
-			typedef T&								reference;	// Reference to Pair
+			typedef typename Tree::value_type					value_type;	// correspond to Pair
+
+			typedef typename value_type::first_type 				key_type;
+			typedef typename value_type::second_type 			mapped_type;
+			typedef	typename Tree::key_compare								key_compare;
+			typedef value_type&							reference;
+			typedef const value_type&					const_reference;
+			typedef	value_type*							pointer;
+			typedef	const value_type*					const_pointer;
 
 			// typedef	typename ft::iterator_traits<It>::iterator_category	iterator_category;
 			// typedef	typename ft::iterator_traits<It>::pointer			pointer;
@@ -43,9 +36,13 @@ namespace ft
 			// typedef	typename ft::iterator_traits<It>::difference_type	difference_type;
 			
 			/* iterator Constructor: default, parameter, copy, assign */
-			TreeIterator() : _node() {}
+			TreeIterator() {}
 
-			// TreeIterator(pointer node) : _node(node) {}
+			// TreeIterator(Node *node) : _node_ptr(node) {}
+
+			TreeIterator(Node* node) {
+				this->_node_ptr = node;
+			}
 
 			// TreeIterator(const It& ref) : _node(ref._node) {}
 

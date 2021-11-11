@@ -4,9 +4,11 @@
 # include <iostream>
 # include <string>
 # include <memory>
-# include <map>
+// # include <map>
 # include "pair.hpp"
 # include "rb_tree.hpp"
+# include "../includes/iterator/tree_iterator.hpp"
+
 namespace ft
 {
 	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
@@ -47,7 +49,7 @@ namespace ft
 
 
 		/* a bidirectional iterator to value_type */
-		typedef typename tree::iterator 									iterator;
+		typedef TreeIterator<bidirectional_iterator_tag, tree> 	iterator;
 		
 		// typedef ConstTreeIterator<value_type> 					const_iterator;
 		// typedef ft::reverse_iterator<iterator> 					reverse_iterator;
@@ -104,7 +106,7 @@ namespace ft
 		//Return iterator to beginning (public member function )
 		
 		iterator begin() {
-			return ( this->_tree.begin() );
+			return (iterator( this->_tree.begin_node() ));
 		}
 
 

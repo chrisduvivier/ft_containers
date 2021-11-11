@@ -91,6 +91,8 @@ int main()
 		tmp_map['a'] = 200;
 		tmp_map['c'] = 300;
 
+		ft::map<char,int>::iterator it_empty;
+
 		ft::map<char,int>::iterator it = tmp_map.begin();
 
 	}

@@ -7,7 +7,6 @@
 
 # include <iostream>
 # include "pair.hpp"
-# include "../includes/iterator/tree_iterator.hpp"
 
 
 namespace ft
@@ -38,6 +37,45 @@ class RBTree
 			Node			*left;	  	// pointer to left child
 			Node			*right;  	// pointer to right child
 			int				color;	  	// 1 -> Red, 0 -> Black
+
+			Node* leftMost()
+			{
+				Node *cursor = this;
+				if (cursor == nullptr)
+					return (nullptr);
+				while (cursor->left)
+					cursor = cursor->left;
+				return (cursor);
+			}
+
+			Node* rightMost()
+			{
+				Node *cursor = this;
+				if (cursor == nullptr)
+					return (nullptr);
+				while (cursor->right)
+					cursor = cursor->right;
+				return (cursor);
+			}
+
+			Node* getParent()
+			{
+				Node *cursor = this;
+				if (cursor == nullptr)
+					return (nullptr);
+				return (cursor->parent);
+			}
+
+			Node* getRoot()
+			{
+				Node *cursor = this;
+				if (cursor == nullptr)
+					return (nullptr);
+				while (cursor->parent)
+					cursor = cursor->parent;
+				return (cursor);
+			}
+
 		};
 
 		typedef Node*						node_ptr;
@@ -66,15 +104,7 @@ class RBTree
 				}
 		};
 
-	/*********************
-	**		Iterator	 *
-	*********************/
 	public:
-		typedef ft::TreeIterator<value_type>			iterator;
-		typedef ft::TreeIterator<value_type>		const_iterator;
-		// typedef ft::reverse_iterator<iterator>			reverse_iterator;
-		// typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
-
 
 		/* Constructor */
 		RBTree(const key_compare& comp = key_compare(),
@@ -88,6 +118,10 @@ class RBTree
 
 		/*Need a destructor ? */
 
+		Node*	begin_node()
+		{
+			return (this->_root->leftMost());
+		}
 
 		// Pre-Order traversal
 		// Node->Left Subtree->Right Subtree
@@ -109,16 +143,6 @@ class RBTree
 		{
 			postOrderHelper(this->_root);
 		}
-
-		/***************************
-		 * 	ITERATOR
-		 * *************************/
-		
-		iterator	begin() { return iterator(this->_root->parent); }
-		const_iterator	begin() const { return iterator(this->_root); }
-
-		iterator	end() { return iterator(this->_root->_tnull); }
-		const_iterator	end() const { return iterator(this->_root->_tnull); }
 		
 		// search the tree for the key k
 		// and return the corresponding node
