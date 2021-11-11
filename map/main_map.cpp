@@ -95,6 +95,9 @@ int main()
 
 		ft::map<char,int>::iterator it(tmp_map.begin());
 		std::cout << it._node_ptr->data.first << "\n";
+		ft::map<char,int>::iterator it2(tmp_map.end());
+		std::cout << it2._node_ptr->data.first << "\n";
+
 
 	}
 

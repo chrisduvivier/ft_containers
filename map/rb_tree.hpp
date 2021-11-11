@@ -73,7 +73,11 @@ class RBTree
 
 		Node*	begin_node()
 		{
-			return (this->_root->leftMost());
+			return (this->minimum(this->_root));
+		}
+		Node*	end_node()
+		{
+			return (this->maximum(this->_root));
 		}
 
 		// Pre-Order traversal

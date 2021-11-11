@@ -24,8 +24,12 @@ namespace ft
             Node *cursor = this;
             if (cursor == nullptr)
                 return (nullptr);
-            while (cursor->left)
+            while (cursor->left->data.first)
+			{
+				std::cout << cursor->data.first << " " << cursor->data.second << std::endl;
                 cursor = cursor->left;
+			}
+			std::cout << cursor->data.first << " " << cursor->data.second << std::endl;
             return (cursor);
         }
 

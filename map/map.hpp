@@ -109,6 +109,10 @@ namespace ft
 			return (iterator( this->_tree.begin_node() ));
 		}
 
+		iterator end() {
+			return (iterator( this->_tree.end_node() ));
+		}
+
 
 		// //Return iterator to end (public member function )
 		// iterator end();
