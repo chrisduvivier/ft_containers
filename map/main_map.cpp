@@ -98,6 +98,19 @@ int main()
 		std::cout << it2.getNode()->data.first << "\n";
 
 	}
+	
+	{
+		test_name("	iter begin ");
+		ft::map<char,int> tmp_map;
+		tmp_map['b'] = 100;
+		tmp_map['a'] = 200;
+		tmp_map['c'] = 300;
+
+		// show content:
+		for (ft::map<char,int>::iterator it = tmp_map.begin(); it != tmp_map.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
+
+	}
 
 	{
 		test_name("	ITERATORS bigger tests ");
@@ -107,13 +120,14 @@ int main()
 			map[i] = i;
 		}
 		ft::map<int,int>::iterator it(map.begin());
-		std::cout << it.getNode()->data.first << "\n";
+		std::cout << it->first << "\n";
 		ft::map<int,int>::iterator it2(map.end());
-		std::cout << it2.getNode()->data.first << "\n";
+		std::cout << it2->first << "\n";
 		map.getTree().prettyPrint();
-		while ( it++ <= it2 )
+		while ( it < it2 )
 		{
-			std::cout << "currently on " << it.getNode()->data.first << "\n";
+			std::cout << "currently on " << it->first << "\n";
+			it++;
 		}
 	}
 

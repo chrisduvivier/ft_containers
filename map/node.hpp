@@ -22,14 +22,14 @@ namespace ft
         Node* leftMost()
         {
             Node *cursor = this;
-            if (cursor == nullptr)
+            if (cursor->is_tnull())
+            {
                 return (nullptr);
-            while (cursor->left->data.first)
+            }
+            while (cursor->left && !cursor->left->is_tnull())
 			{
-				std::cout << cursor->data.first << " " << cursor->data.second << std::endl;
                 cursor = cursor->left;
 			}
-			std::cout << cursor->data.first << " " << cursor->data.second << std::endl;
             return (cursor);
         }
 
@@ -59,6 +59,13 @@ namespace ft
             while (cursor->parent)
                 cursor = cursor->parent;
             return (cursor);
+        }
+
+        bool is_tnull()
+        {
+            Node *cursor = this;
+            return (cursor->color == 0 && cursor->left == nullptr && 
+                cursor->right == nullptr && (!cursor->data.first || !cursor->data.second));
         }
     };
 };

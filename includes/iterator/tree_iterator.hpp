@@ -57,7 +57,8 @@ namespace ft
 			// /* Can be dereferenced as an rvalue (if in a dereferenceable state). */
 			// reference 			operator*() { return *_node; }
 			// const reference 	operator*() const { return *_node; }
-			// pointer 			operator->()  { return _node; }
+			
+			pointer 			operator->()  { return &(_node_ptr->data); }
 
 			// Prefix increment
 			TreeIterator& operator++() { 
@@ -118,39 +119,25 @@ namespace ft
 
 			Node *  forward(Node * cursor)
 			{
-				// std::cout << "current node " << cursor->data.first << std::endl;
-				// std::cout << "current node->right " << cursor->right->data.first << std::endl;
-				// std::cout << "current node->left " << cursor->left->data.first << std::endl;
-				// if (cursor->parent)
-				// 	std::cout << "current node->parent " << cursor->parent->data.first << std::endl;
-
-				if (!cursor)
-					std::cout << "Need to handle this error correctly";
-				Node *tmp;
-
-				if (cursor->right && cursor->right->data.first)
+				// if the right subtree is not null,
+				// the successor is the leftmost node in the
+				// right subtree
+				if (cursor && cursor->right && !cursor->right->is_tnull())
 				{
-					std::cout << "cursor->right exists\n" ;
-					tmp = cursor->right;
-					while(tmp->left && tmp->left->data.first)
-						tmp = tmp->left;
-					return (tmp);
+					return (cursor->right->leftMost());
 				}
-				tmp = cursor->parent;
-				if (!tmp)
-					std::cout << "Need to handle this error correctly";
-				if (cursor == tmp->left)
-        			return tmp;
-				else if (cursor == tmp->right)
+
+				// else it is the lowest ancestor of x whose
+				// left child is also an ancestor of x.
+				Node * next = cursor->parent;
+				while (next && !next->is_tnull() && cursor == next->right)
 				{
-					while (tmp && cursor != tmp->left)
-					{
-						cursor = tmp;
-						tmp = cursor->parent;
-					}
+					cursor = next;
+					next = next->parent;
 				}
-				return tmp;
+				return next;
 			}
+			
 		private:
 			Node *	_node_ptr;		// pointer to the node
 	};

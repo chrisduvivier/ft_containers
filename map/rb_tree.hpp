@@ -78,6 +78,7 @@ class RBTree
 		Node*	end_node()
 		{
 			return (this->maximum(this->_root));
+			// return (this->maximum(this->_root)->right);
 		}
 
 		// Pre-Order traversal
