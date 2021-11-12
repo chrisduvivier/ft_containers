@@ -34,13 +34,13 @@ namespace ft
 			
 			/* iterator Constructor: default, parameter, copy, assign */
 			TreeIterator() {
-				std::cout << "Default TreeIterator constructor\n";
+				//std::cout << "Default TreeIterator constructor\n";
 			}
 
 			// TreeIterator(Node *node) : _node_ptr(node) {}
 
 			TreeIterator(Node* node) {
-				std::cout << "Node based TreeIterator constructor\n";
+				//std::cout << "Node based TreeIterator constructor\n";
 				this->_node_ptr = node;
 			}
 
@@ -48,11 +48,11 @@ namespace ft
 
 			virtual ~TreeIterator() {}
 
-			// It & operator=(const It& ref){
-			// 	if (*this != ref)
-			// 		this->_node = ref._node;
-			// 	return (*this);
-			// }
+			TreeIterator & operator=(const TreeIterator& ref){
+			 	if (*this != ref)
+			 		this->_node_ptr = ref._node_ptr;
+			 	return (*this);
+			 }
 
 			// /* Can be dereferenced as an rvalue (if in a dereferenceable state). */
 			// reference 			operator*() { return *_node; }
@@ -65,6 +65,13 @@ namespace ft
 				return *this; 
 			}
 
+			TreeIterator  operator++(int) {
+				TreeIterator tmp(*this);
+				this->_node_ptr = forward(this->_node_ptr);
+				return (tmp); 
+			}
+
+
 			// bool operator==(const TreeIterator& other)
 			// {
 			// 	return (_node_ptr == other._node_ptr);
@@ -74,10 +81,7 @@ namespace ft
 			// {
 			// 	return (!(*this == other));
 			// }
-			friend bool		operator== (const TreeIterator& lhs, const TreeIterator& rhs) {
-				return lhs._node_ptr == rhs._node_ptr; }
-			friend bool 	operator!= (const TreeIterator& lhs, const TreeIterator& rhs) {
-				return lhs._node_ptr != rhs._node_ptr; }
+
 			// // Postfix increment
 			// It operator++(int) { 
 			// 	It tmp = *this; 
@@ -100,10 +104,18 @@ namespace ft
 			// friend bool operator== (const It& a, const It& b) { return (a._node == b._node); }
 			// friend bool operator!= (const It& a, const It& b) { return (a._node != b._node); }
 
+			friend bool operator== (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr == b._node_ptr); }
+			friend bool operator!= (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr != b._node_ptr); }
+			friend bool operator<= (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr <= b._node_ptr); }
+			friend bool operator>= (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr >= b._node_ptr); }
+			friend bool operator< (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr < b._node_ptr); }
+			friend bool operator> (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr > b._node_ptr); }
+
 			Node* getNode(void)
 			{
 				return this->_node_ptr;
 			}
+
 			Node *  forward(Node * cursor)
 			{
 				// std::cout << "current node " << cursor->data.first << std::endl;
@@ -116,11 +128,11 @@ namespace ft
 					std::cout << "Need to handle this error correctly";
 				Node *tmp;
 
-				if (cursor->right->data.first)
+				if (cursor->right && cursor->right->data.first)
 				{
 					std::cout << "cursor->right exists\n" ;
 					tmp = cursor->right;
-					while(tmp->left->data.first)
+					while(tmp->left && tmp->left->data.first)
 						tmp = tmp->left;
 					return (tmp);
 				}
@@ -141,8 +153,6 @@ namespace ft
 			}
 		private:
 			Node *	_node_ptr;		// pointer to the node
-
-	
 	};
 }
 

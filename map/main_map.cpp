@@ -111,10 +111,9 @@ int main()
 		ft::map<int,int>::iterator it2(map.end());
 		std::cout << it2.getNode()->data.first << "\n";
 		map.getTree().prettyPrint();
-		while ( it != it2 )
+		while ( it++ <= it2 )
 		{
 			std::cout << "currently on " << it.getNode()->data.first << "\n";
-			it = it.forward(it.getNode());
 		}
 	}
 
