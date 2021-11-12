@@ -80,7 +80,10 @@ namespace ft
 		map(InputIterator first, 
 			InputIterator last,
 			const key_compare &comp = key_compare(),
-			const allocator_type &alloc = allocator_type());
+			const allocator_type &alloc = allocator_type()){
+				this->_tree = RBTree<value_type, Compare, Alloc>(comp, alloc);
+				this->insert(first, last);
+		}
 
 		/*
 		**	(3) copy constructor
@@ -89,7 +92,20 @@ namespace ft
 
 		map(const map &x)
 		{
-			(void)x;
+			*this = x;
+		}
+
+		/*
+		**	(1) operator= overloading
+		**	Replaces the contents of the container.
+		*/
+
+		map& operator=( const map& other ){
+			//Need to overload the '=' operator of tree
+			if (this == &other)
+				return ;
+			this->_tree = other._tree;
+			return (*this);
 		}
 
 		/*	Think of the _alloc object as an array of objects. Therefore we need to destroy each obj in the array,
@@ -127,7 +143,7 @@ namespace ft
 		****************************/
 
 		// Test whether container is empty (public member function )
-		bool empty() const { return (this->size() == 0); }
+		bool empty() { return (this->size() == 0); }
 
 		/* Returns the number of elements in the vector. */
 		size_type size() const { return (this->_tree.size()); }
@@ -170,11 +186,13 @@ namespace ft
 
 		/* For the key-based version (2), the function returns the number of elements erased. */
 		size_type erase(const key_type& k)
-		{
+		{	
 			return (this->_tree.deleteNodeKey(k));
 		}
 
-		// void erase (iterator first, iterator last);
+		void erase (iterator position);
+
+		void erase (iterator first, iterator last);
 
 
 		// //Swap content (public member function )

@@ -137,25 +137,25 @@ int main()
 		}
 	}
 
-	// {
-	// 	test_name("	CAPACITY FUNCTION	");
-	// 	ft::map<std::string, int> 	tmp_map;
-	// 	ft::pair<std::string, int>	tmp_pair("42", 19);
+	{
+		test_name("	CAPACITY FUNCTION	");
+		ft::map<std::string, int> 	tmp_map;
+		ft::pair<std::string, int>	tmp_pair("42", 19);
 
-	// 	test_name("empty");
-	// 	std::cout << "is_empty: " << tmp_map.empty() << std::endl;
-	// 	test_name("size");
-	// 	std::cout << "size: " << tmp_map.size() << std::endl;
+		test_name("empty");
+		std::cout << "is_empty: " << tmp_map.empty() << std::endl;
+		test_name("size");
+		std::cout << "size: " << tmp_map.size() << std::endl;
 
-	// 	tmp_map.insert(tmp_pair);
+		tmp_map.insert(tmp_pair);
 
-	// 	std::cout << "is_empty: " << tmp_map.empty() << std::endl;
-	// 	std::cout << "size: " << tmp_map.size() << std::endl;
+		std::cout << "is_empty: " << tmp_map.empty() << std::endl;
+		std::cout << "size: " << tmp_map.size() << std::endl;
 
-	// 	test_name("max_size");
-	// 	std::cout << "max_size: " << tmp_map.max_size() << std::endl;
+		test_name("max_size");
+		std::cout << "max_size: " << tmp_map.max_size() << std::endl;
 
-	// }
+	}
 
 
 	return (0);
