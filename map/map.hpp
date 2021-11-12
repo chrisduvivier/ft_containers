@@ -8,6 +8,7 @@
 # include "pair.hpp"
 # include "rb_tree.hpp"
 # include "../includes/iterator/tree_iterator.hpp"
+# include "node.hpp"
 
 namespace ft
 {
@@ -46,6 +47,8 @@ namespace ft
 		typedef typename allocator_type::pointer 				pointer;
 		typedef typename allocator_type::const_pointer 			const_pointer;
 		typedef RBTree<value_type,value_compare> 				tree;
+		typedef ft::Node<value_type>							Node;
+		typedef Node*											node_ptr;
 
 
 		/* a bidirectional iterator to value_type */
@@ -158,12 +161,16 @@ namespace ft
 			The pair::second element in the pair is set to true if a new element was inserted or false if an equivalent key already existed.
 		*/
 
-		// pair<iterator, bool> insert (const value_type& val);
-
-		void insert(const value_type& val)	//tmp TODELETE.
+		ft::pair<iterator, bool> insert (const value_type& val)
 		{
-			this->_tree.insert(val);
+			ft::pair<node_ptr, bool> tmp = this->_tree.insert_single_elem(val);
+			ft::pair<iterator, bool> res(iterator(tmp.first), tmp.second);
+			return res;
 		}
+
+		/* The versions with a hint (2) return an iterator pointing to either the newly inserted element or to the element that already had an equivalent key in the map. */
+		iterator insert (iterator position, const value_type& val);	//TODO
+
 		
 		// Erase elements (public member function )
 		// void erase (iterator position);		//TODO

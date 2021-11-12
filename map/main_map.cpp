@@ -20,74 +20,56 @@ void print_helper(std::string description, T value)
 
 int main()
 {
-	//std::cout << "---------- TEST MAP ----------\n\n";
+	std::cout << "---------- TEST MAP ----------\n";
+	{
+		test_name("	MODIFIERS FUNCTION	");
+		ft::map<std::string, int> 	tmp_map;
+		ft::pair<std::string, int>	tmp_pair("42", 19);
 
-	// ft::map<std::string, int> map;
-	
-	// ft::pair<std::string, int>pair("42", 19);
-	
-	// std::cout << pair.first << " | " << pair.second << std::endl;
+		test_name("insert");
+		std::cout << "insert pair" << "\n";
+		tmp_map.insert(tmp_pair);
 
-	// ft::pair<std::string, int> pair2(pair);
+		test_name("erase");
+		std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
+		std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
+	}
 
-	// std::cout << "----------------\n";
-	// std::cout << pair.first << std::endl;
-	// std::cout << pair.second << std::endl;
-	// std::cout << "----------------\n";
-	// std::cout << pair2.first << std::endl;
-	// std::cout << pair2.second << std::endl;
+	{
+		test_name("insert single parameter");
+		ft::map<char,int> tmp_map;
 
-	// ft::pair<std::string, int> pair3 = pair;
-	// std::cout << "----------------\n";
-	// std::cout << pair3.first << std::endl;
-	// std::cout << pair3.second << std::endl;
-	
-	// std::cout << std::boolalpha;
-	// std::cout << map.empty() << std::endl;
+		// first insert function version (single parameter):
+		tmp_map.insert ( ft::pair<char,int>('a', 100) );
+		tmp_map.insert ( ft::pair<char,int>('z', 200) );
 
-	// map.insert(pair);
+		ft::pair<ft::map<char,int>::iterator, bool> ret;
+		ret = tmp_map.insert ( ft::pair<char,int>('z', 500) );
+		if (ret.second == false) {
+			std::cout << "element 'z' already existed";
+			std::cout << " with a value of " << ret.first->second << '\n';
+		}
+	}
 
-	// std::cout << map.size() << std::endl;
-	// std::cout << map.max_size() << std::endl;
+	{
+		// test_name("	OPERATIONS FUNCTION	");
 
-	// std::cout << map["42"] << std::endl;
+		// ft::map<std::string, int> 	tmp_map;
+		// ft::pair<std::string, int>	tmp_pair("42", 19);
 
-	// std::cout << map.empty() << std::endl;
+		// tmp_map.insert(tmp_pair);
+		// test_name("find");
+	}
+	{
+		test_name("	Element access	");
 
-	// {
-	// 	test_name("	MODIFIERS FUNCTION	");
-	// 	ft::map<std::string, int> 	tmp_map;
-	// 	ft::pair<std::string, int>	tmp_pair("42", 19);
-
-	// 	test_name("insert");
-	// 	std::cout << "insert pair" << "\n";
-	// 	tmp_map.insert(tmp_pair);
-
-	// 	test_name("erase");
-	// 	std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
-	// 	std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
-
-	// }
-
-	// {
-	// 	// test_name("	OPERATIONS FUNCTION	");
-
-	// 	// ft::map<std::string, int> 	tmp_map;
-	// 	// ft::pair<std::string, int>	tmp_pair("42", 19);
-
-	// 	// tmp_map.insert(tmp_pair);
-	// 	// test_name("find");
-	// }
-	// {
-	// 	test_name("	Element access	");
-
-	// 	ft::map<char,int> tmp_map;
-	// 	test_name("[] operator");
-	// 	tmp_map['b'] = 100;
-	// 	tmp_map['a'] = 200;
-	// 	tmp_map['c'] = 300;
-	// 	std::cout << "size: " << tmp_map.size() << std::endl;
-	// }
+		ft::map<char,int> tmp_map;
+		test_name("[] operator");
+		tmp_map['b'] = 100;
+		tmp_map['a'] = 200;
+		tmp_map['c'] = 300;
+		std::cout << "size: " << tmp_map.size() << std::endl;
+	}
 
 	{
 		test_name("	ITERATORS ");
@@ -128,7 +110,7 @@ int main()
 		ft::map<int,int>::iterator it(map.begin());
 		std::cout << it->first << "\n";
 		ft::map<int,int>::iterator it2(map.end());
-		
+
 		map.getTree().prettyPrint();
 		while ( it != it2 )
 		{
@@ -137,25 +119,25 @@ int main()
 		}
 	}
 
-	// {
-	// 	test_name("	CAPACITY FUNCTION	");
-	// 	ft::map<std::string, int> 	tmp_map;
-	// 	ft::pair<std::string, int>	tmp_pair("42", 19);
+	{
+		test_name("	CAPACITY FUNCTION	");
+		ft::map<std::string, int> 	tmp_map;
+		ft::pair<std::string, int>	tmp_pair("42", 19);
 
-	// 	test_name("empty");
-	// 	std::cout << "is_empty: " << tmp_map.empty() << std::endl;
-	// 	test_name("size");
-	// 	std::cout << "size: " << tmp_map.size() << std::endl;
+		test_name("empty");
+		std::cout << "is_empty: " << tmp_map.empty() << std::endl;
+		test_name("size");
+		std::cout << "size: " << tmp_map.size() << std::endl;
 
-	// 	tmp_map.insert(tmp_pair);
+		tmp_map.insert(tmp_pair);
 
-	// 	std::cout << "is_empty: " << tmp_map.empty() << std::endl;
-	// 	std::cout << "size: " << tmp_map.size() << std::endl;
+		std::cout << "is_empty: " << tmp_map.empty() << std::endl;
+		std::cout << "size: " << tmp_map.size() << std::endl;
 
-	// 	test_name("max_size");
-	// 	std::cout << "max_size: " << tmp_map.max_size() << std::endl;
+		test_name("max_size");
+		std::cout << "max_size: " << tmp_map.max_size() << std::endl;
 
-	// }
+	}
 
 
 	//}

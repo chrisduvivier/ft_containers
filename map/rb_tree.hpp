@@ -71,11 +71,11 @@ class RBTree
 
 		/*Need a destructor ? */
 
-		Node*	begin_node()
+		node_ptr	begin_node()
 		{
 			return (this->minimum(this->_root));
 		}
-		Node*	end_node()
+		node_ptr	end_node()
 		{
 			return (this->_tnull);
 			// return (this->maximum(this->_root)->right);
@@ -226,9 +226,15 @@ class RBTree
 
 		// insert the key to the tree in its appropriate position
 		// and fix the tree
-		void insert(const value_type & key)
+		node_ptr insert(const value_type & key)
 		{
 			// Ordinary Binary Search Insertion
+
+			// check if key exists before proceeding to insertion. If exists already, return that node
+			node_ptr tmp = searchTree(key);
+			if (tmp != _tnull)
+				return tmp;
+
 			node_ptr node = _node_alloc.allocate(1);
 			node->parent = nullptr;
 
@@ -275,17 +281,34 @@ class RBTree
 			if (node->parent == nullptr)
 			{
 				node->color = 0;
-				return;
+				return node;
 			}
 
 			// if the grandparent is null, simply return
 			if (node->parent->parent == nullptr)
 			{
-				return;
+				return node;
 			}
 
 			// Fix the tree
 			fixInsert(node);
+			return node;
+		}
+
+		ft::pair<node_ptr, bool> insert_single_elem(const value_type & key)
+		{
+			node_ptr tmp = searchTreeKey(key.first);
+			if (tmp != _tnull)	// key already in tree
+			{
+				ft::pair<node_ptr, bool> res_pair(tmp, false);
+				return (res_pair);
+			}
+			else
+			{
+				tmp = insert(key);
+				ft::pair<node_ptr, bool> res_pair(tmp, true);
+				return (res_pair);
+			}
 		}
 
 		node_ptr getRoot() const
@@ -351,6 +374,7 @@ class RBTree
 			}
 		}
 
+		// either reach the end of tree, so no hit and a _tnull is returned. Otherwise, the corresponding node is return.
 		node_ptr searchTreeHelper(node_ptr node, value_type key)
 		{
 			if (node == _tnull || key == node->data)
