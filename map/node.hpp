@@ -64,7 +64,7 @@ namespace ft
         bool is_tnull()
         {
             Node *cursor = this;
-            return (cursor->color == 0 && cursor->left == nullptr && 
+            return (cursor->parent == nullptr && cursor->color == 0 && cursor->left == nullptr && 
                 cursor->right == nullptr && (!cursor->data.first || !cursor->data.second));
         }
     };

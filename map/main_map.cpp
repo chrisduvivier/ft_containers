@@ -128,9 +128,9 @@ int main()
 		ft::map<int,int>::iterator it(map.begin());
 		std::cout << it->first << "\n";
 		ft::map<int,int>::iterator it2(map.end());
-		std::cout << it2->first << "\n";
+		
 		map.getTree().prettyPrint();
-		while ( it < it2 )
+		while ( it != it2 )
 		{
 			std::cout << "currently on " << it->first << "\n";
 			it++;

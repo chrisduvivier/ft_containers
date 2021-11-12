@@ -77,7 +77,7 @@ class RBTree
 		}
 		Node*	end_node()
 		{
-			return (this->maximum(this->_root));
+			return (this->_tnull);
 			// return (this->maximum(this->_root)->right);
 		}
 

@@ -126,16 +126,27 @@ namespace ft
 				{
 					return (cursor->right->leftMost());
 				}
-
-				// else it is the lowest ancestor of x whose
-				// left child is also an ancestor of x.
-				Node * next = cursor->parent;
-				while (next && !next->is_tnull() && cursor == next->right)
+				else
 				{
-					cursor = next;
-					next = next->parent;
+					Node * ref_to_tnull = cursor->right;
+					// else it is the lowest ancestor of x whose
+					// left child is also an ancestor of x.
+					Node * p = cursor->parent;
+					while (p && !p->is_tnull() && cursor == p->right)
+					{
+						cursor = p;
+						p = p->parent;
+					}
+					// if we were previously at the right-most node in
+					// the tree, cursor = nullptr, and the iterator specifies
+					// the end of the list
+					cursor = p;
+					if (cursor == nullptr)
+					{
+						return (ref_to_tnull);
+					}
 				}
-				return next;
+				return cursor;
 			}
 			
 		private:
