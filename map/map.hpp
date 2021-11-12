@@ -192,14 +192,25 @@ namespace ft
 		// void erase (iterator position);		//TODO
 
 		/* For the key-based version (2), the function returns the number of elements erased. */
-		size_type erase(const key_type& k)
-		{	
-			return (this->_tree.deleteNodeKey(k));
+		size_type erase(const key_type& k){	
+			size_type check = this->size();
+			this->_tree.deleteNodeKey(k);
+			return (check != this->size());
 		}
 
-		void erase (iterator position);
+		void erase (iterator position){
+			this->erase(position->first);
+		}
 
-		void erase (iterator first, iterator last);
+		void erase (iterator first, iterator last){
+			iterator temp;
+			while(first != last)
+			{
+				temp = first;
+				++first;
+				this->erase(temp);
+			}
+		}
 
 
 		// //Swap content (public member function )
@@ -224,8 +235,19 @@ namespace ft
 		// ****************************/
 
 		// Get iterator to element (public member function )
-		// iterator find (const key_type& k);
-		// const_iterator find (const key_type& k) const;
+		iterator find (const key_type& k){
+			node_ptr node = this->_tree.searchTreeKey(k);
+			if (node->is_tnull())
+				return (this->end());
+			return (iterator(node));
+		}
+
+		// const_iterator find (const key_type& k) const{
+		// 	node_ptr node = this->_tree.searchTreeKey(k);
+		// 	if (node->is_tnull())
+		// 		return (this->end());
+		// 	return (const_iterator(node));
+		// }
 
 		// //Count elements with a specific key (public member function )
 		// count();
@@ -249,7 +271,7 @@ namespace ft
 		{
 			return _tree;
 		}
-	private:
+	public:
 		RBTree<value_type, Compare, Alloc>	_tree;
 	};
 
