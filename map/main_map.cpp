@@ -159,14 +159,5 @@ int main()
 
 
 	//}
-
-	test_name("std map");
-	std::map<std::string, int> map;
-	std::pair<std::string, int>pair("42", 19);
-	std::cout << std::boolalpha;
-	map.insert(pair);
-	print_helper("map empty", map.empty());
-	print_helper("map size", map.size());
-	
 	return (0);
 }
