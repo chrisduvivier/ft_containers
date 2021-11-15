@@ -396,13 +396,13 @@ int main()
 
 		std::cout << bar['x'] << std::endl;
 
-		// std::cout << "foo contains:\n";
-		// for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
-		// 	std::cout << it->first << " => " << it->second << '\n';
+		std::cout << "foo contains:\n";
+		for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
 
-		// std::cout << "bar contains:\n";
-		// for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
-		// 	std::cout << it->first << " => " << it->second << '\n';
+		std::cout << "bar contains:\n";
+		for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
 
 	}
 
