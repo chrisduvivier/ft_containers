@@ -749,6 +749,44 @@ class RBTree
 			return s;
 		}
 
+		// Returns an iterator pointing to the first element in the container whose key is not considered to go before k (i.e., either it is equivalent or goes after).
+		// x >= k
+		node_ptr lower_bound (const key_type& k)
+		{
+			node_ptr cursor = this->_root;
+			node_ptr res = this->_tnull;
+			while (cursor != _tnull)
+			{
+				if (this->_comp(cursor->data.first, k) == false)
+				{
+					res = cursor;
+					cursor = cursor->left;	//look for smaller element that satisfy the condition
+				}
+				else
+					cursor = cursor->right;
+			}
+			return (res);
+		}
+
+		// Returns an iterator pointing to the first element in the container whose key is considered to go after k.
+		// x < k
+		node_ptr upper_bound (const key_type& k)
+		{
+			node_ptr cursor = this->_root;
+			node_ptr res = this->_tnull;
+			while (cursor != _tnull)
+			{
+				if (this->_comp(k, cursor->data.first))
+				{
+					res = cursor;
+					cursor = cursor->left;	//look for bigger element that satisfy the condition
+				}
+				else
+					cursor = cursor->right;
+			}
+			return (res);
+		}
+
 };	// end of RBTree
 }	// end of namespace ft
 

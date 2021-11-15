@@ -199,7 +199,7 @@ namespace ft
 			this->erase(position->first);
 		}
 
-		// (3)
+		// (3) Erase with range of iterator
 		void erase (iterator first, iterator last) {
 			iterator temp;
 			while (first != last)
@@ -247,10 +247,31 @@ namespace ft
 		// 	return (const_iterator(node));
 		// }
 
-		// //Count elements with a specific key (public member function )
-		// count();
-		// //Return iterator to lower bound (public member function )
-		// lower_bound();
+		// Searches the container for elements with a key equivalent to k and returns the number of matches.
+		size_type count (const key_type& k) const
+		{
+			node_ptr node = this->_tree.searchTreeKey(k);
+			return ( node->is_tnull() ? 0 : 1 );
+		}
+
+		/*
+			Returns an iterator pointing to the first element in the container whose key is not considered to go before k (i.e., either it is equivalent or goes after).
+			The function uses its internal comparison object (key_comp) to determine this, returning an iterator to the first element for which key_comp(element_key,k) would return false.
+		*/
+		iterator lower_bound (const key_type& k)
+		{
+			return (iterator(this->_tree.lower_bound(k)));
+		}
+
+		/*
+			Returns an iterator pointing to the first element in the container whose key is considered to go after k.
+			The function uses its internal comparison object (key_comp) to determine this, returning an iterator to the first element for which key_comp(k,element_key) would return true.
+		*/
+		iterator upper_bound (const key_type& k)
+		{
+			return (iterator(this->_tree.upper_bound(k)));
+		}
+
 		// //Return iterator to upper bound (public member function )
 		// upper_bound();
 		// //Get range of equal elements (public member function )

@@ -3,8 +3,18 @@
 
 #define RST  "\x1B[0m"
 #define KGRN  "\x1B[32m"
+#define KMAG  "\x1B[35m"
 void	set_color(void)	{ std::cout << KGRN; }
+void	set_cat_color(void)	{ std::cout << KMAG; }
 void	reset_color(void)	{ std::cout << RST; }
+
+void	test_category_name(std::string name)
+{
+	set_cat_color();
+	std::cout << "---------- " << name << ": ----------\n";
+	reset_color();
+}
+
 void	test_name(std::string name)
 {
 	set_color();
@@ -22,7 +32,7 @@ int main()
 {
 	std::cout << "---------- TEST MAP ----------\n";
 	{
-		test_name("	MODIFIERS FUNCTION	");
+		test_category_name("	MODIFIERS FUNCTION	");
 		ft::map<std::string, int> 	tmp_map;
 		ft::pair<std::string, int>	tmp_pair("42", 19);
 
@@ -52,14 +62,53 @@ int main()
 	}
 
 	{
-		// test_name("	OPERATIONS FUNCTION	");
+		test_category_name("	OPERATIONS FUNCTION	");
 
-		// ft::map<std::string, int> 	tmp_map;
-		// ft::pair<std::string, int>	tmp_pair("42", 19);
+		ft::map<char,int> tmp_map;
+		tmp_map['b'] = 100;
+		tmp_map['a'] = 200;
+		tmp_map['d'] = 400;
+		
+		test_name("find");
+		ft::map<char,int>::iterator it = tmp_map.find('b');
+		std::cout << it->first << " => " << it->second << '\n';
 
-		// tmp_map.insert(tmp_pair);
-		// test_name("find");
+		test_name("count");
+		for (char c = 'a'; c <= 'e'; c++)
+		{
+			std::cout << c;
+			if (tmp_map.count(c) > 0)
+				std::cout << " is an element of map.\n";
+			else 
+				std::cout << " is not an element of map.\n";
+		}
 	}
+	
+	{
+		test_name("lower_bound/upper_bond");
+		ft::map<char,int> tmp_map;
+		ft::map<char,int>::iterator itlow,itup;
+
+		tmp_map['a']=20;
+		tmp_map['b']=40;
+		tmp_map['c']=60;
+		tmp_map['d']=80;
+		tmp_map['e']=100;
+
+		itlow = tmp_map.lower_bound ('b');  // itlow points to b
+		itup = tmp_map.upper_bound ('d');   // itup points to e (not d!)
+
+		std::cout << "itlow: " << itlow->first << " => " << itlow->second << '\n';
+		std::cout << "itup: " << itup->first << " => " << itup->second << '\n';
+
+		tmp_map.erase(itlow, itup);        // erases [itlow,itup)
+
+		// print content:
+		for (ft::map<char,int>::iterator it = tmp_map.begin(); it != tmp_map.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
+		// expected: "a => 20; e => 100"
+	}
+
 	{
 		test_name("	Element access	");
 
@@ -72,7 +121,7 @@ int main()
 	}
 
 	{
-		test_name("	ITERATORS ");
+		test_category_name("	ITERATORS ");
 		ft::map<char,int> tmp_map;
 
 		tmp_map['b'] = 100;
@@ -101,26 +150,7 @@ int main()
 	}
 
 	{
-		test_name("	ITERATORS bigger tests ");
-		ft::map<int, int> map;
-		for (int i = 1 ; i < 10; i++)
-		{
-			map[i] = i;
-		}
-		ft::map<int,int>::iterator it(map.begin());
-		std::cout << it->first << "\n";
-		ft::map<int,int>::iterator it2(map.end());
-
-		map.getTree().prettyPrint();
-		while ( it != it2 )
-		{
-			std::cout << "currently on " << it->first << "\n";
-			it++;
-		}
-	}
-
-	{
-		test_name("	CAPACITY FUNCTION	");
+		test_category_name("	CAPACITY FUNCTION	");
 		ft::map<std::string, int> 	tmp_map;
 		ft::pair<std::string, int>	tmp_pair("42", 19);
 
@@ -140,7 +170,7 @@ int main()
 	}
 
 	{
-		test_name("--- ERASE FUNCTIONS ---");
+		test_category_name("	ERASE FUNCTIONS	");
 
 		ft::map<char,int> mymap;
 
