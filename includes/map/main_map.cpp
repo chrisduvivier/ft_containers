@@ -6,6 +6,7 @@
 #define RST  "\x1B[0m"
 #define KGRN  "\x1B[32m"
 #define KMAG  "\x1B[35m"
+
 void	set_color(void)	{ std::cout << KGRN; }
 void	set_cat_color(void)	{ std::cout << KMAG; }
 void	reset_color(void)	{ std::cout << RST; }
@@ -246,24 +247,26 @@ int main()
 			std::cout << it->first << " => " << it->second << '\n';
 	}
 
+	test_category_name("	REVERSE ITERATORS	");
+
 	// {
 	// 	test_name(" reverse iterator");
-	// 	std::map<char,int> mymap;
+	// 	ft::map<char,int> mymap;
 
 	// 	mymap['x'] = 100;
 	// 	mymap['y'] = 200;
 	// 	mymap['z'] = 300;
 
 	// 	// show content:
-	// 	std::map<char,int>::reverse_iterator rit;
-	// 	for (rit=mymap.rbegin(); rit!=mymap.rend(); ++rit)
+	// 	ft::map<char,int>::reverse_iterator rit;
+	// 	for (rit = mymap.rbegin(); rit != mymap.rend(); ++rit)
 	// 		std::cout << rit->first << " => " << rit->second << '\n';
 
 	// 	return 0;
 	// }
 
+	test_category_name("	CAPACITY FUNCTION	");
 	{
-		test_category_name("	CAPACITY FUNCTION	");
 		ft::map<std::string, int> 	tmp_map;
 		ft::pair<std::string, int>	tmp_pair("42", 19);
 
