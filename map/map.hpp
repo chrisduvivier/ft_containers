@@ -263,6 +263,8 @@ namespace ft
 			return (iterator(this->_tree.lower_bound(k)));
 		}
 
+		// const_iterator lower_bound (const key_type& k) const;
+
 		/*
 			Returns an iterator pointing to the first element in the container whose key is considered to go after k.
 			The function uses its internal comparison object (key_comp) to determine this, returning an iterator to the first element for which key_comp(k,element_key) would return true.
@@ -272,25 +274,31 @@ namespace ft
 			return (iterator(this->_tree.upper_bound(k)));
 		}
 
-		// //Return iterator to upper bound (public member function )
-		// upper_bound();
-		// //Get range of equal elements (public member function )
-		// equal_range();
+		// const_iterator upper_bound (const key_type& k) const;
+
+		//Get range of equal elements (public member function )
+		pair<iterator,iterator>	equal_range (const key_type& k)
+		{
+			return (pair<iterator, iterator>(this->lower_bound(k), this->upper_bound(k)));
+		}
+		
+		// pair<const_iterator,const_iterator> equal_range (const key_type& k) const;
 
 		/****************************
 		*		  Allocator			*
 		****************************/
 
-		/*	Returns a copy of the allocator object associated with the vector. */
-		allocator_type get_allocator() const
+		/*	Returns a copy of the allocator object associated with the map. */
+		allocator_type get_allocator() const { return (allocator_type(this->_tree.get_allocator())); }
+
+		RBTree<value_type, Compare, Alloc>	&getTree() { return _tree; }
+
+		void	prettyPrint()
 		{
+			this->_tree.prettyPrint();
 		}
 
-		RBTree<value_type, Compare, Alloc>	&getTree()
-		{
-			return _tree;
-		}
-	public:
+	private:
 		RBTree<value_type, Compare, Alloc>	_tree;
 	};
 

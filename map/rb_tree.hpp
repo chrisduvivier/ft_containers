@@ -36,7 +36,7 @@ class RBTree
 
 	private:
 		typename allocator_type::template rebind<Node>::other	_node_alloc;
-		allocator_type											_allocValue;
+		allocator_type											_alloc;
 		node_ptr												_root;
 		node_ptr												_tnull;
 		size_type												_size;
@@ -61,7 +61,7 @@ class RBTree
 
 		/* Constructor */
 		RBTree(const key_compare& comp = key_compare(),
-		const allocator_type& alloc = allocator_type()) : _allocValue(alloc), _comp(comp){
+		const allocator_type& alloc = allocator_type()) : _alloc(alloc), _comp(comp){
 			_tnull = _node_alloc.allocate(1);
 			_tnull->color = 0;
 			_tnull->left = nullptr;
@@ -238,7 +238,7 @@ class RBTree
 			node_ptr node = _node_alloc.allocate(1);
 			node->parent = nullptr;
 
-			this->_allocValue.construct(&node->data, key); //construct the key into data
+			this->_alloc.construct(&node->data, key); //construct the key into data
 			
 			node->left = _tnull;
 			node->right = _tnull;
@@ -785,6 +785,10 @@ class RBTree
 					cursor = cursor->right;
 			}
 			return (res);
+		}
+
+		allocator_type get_allocator() const { 
+			return (this->_alloc);
 		}
 
 };	// end of RBTree

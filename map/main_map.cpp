@@ -110,6 +110,28 @@ int main()
 	}
 
 	{
+		test_name("equal_range");
+		ft::map<char,int> mymap;
+
+		mymap['a']=10;
+		mymap['b']=20;
+		mymap['c']=30;
+
+		ft::pair<ft::map<char,int>::iterator, ft::map<char,int>::iterator> ret;
+		ret = mymap.equal_range('b');
+
+		std::cout << "lower bound points to: ";
+		std::cout << ret.first->first << " => " << ret.first->second << '\n';
+
+		std::cout << "upper bound points to: ";
+		std::cout << ret.second->first << " => " << ret.second->second << '\n';
+		/* expected: 
+			lower bound points to: 'b' => 20
+			upper bound points to: 'c' => 30
+		*/
+	}
+
+	{
 		test_name("	Element access	");
 
 		ft::map<char,int> tmp_map;
@@ -181,7 +203,7 @@ int main()
 		mymap['d']=40;
 		mymap['e']=50;
 		mymap['f']=60;
-		mymap._tree.prettyPrint();
+		mymap.prettyPrint();
 
 		mymap.erase('f');		//erase by key
 		test_name("--- erase by key ---");
@@ -193,7 +215,7 @@ int main()
 			it++;
 		}
 		std::cout << "\n";
-		mymap._tree.prettyPrint();
+		mymap.prettyPrint();
 
 		test_name("--- iterator erase ---");
 		ft::map<char,int>::iterator tmp = mymap.find('b');
@@ -207,20 +229,36 @@ int main()
 			it++;
 		}
 		std::cout << "\n";
-		mymap._tree.prettyPrint();
+		mymap.prettyPrint();
 
 		test_name("--- iterator range erase ---");
 
 		mymap.insert ( ft::pair<char,int>('x', 100) );
 		mymap.insert ( ft::pair<char,int>('z', 131) );
 		std::cout << "BEFORE\n";
-		mymap._tree.prettyPrint();
+		mymap.prettyPrint();
 		mymap.erase (mymap.find('c'), mymap.find('x'));     // erasing by iterator range
 		std::cout << "\n";
 		std::cout << "AFTER\n";
-		mymap._tree.prettyPrint();
+		mymap.prettyPrint();
 	}
 
+	{
+		test_category_name("	ALLOCATOR	");
+		int psize;
+		ft::map<char,int> mymap;
+		ft::pair<const char,int>* p;
+
+		// allocate an array of 5 elements using mymap's allocator:
+		p = mymap.get_allocator().allocate(5);
+
+		// assign some values to array
+		psize = sizeof(ft::map<char,int>::value_type)*5;
+
+		std::cout << "The allocated array has a size of " << psize << " bytes.\n";
+
+		mymap.get_allocator().deallocate(p,5);
+	}
 
 	return (0);
 }
