@@ -187,24 +187,22 @@ namespace ft
 		/* The versions with a hint (2) return an iterator pointing to either the newly inserted element or to the element that already had an equivalent key in the map. */
 		iterator insert (iterator position, const value_type& val);	//TODO
 
-		
-		// Erase elements (public member function )
-		// void erase (iterator position);		//TODO
-
-		/* For the key-based version (2), the function returns the number of elements erased. */
+		/* (2) For the key-based version, the function returns the number of elements erased. */
 		size_type erase(const key_type& k){	
 			size_type check = this->size();
 			this->_tree.deleteNodeKey(k);
 			return (check != this->size());
 		}
 
-		void erase (iterator position){
+		// (1) Erase elements (public member function )
+		void erase (iterator position) {
 			this->erase(position->first);
 		}
 
-		void erase (iterator first, iterator last){
+		// (3)
+		void erase (iterator first, iterator last) {
 			iterator temp;
-			while(first != last)
+			while (first != last)
 			{
 				temp = first;
 				++first;

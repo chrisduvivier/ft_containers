@@ -153,8 +153,8 @@ int main()
 		mymap['f']=60;
 		mymap._tree.prettyPrint();
 
-		mymap.erase('f');
-		std::cout << "----------------after single erase---------------\n";
+		mymap.erase('f');		//erase by key
+		test_name("--- erase by key ---");
 		ft::map<char,int>::iterator it(mymap.begin());
 		ft::map<char,int>::iterator it2(mymap.end());
 		while ( it != it2 )
@@ -165,16 +165,30 @@ int main()
 		std::cout << "\n";
 		mymap._tree.prettyPrint();
 
-		std::cout << "----------------after iterator erase---------------\n";
-		// it= mymap.find('b');
-		// mymap.erase (it);                   // erasing by iterator
+		test_name("--- iterator erase ---");
+		ft::map<char,int>::iterator tmp = mymap.find('b');
+		mymap.erase (tmp);     // erasing by iterator
 
-		// mymap.erase ('c');                  // erasing by key
+		it = mymap.begin();
+		it2 = mymap.end();
+		while ( it != it2 )
+		{
+			std::cout << it->first << " => " << it->second << '\n';
+			it++;
+		}
+		std::cout << "\n";
+		mymap._tree.prettyPrint();
 
-		// it=mymap.find ('e');
+		test_name("--- iterator range erase ---");
 
-		// //mymap.erase ( it, mymap.end() );    // erasing by range
-
+		mymap.insert ( ft::pair<char,int>('x', 100) );
+		mymap.insert ( ft::pair<char,int>('z', 131) );
+		std::cout << "BEFORE\n";
+		mymap._tree.prettyPrint();
+		mymap.erase (mymap.find('c'), mymap.find('x'));     // erasing by iterator range
+		std::cout << "\n";
+		std::cout << "AFTER\n";
+		mymap._tree.prettyPrint();
 	}
 
 

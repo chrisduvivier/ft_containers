@@ -48,11 +48,11 @@ namespace ft
 
 			virtual ~TreeIterator() {}
 
-			TreeIterator & operator=(const TreeIterator& ref){
+			TreeIterator & operator=(const TreeIterator& ref) {
 			 	if (*this != ref)
 			 		this->_node_ptr = ref._node_ptr;
 			 	return (*this);
-			 }
+			}
 
 			// /* Can be dereferenced as an rvalue (if in a dereferenceable state). */
 			// reference 			operator*() { return *_node; }
