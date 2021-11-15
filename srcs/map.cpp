@@ -10,6 +10,39 @@ void	set_color(void)	{ std::cout << KGRN; }
 void	set_cat_color(void)	{ std::cout << KMAG; }
 void	reset_color(void)	{ std::cout << RST; }
 
+void check_map(std::string name, bool good)
+{
+	std::string margin(32 - name.length(), ' ');
+	if (good)
+		std::cout << name << margin << GOOD << std::endl;
+	else
+		std::cout << name << margin << FAIL << std::endl;
+};
+
+template<typename T>
+void debug(std::string test, T value)
+{
+	std::cout << YELLOW << test << BOLD << value << RESET << std::endl;
+}
+
+template <typename T, typename S>
+bool operator==(ft::map<T, S> & a, std::map<T, S> & b)
+{
+	if (a.size() != b.size())
+		return (false);
+	if (a.empty() != b.empty())
+		return (false);
+	typename ft::map<T, S>::iterator it = a.begin();
+	typename std::map<T, S>::iterator it2 = b.begin();
+	// while (it != a.end())
+	// {
+	// 	if (it->first != it2->first || it->second != it2->second)
+	// 		return (false);
+	// 	++it;
+	// 	++it2;
+	// }
+	return (true);
+};
 
 
 void	test_category_name(std::string name)
@@ -32,376 +65,124 @@ void print_helper(std::string description, T value)
 	std::cout << description << "	:	" << value << std::endl;
 }
 
+/*
+
+    explicit map(const key_compare& comp, const allocator_type& a);
+    template <class InputIterator>
+        map(InputIterator first, InputIterator last,
+            const key_compare& comp, const allocator_type& a);
+    map(const map& m);
+    ~map();
+
+    map& operator=(const map& m); // We should implement operator= for the rb for this to work as a deep copy
+
+    // iterators:
+    iterator begin() ;
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end()   const;
+
+    reverse_iterator rbegin();
+    const_reverse_iterator rbegin() const;
+    reverse_iterator rend();
+❌    const_reverse_iterator rend() const;
+
+    // capacity:
+    bool      empty()    const noexcept;
+    size_type size()     const noexcept;
+    size_type max_size() const noexcept;
+
+    // element access:
+    mapped_type& operator[](const key_type& k);
+
+    // modifiers:
+    pair<iterator, bool> insert(const value_type& v);
+    iterator insert(const_iterator position, const value_type& v);
+    template <class InputIterator>
+    void insert(InputIterator first, InputIterator last);
+    void erase(iterator position);
+    size_type erase(const key_type& k);
+    void  erase(iterator first, iterator last);
+    void clear();
+
+    void swap(map& m);
+
+    // observers:
+    allocator_type get_allocator() const noexcept;
+    key_compare    key_comp()      const;
+    value_compare  value_comp()    const;
+
+    // map operations:
+    iterator find(const key_type& k);
+    const_iterator find(const key_type& k) const;
+
+    size_type      count(const key_type& k) const;
+    iterator lower_bound(const key_type& k);
+    const_iterator lower_bound(const key_type& k) const;
+
+
+    iterator upper_bound(const key_type& k);
+    const_iterator upper_bound(const key_type& k) const;
+
+
+    pair<iterator,iterator>             equal_range(const key_type& k);
+    pair<const_iterator,const_iterator> equal_range(const key_type& k) const;
+};
+
+template <class Key, class T, class Compare, class Allocator>
+bool
+operator==(const map<Key, T, Compare, Allocator>& x,
+           const map<Key, T, Compare, Allocator>& y);
+
+template <class Key, class T, class Compare, class Allocator>
+bool
+operator< (const map<Key, T, Compare, Allocator>& x,
+           const map<Key, T, Compare, Allocator>& y);
+
+template <class Key, class T, class Compare, class Allocator>
+bool
+operator!=(const map<Key, T, Compare, Allocator>& x,
+           const map<Key, T, Compare, Allocator>& y);
+
+template <class Key, class T, class Compare, class Allocator>
+bool
+operator> (const map<Key, T, Compare, Allocator>& x,
+           const map<Key, T, Compare, Allocator>& y);
+
+template <class Key, class T, class Compare, class Allocator>
+bool
+operator>=(const map<Key, T, Compare, Allocator>& x,
+           const map<Key, T, Compare, Allocator>& y);
+
+template <class Key, class T, class Compare, class Allocator>
+bool
+operator<=(const map<Key, T, Compare, Allocator>& x,
+           const map<Key, T, Compare, Allocator>& y);
+
+// specialized algorithms:
+template <class Key, class T, class Compare, class Allocator>
+void
+swap(map<Key, T, Compare, Allocator>& x, map<Key, T, Compare, Allocator>& y)
+    noexcept(noexcept(x.swap(y)));
+*/
+
+
+
+static void constructors(void)
+{
+	std::cout << BLUE << "\n>Constructor" << RESET << std::endl;
+	std::pair<int, int> a[] = {std::make_pair(0, 1), std::make_pair(1, 0), std::make_pair(2, 1)};
+	ft::map<int, int> m1;
+	std::map<int, int> m2;
+	check_map("default", (m1 == m2));
+// 	ft::map<int, int> m3(a, a + 3);
+// 	std::map<int, int> m4(a, a + 3);
+// 	check("range", (m3 == m4));
+// // 	ft::map<int, int> m5(m3);
+// // 	std::map<int, int> m6(m4);
+// // 	check("copy", (m5 == m6));
+}
 void test_map(void)
 {
-std::cout << "---------- TEST MAP ----------\n";
-	{
-		test_category_name("	MODIFIERS FUNCTION	");
-		ft::map<std::string, int> 	tmp_map;
-		ft::pair<std::string, int>	tmp_pair("42", 19);
-
-		test_name("insert");
-		std::cout << "insert pair" << "\n";
-		tmp_map.insert(tmp_pair);
-
-		test_name("erase");
-		std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
-		std::cout << "erase's result: " << tmp_map.erase("42") << "\n";
-	}
-
-	{
-		test_name("insert single parameter");
-		ft::map<char,int> tmp_map;
-
-		// first insert function version (single parameter):
-		tmp_map.insert ( ft::pair<char,int>('a', 100) );
-		tmp_map.insert ( ft::pair<char,int>('z', 200) );
-
-		ft::pair<ft::map<char,int>::iterator, bool> ret;
-		ret = tmp_map.insert ( ft::pair<char,int>('z', 500) );
-		if (ret.second == false) {
-			std::cout << "element 'z' already existed";
-			std::cout << " with a value of " << ret.first->second << '\n';
-		}
-	}
-
-	// test_category_name("	OBSERVATIONS	");
-	// {	
-	// 	test_name("key_compare");
-	// 	ft::map<char,int> mymap;
-	// 	ft::map<char,int>::key_compare mycomp = mymap.key_comp();
-	// 	mymap['a']=100;
-	// 	mymap['b']=200;
-	// 	mymap['c']=300;
-	// 	std::cout << "mymap contains:\n";
-	// 	char highest = mymap.rbegin()->first;     // key value of last element
-
-	// 	ft::map<char,int>::iterator it = mymap.begin();
-	// 	do {
-	// 		std::cout << it->first << " => " << it->second << '\n';
-	// 	} while ( mycomp((*it++).first, highest) );
-	// 	std::cout << '\n';
-
-	// 	/* expected:
-	// 		mymap contains:
-	// 		a => 100
-	// 		b => 200
-	// 		c => 300
-	// 	*/
-	// }
-
-	// {
-	// 	test_name("value_compare");
-	// 	ft::map<char,int> mymap;
-	// 	mymap['x']=1001;
-	// 	mymap['y']=2002;
-	// 	mymap['z']=3003;
-	// 	std::cout << "mymap contains:\n";
-	// 	ft::pair<char,int> highest = *mymap.rbegin();          // last element
-	// 	ft::map<char,int>::iterator it = mymap.begin();
-	// 	do {
-	// 		std::cout << it->first << " => " << it->second << '\n';
-	// 	} while ( mymap.value_comp()(*it++, highest) );
-
-	// 	/* expected:
-	// 		mymap contains:
-	// 		x => 1001
-	// 		y => 2002
-	// 		z => 3003
-	// 	*/
-	// }
-
-	test_category_name("	OPERATIONS FUNCTION	");
-	{
-		ft::map<char,int> tmp_map;
-		tmp_map['b'] = 100;
-		tmp_map['a'] = 200;
-		tmp_map['d'] = 400;
-		
-		test_name("find");
-		ft::map<char,int>::iterator it = tmp_map.find('b');
-		std::cout << it->first << " => " << it->second << '\n';
-
-		test_name("count");
-		for (char c = 'a'; c <= 'e'; c++)
-		{
-			std::cout << c;
-			if (tmp_map.count(c) > 0)
-				std::cout << " is an element of map.\n";
-			else 
-				std::cout << " is not an element of map.\n";
-		}
-	}
-	
-	{
-		test_name("lower_bound/upper_bond");
-		ft::map<char,int> tmp_map;
-		ft::map<char,int>::iterator itlow,itup;
-
-		tmp_map['a']=20;
-		tmp_map['b']=40;
-		tmp_map['c']=60;
-		tmp_map['d']=80;
-		tmp_map['e']=100;
-
-		itlow = tmp_map.lower_bound ('b');  // itlow points to b
-		itup = tmp_map.upper_bound ('d');   // itup points to e (not d!)
-
-		std::cout << "itlow: " << itlow->first << " => " << itlow->second << '\n';
-		std::cout << "itup: " << itup->first << " => " << itup->second << '\n';
-
-		tmp_map.erase(itlow, itup);        // erases [itlow,itup)
-
-		// print content:
-		for (ft::map<char,int>::iterator it = tmp_map.begin(); it != tmp_map.end(); ++it)
-			std::cout << it->first << " => " << it->second << '\n';
-		// expected: "a => 20; e => 100"
-	}
-
-	{
-		test_name("equal_range");
-		ft::map<char,int> mymap;
-
-		mymap['a']=10;
-		mymap['b']=20;
-		mymap['c']=30;
-
-		ft::pair<ft::map<char,int>::iterator, ft::map<char,int>::iterator> ret;
-		ret = mymap.equal_range('b');
-
-		std::cout << "lower bound points to: ";
-		std::cout << ret.first->first << " => " << ret.first->second << '\n';
-
-		std::cout << "upper bound points to: ";
-		std::cout << ret.second->first << " => " << ret.second->second << '\n';
-		/* expected: 
-			lower bound points to: 'b' => 20
-			upper bound points to: 'c' => 30
-		*/
-	}
-
-	{
-		test_name("	Element access	");
-
-		ft::map<char,int> tmp_map;
-		test_name("[] operator");
-		tmp_map['b'] = 100;
-		tmp_map['a'] = 200;
-		tmp_map['c'] = 300;
-		std::cout << "size: " << tmp_map.size() << std::endl;
-	}
-
-	test_category_name("	ITERATORS ");
-	{
-		ft::map<char,int> tmp_map;
-
-		tmp_map['b'] = 100;
-		tmp_map['a'] = 200;
-		tmp_map['c'] = 300;
-
-		ft::map<char,int>::iterator it_empty;
-		ft::map<char,int>::iterator it(tmp_map.begin());
-		std::cout << it.getNode()->data.first << "\n";
-		ft::map<char,int>::iterator it2(tmp_map.end());
-		std::cout << it2.getNode()->data.first << "\n";
-
-	}
-	
-	{
-		test_name("	iter begin ");
-		ft::map<char,int> tmp_map;
-		tmp_map['b'] = 100;
-		tmp_map['a'] = 200;
-		tmp_map['c'] = 300;
-
-		// show content:
-		for (ft::map<char,int>::iterator it = tmp_map.begin(); it != tmp_map.end(); ++it)
-			std::cout << it->first << " => " << it->second << '\n';
-
-	}
-
-	{
-		test_name("	iterator STD -- ");
-		std::map<char,int> tmp_map;
-		tmp_map['b'] = 100;
-		tmp_map['a'] = 200;
-		tmp_map['c'] = 300;
-
-		// show content:
-		std::map<char,int>::iterator it = tmp_map.end();
-
-		for (; it != tmp_map.begin(); --it)
-			std::cout << it->first << " => " << it->second << '\n';
-	}
-
-	{
-		test_name("	iterator FT -- ");
-		ft::map<char,int> tmp_map;
-		tmp_map['b'] = 100;
-		tmp_map['a'] = 200;
-		tmp_map['c'] = 300;
-
-		// show content:
-		ft::map<char,int>::iterator it = tmp_map.end();
-
-		for (; it != tmp_map.begin(); --it)
-			std::cout << it->first << " => " << it->second << '\n';
-	}
-
-	// {
-	// 	test_name(" reverse iterator");
-	// 	std::map<char,int> mymap;
-
-	// 	mymap['x'] = 100;
-	// 	mymap['y'] = 200;
-	// 	mymap['z'] = 300;
-
-	// 	// show content:
-	// 	std::map<char,int>::reverse_iterator rit;
-	// 	for (rit=mymap.rbegin(); rit!=mymap.rend(); ++rit)
-	// 		std::cout << rit->first << " => " << rit->second << '\n';
-
-	// 	return 0;
-	// }
-
-	{
-		test_category_name("	CAPACITY FUNCTION	");
-		ft::map<std::string, int> 	tmp_map;
-		ft::pair<std::string, int>	tmp_pair("42", 19);
-
-		test_name("empty");
-		std::cout << "is_empty: " << tmp_map.empty() << std::endl;
-		test_name("size");
-		std::cout << "size: " << tmp_map.size() << std::endl;
-
-		tmp_map.insert(tmp_pair);
-
-		std::cout << "is_empty: " << tmp_map.empty() << std::endl;
-		std::cout << "size: " << tmp_map.size() << std::endl;
-
-		test_name("max_size");
-		std::cout << "max_size: " << tmp_map.max_size() << std::endl;
-
-	}
-
-	{
-		test_category_name("	ERASE FUNCTIONS	FROM Cplusplus	");
-		ft::map<char,int> mymap;
-		ft::map<char,int>::iterator it;
-
-		// insert some values:
-		mymap['a']=10;
-		mymap['b']=20;
-		mymap['c']=30;
-		mymap['d']=40;
-		mymap['e']=50;
-		mymap['f']=60;
-
-		it=mymap.find('b');
-		mymap.erase (it);                   // erasing by iterator
-
-		mymap.erase ('c');                  // erasing by key
-
-		it=mymap.find ('e');
-		mymap.erase ( it, mymap.end() );    // erasing by range
-
-		// show content:
-		for (it=mymap.begin(); it!=mymap.end(); ++it)
-			std::cout << it->first << " => " << it->second << '\n';
-	}
-
-	{
-		test_category_name("	ERASE FUNCTIONS	");
-
-		ft::map<char,int> mymap;
-
-		// insert some values:
-		mymap['a']=10;
-		mymap['b']=20;
-		mymap['c']=30;
-		mymap['d']=40;
-		mymap['e']=50;
-		mymap['f']=60;
-		mymap.prettyPrint();
-
-		mymap.erase('f');		//erase by key
-		test_name("--- erase by key ---");
-		ft::map<char,int>::iterator it(mymap.begin());
-		ft::map<char,int>::iterator it2(mymap.end());
-		while ( it != it2 )
-		{
-			std::cout << it->first << " => " << it->second << '\n';
-			it++;
-		}
-		std::cout << "\n";
-		mymap.prettyPrint();
-
-		test_name("--- iterator erase ---");
-		ft::map<char,int>::iterator tmp = mymap.find('b');
-		mymap.erase (tmp);     // erasing by iterator
-
-		it = mymap.begin();
-		it2 = mymap.end();
-		while ( it != it2 )
-		{
-			std::cout << it->first << " => " << it->second << '\n';
-			it++;
-		}
-		std::cout << "\n";
-		mymap.prettyPrint();
-
-		test_name("--- iterator range erase ---");
-
-		mymap.insert ( ft::pair<char,int>('x', 100) );
-		mymap.insert ( ft::pair<char,int>('z', 131) );
-		std::cout << "BEFORE\n";
-		mymap.prettyPrint();
-		mymap.erase (mymap.find('c'), mymap.find('x'));     // erasing by iterator range
-		std::cout << "\n";
-		std::cout << "AFTER\n";
-		mymap.prettyPrint();
-	}
-
-	{
-		test_category_name("	ALLOCATOR	");
-		int psize;
-		ft::map<char,int> mymap;
-		ft::pair<const char,int>* p;
-
-		// allocate an array of 5 elements using mymap's allocator:
-		p = mymap.get_allocator().allocate(5);
-
-		// assign some values to array
-		psize = sizeof(ft::map<char,int>::value_type)*5;
-
-		std::cout << "The allocated array has a size of " << psize << " bytes.\n";
-
-		mymap.get_allocator().deallocate(p,5);
-	}
-
-	{
-		test_category_name("	SWAP from Cpluscplus	");
-
-		ft::map<char,int> foo,bar;
-
-		foo['x']=100;
-		foo['y']=200;
-
-		bar['a']=11;
-		bar['b']=22;
-		bar['c']=33;
-
-		foo.swap(bar);
-
-		std::cout << bar['x'] << std::endl;
-
-		// std::cout << "foo contains:\n";
-		// for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
-		// 	std::cout << it->first << " => " << it->second << '\n';
-
-		// std::cout << "bar contains:\n";
-		// for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
-		// 	std::cout << it->first << " => " << it->second << '\n';
-
-	}
+	constructors();
 }
