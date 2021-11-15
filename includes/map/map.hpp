@@ -54,151 +54,66 @@ public:
 
     // construct/copy/destroy:
 
-    explicit map(const key_compare& comp, const allocator_type& a);
-    template <class InputIterator>
-        map(InputIterator first, InputIterator last,
-            const key_compare& comp = key_compare());
-    template <class InputIterator>
+✅    explicit map(const key_compare& comp, const allocator_type& a);
+✅    template <class InputIterator>
         map(InputIterator first, InputIterator last,
             const key_compare& comp, const allocator_type& a);
-    map(const map& m);
-    map(map&& m)
-        noexcept(
-            is_nothrow_move_constructible<allocator_type>::value &&
-            is_nothrow_move_constructible<key_compare>::value);
-    explicit map(const allocator_type& a);
-    map(const map& m, const allocator_type& a);
-    map(map&& m, const allocator_type& a);
-    map(initializer_list<value_type> il, const key_compare& comp = key_compare());
-    map(initializer_list<value_type> il, const key_compare& comp, const allocator_type& a);
-    template <class InputIterator>
-        map(InputIterator first, InputIterator last, const allocator_type& a)
-            : map(first, last, Compare(), a) {}  // C++14
-    map(initializer_list<value_type> il, const allocator_type& a)
-        : map(il, Compare(), a) {}  // C++14
-   ~map();
+✅    map(const map& m);
+✅    ~map();
 
-    map& operator=(const map& m);
-    map& operator=(map&& m)
-        noexcept(
-            allocator_type::propagate_on_container_move_assignment::value &&
-            is_nothrow_move_assignable<allocator_type>::value &&
-            is_nothrow_move_assignable<key_compare>::value);
-    map& operator=(initializer_list<value_type> il);
+❔    map& operator=(const map& m); // We should implement operator= for the rb for this to work as a deep copy
 
     // iterators:
-          iterator begin() noexcept;
-    const_iterator begin() const noexcept;
-          iterator end() noexcept;
-    const_iterator end()   const noexcept;
+✅    iterator begin() ;
+❌    const_iterator begin() const;
+✅    iterator end();
+❌    const_iterator end()   const;
 
-          reverse_iterator rbegin() noexcept;
-    const_reverse_iterator rbegin() const noexcept;
-          reverse_iterator rend() noexcept;
-    const_reverse_iterator rend()   const noexcept;
-
-    const_iterator         cbegin()  const noexcept;
-    const_iterator         cend()    const noexcept;
-    const_reverse_iterator crbegin() const noexcept;
-    const_reverse_iterator crend()   const noexcept;
+❌    reverse_iterator rbegin();
+❌    const_reverse_iterator rbegin() const;
+❌    reverse_iterator rend();
+❌    const_reverse_iterator rend() const;
 
     // capacity:
-    bool      empty()    const noexcept;
-    size_type size()     const noexcept;
-    size_type max_size() const noexcept;
+✅    bool      empty()    const noexcept;
+✅    size_type size()     const noexcept;
+✅    size_type max_size() const noexcept;
 
     // element access:
-    mapped_type& operator[](const key_type& k);
-    mapped_type& operator[](key_type&& k);
-
-          mapped_type& at(const key_type& k);
-    const mapped_type& at(const key_type& k) const;
+✅    mapped_type& operator[](const key_type& k);
 
     // modifiers:
-    template <class... Args>
-        pair<iterator, bool> emplace(Args&&... args);
-    template <class... Args>
-        iterator emplace_hint(const_iterator position, Args&&... args);
-    pair<iterator, bool> insert(const value_type& v);
-    pair<iterator, bool> insert(      value_type&& v);                                // C++17
-    template <class P>
-        pair<iterator, bool> insert(P&& p);
-    iterator insert(const_iterator position, const value_type& v);
-    iterator insert(const_iterator position,       value_type&& v);                   // C++17
-    template <class P>
-        iterator insert(const_iterator position, P&& p);
-    template <class InputIterator>
-        void insert(InputIterator first, InputIterator last);
-    void insert(initializer_list<value_type> il);
+✅    pair<iterator, bool> insert(const value_type& v);
+✅    iterator insert(const_iterator position, const value_type& v);
+✅    template <class InputIterator>
+✅    void insert(InputIterator first, InputIterator last);
+✅    void erase(iterator position);
+✅    size_type erase(const key_type& k);
+✅    void  erase(iterator first, iterator last);
+❌    void clear();
 
-    node_type extract(const_iterator position);                                       // C++17
-    node_type extract(const key_type& x);                                             // C++17
-    insert_return_type insert(node_type&& nh);                                        // C++17
-    iterator insert(const_iterator hint, node_type&& nh);                             // C++17
-
-    template <class... Args>
-        pair<iterator, bool> try_emplace(const key_type& k, Args&&... args);          // C++17
-    template <class... Args>
-        pair<iterator, bool> try_emplace(key_type&& k, Args&&... args);               // C++17
-    template <class... Args>
-        iterator try_emplace(const_iterator hint, const key_type& k, Args&&... args); // C++17
-    template <class... Args>
-        iterator try_emplace(const_iterator hint, key_type&& k, Args&&... args);      // C++17
-    template <class M>
-        pair<iterator, bool> insert_or_assign(const key_type& k, M&& obj);            // C++17
-    template <class M>
-        pair<iterator, bool> insert_or_assign(key_type&& k, M&& obj);                 // C++17
-    template <class M>
-        iterator insert_or_assign(const_iterator hint, const key_type& k, M&& obj);   // C++17
-    template <class M>
-        iterator insert_or_assign(const_iterator hint, key_type&& k, M&& obj);        // C++17
-
-    iterator  erase(const_iterator position);
-    iterator  erase(iterator position); // C++14
-    size_type erase(const key_type& k);
-    iterator  erase(const_iterator first, const_iterator last);
-    void clear() noexcept;
-
-    void swap(map& m)
-        noexcept(allocator_traits<allocator_type>::is_always_equal::value &&
-            is_nothrow_swappable<key_compare>::value); // C++17
+✅    void swap(map& m);
 
     // observers:
-    allocator_type get_allocator() const noexcept;
-    key_compare    key_comp()      const;
-    value_compare  value_comp()    const;
+✅    allocator_type get_allocator() const noexcept;
+❔    key_compare    key_comp()      const;
+❔    value_compare  value_comp()    const;
 
     // map operations:
-          iterator find(const key_type& k);
-    const_iterator find(const key_type& k) const;
-    template<typename K>
-        iterator find(const K& x);              // C++14
-    template<typename K>
-        const_iterator find(const K& x) const;  // C++14
-    template<typename K>
-      size_type count(const K& x) const;        // C++14
+✅    iterator find(const key_type& k);
+❌    const_iterator find(const key_type& k) const;
 
-    size_type      count(const key_type& k) const;
-          iterator lower_bound(const key_type& k);
-    const_iterator lower_bound(const key_type& k) const;
-    template<typename K>
-        iterator lower_bound(const K& x);              // C++14
-    template<typename K>
-        const_iterator lower_bound(const K& x) const;  // C++14
+✅    size_type      count(const key_type& k) const;
+✅    iterator lower_bound(const key_type& k);
+❌    const_iterator lower_bound(const key_type& k) const;
 
-          iterator upper_bound(const key_type& k);
-    const_iterator upper_bound(const key_type& k) const;
-    template<typename K>
-        iterator upper_bound(const K& x);              // C++14
-    template<typename K>
-        const_iterator upper_bound(const K& x) const;  // C++14
 
-    pair<iterator,iterator>             equal_range(const key_type& k);
-    pair<const_iterator,const_iterator> equal_range(const key_type& k) const;
-    template<typename K>
-        pair<iterator,iterator>             equal_range(const K& x);        // C++14
-    template<typename K>
-        pair<const_iterator,const_iterator> equal_range(const K& x) const;  // C++14
+✅    iterator upper_bound(const key_type& k);
+❌    const_iterator upper_bound(const key_type& k) const;
+
+
+✅    pair<iterator,iterator>             equal_range(const key_type& k);
+✅    pair<const_iterator,const_iterator> equal_range(const key_type& k) const;
 };
 
 template <class Key, class T, class Compare, class Allocator>
@@ -263,9 +178,11 @@ namespace ft
 		typedef typename allocator_type::const_pointer 			const_pointer;
 		typedef typename allocator_type::size_type				size_type;
 		typedef typename allocator_type::difference_type difference_type;
-		typedef RBTree<value_type,value_compare> 				tree;
-		typedef ft::Node<value_type>							Node;
-		typedef Node*											node_ptr;
+		
+		private:
+			typedef RBTree<value_type,value_compare> 				tree;
+			typedef ft::Node<value_type>							Node;
+			typedef Node*											node_ptr;
 		class value_compare : public std::binary_function<value_type, value_type, bool>
 		{
 			friend class map;
@@ -307,8 +224,7 @@ namespace ft
 		*/
 
 		template <class InputIterator>
-		map(InputIterator first, 
-			InputIterator last,
+		map(InputIterator first, InputIterator last,
 			const key_compare &comp = key_compare(),
 			const allocator_type &alloc = allocator_type()) {
 				this->_tree = RBTree<value_type, Compare, Alloc>(comp, alloc);
@@ -371,15 +287,15 @@ namespace ft
 		****************************/
 
 		// Test whether container is empty (public member function )
-		bool empty() { return (this->size() == 0); }
+		bool empty() const { return (this->size() == 0); }
 
 		/* Returns the number of elements in the vector. */
 		size_type size() const { return (this->_tree.size()); }
 
 		/*	Returns the maximum number of elements that the vector can hold.
-			*	This is the maximum potential size the container can reach due to known system or library implementation limitations,
-			*	but the container is by no means guaranteed to be able to reach that size:
-			*	it can still fail to allocate storage at any point before that size is reached. */
+		*	This is the maximum potential size the container can reach due to known system or library implementation limitations,
+		*	but the container is by no means guaranteed to be able to reach that size:
+		*	it can still fail to allocate storage at any point before that size is reached. */
 		size_type max_size() const { return (this->_tree.max_size()); }
 
 
@@ -427,16 +343,16 @@ namespace ft
 			}
 		}
 
+		// (1) Erase elements (public member function )
+		void erase (iterator position) {
+			this->erase(position->first);
+		}
+
 		/* (2) For the key-based version, the function returns the number of elements erased. */
 		size_type erase(const key_type& k){	
 			size_type check = this->size();
 			this->_tree.deleteNodeKey(k);
 			return (check != this->size());
-		}
-
-		// (1) Erase elements (public member function )
-		void erase (iterator position) {
-			this->erase(position->first);
 		}
 
 		// (3) Erase with range of iterator
@@ -449,7 +365,6 @@ namespace ft
 				this->erase(temp);
 			}
 		}
-
 
 		//Swap content (public member function )
 		void	swap(map &x){
