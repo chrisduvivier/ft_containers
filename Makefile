@@ -36,15 +36,19 @@ SRCS =\
 	./srcs/main.cpp\
 	./srcs/vector.cpp\
 	./srcs/stack.cpp\
+	./srcs/map.cpp
 
 HEADERS =\
 	./includes/iterator/iterator.hpp\
+	./includes/iterator/tree_iterator.hpp\
 	./includes/iterator/random_access_iterator.hpp\
 	./includes/iterator/reverse_iterator.hpp\
 	./includes/tests/tests.hpp\
 	./includes/utils/utils.hpp\
 	./includes/vector/vector.hpp\
 	./includes/stack/stack.hpp\
+	./includes/map/map.hpp\
+
 
 VPATH := $(SRCDIR) $(OBJDIR) $(shell find $(SRCDIR) -type d)
 

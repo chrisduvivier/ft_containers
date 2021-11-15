@@ -9,6 +9,7 @@
 #include <iostream>
 #include "../vector/vector.hpp"
 #include "../stack/stack.hpp"
+#include "../map/map.hpp"
 
 #define RESET "\e[0m"
 #define GREEN "\e[92m"
@@ -22,6 +23,7 @@
 
 void test_vector();
 void test_stack();
+void test_map();
 
 void check(std::string name, bool good);
 
