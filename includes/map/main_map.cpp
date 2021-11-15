@@ -381,7 +381,7 @@ int main()
 	}
 
 	{
-		test_category_name("	SWAP from Cpluscplus	");
+		test_category_name("	SWAP : ITERATOR VALIDITY & TEST	");
 
 		ft::map<char,int> foo,bar;
 
@@ -392,9 +392,30 @@ int main()
 		bar['b']=22;
 		bar['c']=33;
 
+		std::cout << "foo contains:\n";
+		for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
+
+		std::cout << "bar contains:\n";
+		for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
+
+		ft::map<char, int>::iterator itFoo = foo.begin();
+		ft::map<char, int>::iterator itFooE = foo.end();
+		ft::map<char, int>::iterator itBar = bar.begin();
+		ft::map<char, int>::iterator itBarE = bar.end();
+
+		std::cout << "\nSWAP FOO/BAR\n\n";
 		foo.swap(bar);
 
-		std::cout << bar['x'] << std::endl;
+		std::cout << "itFoo contains:\n";
+		for (; itFoo != itFooE; ++itFoo)
+			std::cout << itFoo->first << " => " << itFoo->second << '\n';
+
+		std::cout << "itBar contains:\n";
+		for (; itBar != itBarE ; ++itBar)
+			std::cout << itBar->first << " => " << itBar->second << '\n';
+		std::cout << std::endl;
 
 		std::cout << "foo contains:\n";
 		for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
