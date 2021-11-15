@@ -143,7 +143,6 @@ int main()
 		test_name("--- ERASE FUNCTIONS ---");
 
 		ft::map<char,int> mymap;
-		ft::map<char,int>::iterator it;
 
 		// insert some values:
 		mymap['a']=10;
@@ -152,9 +151,21 @@ int main()
 		mymap['d']=40;
 		mymap['e']=50;
 		mymap['f']=60;
-
 		mymap._tree.prettyPrint();
 
+		mymap.erase('f');
+		std::cout << "----------------after single erase---------------\n";
+		ft::map<char,int>::iterator it(mymap.begin());
+		ft::map<char,int>::iterator it2(mymap.end());
+		while ( it != it2 )
+		{
+			std::cout << it->first << " => " << it->second << '\n';
+			it++;
+		}
+		std::cout << "\n";
+		mymap._tree.prettyPrint();
+
+		std::cout << "----------------after iterator erase---------------\n";
 		// it= mymap.find('b');
 		// mymap.erase (it);                   // erasing by iterator
 
@@ -163,19 +174,6 @@ int main()
 		// it=mymap.find ('e');
 
 		// //mymap.erase ( it, mymap.end() );    // erasing by range
-
-		mymap.erase('f');
-
-		it = mymap.begin();
-
-		// show content:
-		std::cout << "\n\n";
-		for (it=mymap.begin(); it!=mymap.end(); ++it)
-		{
-			std::cout << it->first << " => " << it->second << '\n';
-		}
-		
-		mymap._tree.prettyPrint();
 
 	}
 
