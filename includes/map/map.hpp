@@ -4,10 +4,11 @@
 # include <iostream>
 # include <string>
 # include <memory>
- # include <map>
+# include <map>
 # include "pair.hpp"
 # include "rb_tree.hpp"
-# include "../../includes/iterator/tree_iterator.hpp"
+# include "../iterator/tree_iterator.hpp"
+# include "..//iterator/reverse_iterator.hpp"
 # include "node.hpp"
 
 /*
@@ -349,7 +350,7 @@ namespace ft
 		****************************/
 
 		//Return iterator to beginning (public member function )
-		iterator begin() { return (iterator( this->_tree.begin_node(), this->_tree.getRoot() )); }
+		iterator begin() { return (iterator( this->_tree.begin_node(), this->_tree.getRoot() ) ); }
 		// const_iterator begin() const;
 
 		//Return iterator to end (public member function )
@@ -357,11 +358,12 @@ namespace ft
 		// const_iterator end() const;
 
 		//Return reverse iterator to reverse beginning (public member function )
-		// reverse_iterator rbegin();
-		// const_reverse_iterator rbegin() const;
+		// reverse_iterator rbegin() { return (reverse_iterator( this->end() )); }
+		// // const_reverse_iterator rbegin() const;
 
 		// //Return reverse iterator to reverse end (public member function )
-		// iterator rend();
+		// reverse_iterator rend() { return (reverse_iterator( this->begin() )); }
+
 
 
 		/****************************
@@ -408,7 +410,22 @@ namespace ft
 		}
 
 		/* The versions with a hint (2) return an iterator pointing to either the newly inserted element or to the element that already had an equivalent key in the map. */
-		iterator insert (iterator position, const value_type& val);	//TODO
+		iterator insert (iterator position, const value_type& val){
+			node_ptr node = this->_tree.searchTree(val);
+			if (!node->is_tnull())
+				return (iterator(node, this->_tree.getRoot()));
+			(void)position;
+			return this->insert(val).first;
+		}
+
+		template <class InputIterator>
+		void insert (InputIterator first, InputIterator last){
+			while (first != last)
+			{
+				this->_tree.insert(*first);
+				first++;
+			}
+		}
 
 		/* (2) For the key-based version, the function returns the number of elements erased. */
 		size_type erase(const key_type& k){	

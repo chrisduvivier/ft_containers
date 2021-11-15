@@ -6,6 +6,7 @@
 #define RST  "\x1B[0m"
 #define KGRN  "\x1B[32m"
 #define KMAG  "\x1B[35m"
+
 void	set_color(void)	{ std::cout << KGRN; }
 void	set_cat_color(void)	{ std::cout << KMAG; }
 void	reset_color(void)	{ std::cout << RST; }
@@ -246,24 +247,26 @@ int main()
 			std::cout << it->first << " => " << it->second << '\n';
 	}
 
+	test_category_name("	REVERSE ITERATORS	");
+
 	// {
 	// 	test_name(" reverse iterator");
-	// 	std::map<char,int> mymap;
+	// 	ft::map<char,int> mymap;
 
 	// 	mymap['x'] = 100;
 	// 	mymap['y'] = 200;
 	// 	mymap['z'] = 300;
 
 	// 	// show content:
-	// 	std::map<char,int>::reverse_iterator rit;
-	// 	for (rit=mymap.rbegin(); rit!=mymap.rend(); ++rit)
+	// 	ft::map<char,int>::reverse_iterator rit;
+	// 	for (rit = mymap.rbegin(); rit != mymap.rend(); ++rit)
 	// 		std::cout << rit->first << " => " << rit->second << '\n';
 
 	// 	return 0;
 	// }
 
+	test_category_name("	CAPACITY FUNCTION	");
 	{
-		test_category_name("	CAPACITY FUNCTION	");
 		ft::map<std::string, int> 	tmp_map;
 		ft::pair<std::string, int>	tmp_pair("42", 19);
 
@@ -393,14 +396,51 @@ int main()
 
 		std::cout << bar['x'] << std::endl;
 
-		// std::cout << "foo contains:\n";
-		// for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
-		// 	std::cout << it->first << " => " << it->second << '\n';
+		std::cout << "foo contains:\n";
+		for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
 
-		// std::cout << "bar contains:\n";
-		// for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
-		// 	std::cout << it->first << " => " << it->second << '\n';
+		std::cout << "bar contains:\n";
+		for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
 
+	}
+
+	{
+		test_category_name("	INSERT from Cpluscplus	");
+		ft::map<char,int> mymap;
+
+		// first insert function version (single parameter):
+		mymap.insert ( ft::pair<char,int>('a',100) );
+		mymap.insert ( ft::pair<char,int>('z',200) );
+
+		ft::pair<ft::map<char,int>::iterator,bool> ret;
+		ret = mymap.insert ( ft::pair<char,int>('z',500) );
+		if (ret.second==false) {
+			std::cout << "element 'z' already existed";
+			std::cout << " with a value of " << ret.first->second << '\n';
+		}
+
+		// second insert function version (with hint position):
+		ft::map<char,int>::iterator it = mymap.begin();
+		mymap.insert (it, ft::pair<char,int>('b',300));  // max efficiency inserting
+		mymap.insert (it, ft::pair<char,int>('c',400));  // no max efficiency inserting
+
+		// third insert function version (range insertion):
+		ft::map<char,int> anothermap;
+		anothermap.insert(mymap.begin(),mymap.find('c'));
+
+		// showing contents:
+		std::cout << "mymap contains:\n";
+		for (it=mymap.begin(); it!=mymap.end(); ++it)
+		{
+			std::cout << it->first << " => " << it->second << '\n';
+		}
+			
+
+		std::cout << "anothermap contains:\n";
+		for (it=anothermap.begin(); it!=anothermap.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
 	}
 
 	return (0);

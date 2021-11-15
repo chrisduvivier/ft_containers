@@ -753,10 +753,15 @@ class RBTree
 		 * Swap Tree
 		*******************************************/
 		public:
+		/* Swap _root AND _tnull*/
 		void 	swap(RBTree &x) {
 			node_ptr temp = this->_root;
 			this->_root = x._root;
 			x._root = temp;
+
+			temp = this->_tnull;
+			this->_tnull = x._tnull;
+			x._tnull = temp;
 		}
 
 		// Returns an iterator pointing to the first element in the container whose key is not considered to go before k (i.e., either it is equivalent or goes after).
