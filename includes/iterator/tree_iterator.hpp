@@ -50,8 +50,8 @@ namespace ft
 			}
 
 			/* Can be dereferenced as an rvalue (if in a dereferenceable state). */
-			reference 			operator*() { return &(_node_ptr->data); }
-			const_reference 	operator*() const { return &(_node_ptr->data); }
+			reference 			operator*() { return (_node_ptr->data); }
+			const_reference 	operator*() const { return (_node_ptr->data); }
 			
 			pointer 			operator->()  { return &(_node_ptr->data); }
 

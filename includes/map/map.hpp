@@ -4,7 +4,7 @@
 # include <iostream>
 # include <string>
 # include <memory>
-// # include <map>
+# include <map>
 # include "pair.hpp"
 # include "rb_tree.hpp"
 # include "../../includes/iterator/tree_iterator.hpp"
@@ -182,7 +182,22 @@ namespace ft
 		}
 
 		/* The versions with a hint (2) return an iterator pointing to either the newly inserted element or to the element that already had an equivalent key in the map. */
-		iterator insert (iterator position, const value_type& val);	//TODO
+		iterator insert (iterator position, const value_type& val){
+			node_ptr node = this->_tree.searchTree(val);
+			if (!node->is_tnull())
+				return (iterator(node, this->_tree.getRoot()));
+			(void)position;
+			return this->insert(val).first;
+		}
+
+		template <class InputIterator>
+		void insert (InputIterator first, InputIterator last){
+			while (first != last)
+			{
+				this->_tree.insert(*first);
+				first++;
+			}
+		}
 
 		/* (2) For the key-based version, the function returns the number of elements erased. */
 		size_type erase(const key_type& k){	
