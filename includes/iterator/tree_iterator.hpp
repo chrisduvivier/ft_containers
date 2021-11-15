@@ -25,38 +25,33 @@ namespace ft
 			typedef const value_type&							const_reference;
 			typedef	value_type*									pointer;
 			typedef	const value_type*							const_pointer;
-
-			// typedef	typename ft::iterator_traits<It>::iterator_category	iterator_category;
-			// typedef	typename ft::iterator_traits<It>::pointer			pointer;
-			// typedef	typename ft::iterator_traits<It>::reference			reference;
-			// typedef	typename ft::iterator_traits<It>::value_type		value_type;
-			// typedef	typename ft::iterator_traits<It>::difference_type	difference_type;
 			
 			/* iterator Constructor: default, parameter, copy, assign */
-			TreeIterator() {
-				//std::cout << "Default TreeIterator constructor\n";
-			}
+			TreeIterator() { }
 
-			// TreeIterator(Node *node) : _node_ptr(node) {}
-
-			TreeIterator(Node* node) {
-				//std::cout << "Node based TreeIterator constructor\n";
+			TreeIterator(Node* node, Node* root) { 
 				this->_node_ptr = node;
+				this->_root = root;
 			}
 
-			TreeIterator(const TreeIterator& ref) : _node_ptr(ref._node_ptr) {}
+			TreeIterator(const TreeIterator& ref) : 
+				_node_ptr(ref._node_ptr),
+				_root(ref._root)
+			{}
 
 			virtual ~TreeIterator() {}
-
+			
+			// For mutable iterators (non-constant iterators):
 			TreeIterator & operator=(const TreeIterator& ref) {
 			 	if (*this != ref)
 			 		this->_node_ptr = ref._node_ptr;
+			 		this->_root = ref._root;
 			 	return (*this);
 			}
 
-			// /* Can be dereferenced as an rvalue (if in a dereferenceable state). */
-			// reference 			operator*() { return *_node; }
-			// const reference 	operator*() const { return *_node; }
+			/* Can be dereferenced as an rvalue (if in a dereferenceable state). */
+			reference 			operator*() { return &(_node_ptr->data); }
+			const_reference 	operator*() const { return &(_node_ptr->data); }
 			
 			pointer 			operator->()  { return &(_node_ptr->data); }
 
@@ -72,38 +67,17 @@ namespace ft
 				return (tmp); 
 			}
 
-
-			// bool operator==(const TreeIterator& other)
-			// {
-			// 	return (_node_ptr == other._node_ptr);
-			// }
-
-			// bool operator!=(const TreeIterator& other)
-			// {
-			// 	return (!(*this == other));
-			// }
-
-			// // Postfix increment
-			// It operator++(int) { 
-			// 	It tmp = *this; 
-			// 	return (tmp);
-			// }
-
-			// // Prefix decrement
-			// It& operator--() {
-				
-			// 	return *this;
-			// }
-			// // Postfix decrement
-			// It operator--(int) {
-			// 	It tmp = *this;
-
-			// 	return (tmp);
-			// }
-
-			// // comparable with another iterator
-			// friend bool operator== (const It& a, const It& b) { return (a._node == b._node); }
-			// friend bool operator!= (const It& a, const It& b) { return (a._node != b._node); }
+			// Prefix decrement
+			TreeIterator& operator--() {
+				this->_node_ptr = backward(this->_node_ptr);
+				return *this;
+			}
+			// Postfix decrement
+			TreeIterator operator--(int) {
+				TreeIterator tmp(*this);
+				this->_node_ptr = backward(this->_node_ptr);
+				return (tmp); 
+			}
 
 			friend bool operator== (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr == b._node_ptr); }
 			friend bool operator!= (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr != b._node_ptr); }
@@ -148,9 +122,48 @@ namespace ft
 				}
 				return cursor;
 			}
+
+			Node *  backward(Node * cursor)
+			{
+				// At initialization, backward is called on end object (t_null node)
+				if (cursor->is_tnull())
+				{
+					if (!this->_root->is_tnull())
+						return (this->_root->rightMost());
+					return (cursor);
+				}
+
+				// if the left subtree is not null,
+				// the predecessor is the rightmost node in the
+				// left subtree
+				if (cursor && cursor->left && !cursor->left->is_tnull())
+				{
+					return (cursor->left->rightMost());
+				}
+				else
+				{
+					Node * ref_to_tnull = cursor->left;
+					Node * p = cursor->parent;
+					while (p && !p->is_tnull() && cursor == p->left)
+					{
+						cursor = p;
+						p = p->parent;
+					}
+					// if we were previously at the right-most node in
+					// the tree, cursor = nullptr, and the iterator specifies
+					// the end of the list
+					cursor = p;
+					if (cursor == nullptr)
+					{
+						return (ref_to_tnull);
+					}
+				}
+				return cursor;
+			}
 			
 		private:
 			Node *	_node_ptr;		// pointer to the node
+			Node *	_root;			// pointer to the root of tree
 	};
 }
 

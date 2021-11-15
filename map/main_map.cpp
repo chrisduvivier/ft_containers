@@ -1,6 +1,8 @@
 #include <iostream>
 #include "map.hpp"
 
+#include <map>
+
 #define RST  "\x1B[0m"
 #define KGRN  "\x1B[32m"
 #define KMAG  "\x1B[35m"
@@ -187,8 +189,8 @@ int main()
 		std::cout << "size: " << tmp_map.size() << std::endl;
 	}
 
+	test_category_name("	ITERATORS ");
 	{
-		test_category_name("	ITERATORS ");
 		ft::map<char,int> tmp_map;
 
 		tmp_map['b'] = 100;
@@ -215,6 +217,52 @@ int main()
 			std::cout << it->first << " => " << it->second << '\n';
 
 	}
+
+	{
+		test_name("	iterator STD -- ");
+		std::map<char,int> tmp_map;
+		tmp_map['b'] = 100;
+		tmp_map['a'] = 200;
+		tmp_map['c'] = 300;
+
+		// show content:
+		std::map<char,int>::iterator it = tmp_map.end();
+
+		for (; it != tmp_map.begin(); --it)
+			std::cout << it->first << " => " << it->second << '\n';
+	}
+
+	{
+		test_name("	iterator FT -- ");
+		ft::map<char,int> tmp_map;
+		tmp_map['b'] = 100;
+		tmp_map['a'] = 200;
+		tmp_map['c'] = 300;
+
+		// show content:
+		ft::map<char,int>::iterator it = tmp_map.end();
+
+		for (; it != tmp_map.begin(); --it)
+			std::cout << it->first << " => " << it->second << '\n';
+
+		return (0);
+	}
+
+	// {
+	// 	test_name(" reverse iterator");
+	// 	std::map<char,int> mymap;
+
+	// 	mymap['x'] = 100;
+	// 	mymap['y'] = 200;
+	// 	mymap['z'] = 300;
+
+	// 	// show content:
+	// 	std::map<char,int>::reverse_iterator rit;
+	// 	for (rit=mymap.rbegin(); rit!=mymap.rend(); ++rit)
+	// 		std::cout << rit->first << " => " << rit->second << '\n';
+
+	// 	return 0;
+	// }
 
 	{
 		test_category_name("	CAPACITY FUNCTION	");

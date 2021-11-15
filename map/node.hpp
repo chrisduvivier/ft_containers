@@ -38,7 +38,7 @@ namespace ft
             Node *cursor = this;
             if (cursor == nullptr)
                 return (nullptr);
-            while (cursor->right)
+            while (cursor->right && !cursor->right->is_tnull())
                 cursor = cursor->right;
             return (cursor);
         }

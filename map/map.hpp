@@ -123,20 +123,17 @@ namespace ft
 		****************************/
 
 		//Return iterator to beginning (public member function )
-		
-		iterator begin() {
-			return (iterator( this->_tree.begin_node() ));
-		}
+		iterator begin() { return (iterator( this->_tree.begin_node(), this->_tree.getRoot() )); }
+		// const_iterator begin() const;
 
-		iterator end() {
-			return (iterator( this->_tree.end_node() ));
-		}
+		//Return iterator to end (public member function )
+		iterator end() { return (iterator( this->_tree.end_node(), this->_tree.getRoot() )); }
+		// const_iterator end() const;
 
+		//Return reverse iterator to reverse beginning (public member function )
+		// reverse_iterator rbegin();
+		// const_reverse_iterator rbegin() const;
 
-		// //Return iterator to end (public member function )
-		// iterator end();
-		// //Return reverse iterator to reverse beginning (public member function )
-		// iterator rbegin();
 		// //Return reverse iterator to reverse end (public member function )
 		// iterator rend();
 
@@ -180,7 +177,7 @@ namespace ft
 		ft::pair<iterator, bool> insert (const value_type& val)
 		{
 			ft::pair<node_ptr, bool> tmp = this->_tree.insert_single_elem(val);
-			ft::pair<iterator, bool> res(iterator(tmp.first), tmp.second);
+			ft::pair<iterator, bool> res(iterator(tmp.first, this->_tree.getRoot()), tmp.second);
 			return res;
 		}
 
@@ -240,7 +237,7 @@ namespace ft
 			node_ptr node = this->_tree.searchTreeKey(k);
 			if (node->is_tnull())
 				return (this->end());
-			return (iterator(node));
+			return (iterator(node, this->_tree.getRoot()));
 		}
 
 		// const_iterator find (const key_type& k) const{
@@ -263,7 +260,7 @@ namespace ft
 		*/
 		iterator lower_bound (const key_type& k)
 		{
-			return (iterator(this->_tree.lower_bound(k)));
+			return (iterator(this->_tree.lower_bound(k), this->_tree.getRoot() ));
 		}
 
 		// const_iterator lower_bound (const key_type& k) const;
@@ -274,7 +271,7 @@ namespace ft
 		*/
 		iterator upper_bound (const key_type& k)
 		{
-			return (iterator(this->_tree.upper_bound(k)));
+			return (iterator(this->_tree.upper_bound(k), this->_tree.getRoot() ));
 		}
 
 		// const_iterator upper_bound (const key_type& k) const;
