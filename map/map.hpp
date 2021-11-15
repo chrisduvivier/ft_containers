@@ -83,7 +83,7 @@ namespace ft
 		map(InputIterator first, 
 			InputIterator last,
 			const key_compare &comp = key_compare(),
-			const allocator_type &alloc = allocator_type()){
+			const allocator_type &alloc = allocator_type()) {
 				this->_tree = RBTree<value_type, Compare, Alloc>(comp, alloc);
 				this->insert(first, last);
 		}
@@ -223,10 +223,13 @@ namespace ft
 		//Return key comparison object (public member function )
 		key_compare key_comp() 
 		{
-			return this->_tree.key_compare;
+			return (this->_tree.key_compare());
 		}
-		// //Return value comparison object (public member function )
-		// value_comp();
+		//Return value comparison object (public member function )
+		value_compare value_comp() const
+		{
+			return (this->_tree.value_compare());
+		}
 
 		// /****************************
 		// *		  Operations		*
