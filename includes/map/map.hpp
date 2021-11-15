@@ -180,9 +180,11 @@ namespace ft
 		typedef typename allocator_type::difference_type difference_type;
 		
 		private:
-			typedef RBTree<value_type,value_compare> 				tree;
+			typedef RBTree<value_type, key_compare> 				tree;
 			typedef ft::Node<value_type>							Node;
 			typedef Node*											node_ptr;
+		
+		public:
 		class value_compare : public std::binary_function<value_type, value_type, bool>
 		{
 			friend class map;
