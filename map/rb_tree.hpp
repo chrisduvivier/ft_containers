@@ -749,6 +749,16 @@ class RBTree
 			return s;
 		}
 
+		/******************************************
+		 * Swap Tree
+		*******************************************/
+		public:
+		void 	swap(RBTree &x) {
+			node_ptr temp = this->_root;
+			this->_root = x._root;
+			x._root = temp;
+		}
+
 		// Returns an iterator pointing to the first element in the container whose key is not considered to go before k (i.e., either it is equivalent or goes after).
 		// x >= k
 		node_ptr lower_bound (const key_type& k)

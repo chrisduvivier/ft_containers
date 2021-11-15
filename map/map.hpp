@@ -208,8 +208,10 @@ namespace ft
 		}
 
 
-		// //Swap content (public member function )
-		// swap();
+		//Swap content (public member function )
+		void	swap(map &x){
+			this->_tree.swap(x._tree);
+		}
 		// //Clear content (public member function )
 		// clear();
 

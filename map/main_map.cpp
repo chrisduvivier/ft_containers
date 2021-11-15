@@ -244,8 +244,6 @@ int main()
 
 		for (; it != tmp_map.begin(); --it)
 			std::cout << it->first << " => " << it->second << '\n';
-
-		return (0);
 	}
 
 	// {
@@ -282,6 +280,32 @@ int main()
 		test_name("max_size");
 		std::cout << "max_size: " << tmp_map.max_size() << std::endl;
 
+	}
+
+	{
+		test_category_name("	ERASE FUNCTIONS	FROM Cplusplus	");
+		ft::map<char,int> mymap;
+		ft::map<char,int>::iterator it;
+
+		// insert some values:
+		mymap['a']=10;
+		mymap['b']=20;
+		mymap['c']=30;
+		mymap['d']=40;
+		mymap['e']=50;
+		mymap['f']=60;
+
+		it=mymap.find('b');
+		mymap.erase (it);                   // erasing by iterator
+
+		mymap.erase ('c');                  // erasing by key
+
+		it=mymap.find ('e');
+		mymap.erase ( it, mymap.end() );    // erasing by range
+
+		// show content:
+		for (it=mymap.begin(); it!=mymap.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
 	}
 
 	{
@@ -351,6 +375,32 @@ int main()
 		std::cout << "The allocated array has a size of " << psize << " bytes.\n";
 
 		mymap.get_allocator().deallocate(p,5);
+	}
+
+	{
+		test_category_name("	SWAP from Cpluscplus	");
+
+		ft::map<char,int> foo,bar;
+
+		foo['x']=100;
+		foo['y']=200;
+
+		bar['a']=11;
+		bar['b']=22;
+		bar['c']=33;
+
+		foo.swap(bar);
+
+		std::cout << bar['x'] << std::endl;
+
+		// std::cout << "foo contains:\n";
+		// for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+		// 	std::cout << it->first << " => " << it->second << '\n';
+
+		// std::cout << "bar contains:\n";
+		// for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+		// 	std::cout << it->first << " => " << it->second << '\n';
+
 	}
 
 	return (0);
