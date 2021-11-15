@@ -7,7 +7,8 @@
 // # include <map>
 # include "pair.hpp"
 # include "rb_tree.hpp"
-# include "../includes/iterator/tree_iterator.hpp"
+# include "../iterator/tree_iterator.hpp"
+# include "..//iterator/reverse_iterator.hpp"
 # include "node.hpp"
 
 namespace ft
@@ -123,7 +124,7 @@ namespace ft
 		****************************/
 
 		//Return iterator to beginning (public member function )
-		iterator begin() { return (iterator( this->_tree.begin_node(), this->_tree.getRoot() )); }
+		iterator begin() { return (iterator( this->_tree.begin_node(), this->_tree.getRoot() ) ); }
 		// const_iterator begin() const;
 
 		//Return iterator to end (public member function )
@@ -131,11 +132,12 @@ namespace ft
 		// const_iterator end() const;
 
 		//Return reverse iterator to reverse beginning (public member function )
-		// reverse_iterator rbegin();
-		// const_reverse_iterator rbegin() const;
+		// reverse_iterator rbegin() { return (reverse_iterator( this->end() )); }
+		// // const_reverse_iterator rbegin() const;
 
 		// //Return reverse iterator to reverse end (public member function )
-		// iterator rend();
+		// reverse_iterator rend() { return (reverse_iterator( this->begin() )); }
+
 
 
 		/****************************
