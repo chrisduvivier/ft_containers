@@ -406,12 +406,12 @@ namespace ft
 			return (iterator(node, this->_tree.getRoot()));
 		}
 
-		// const_iterator find (const key_type& k) const{
-		// 	node_ptr node = this->_tree.searchTreeKey(k);
-		// 	if (node->is_tnull())
-		// 		return (this->end());
-		// 	return (const_iterator(node));
-		// }
+		const_iterator find (const key_type& k) const{
+			node_ptr node = this->_tree.searchTreeKey(k);
+			if (node->is_tnull())
+				return (this->end());
+			return (const_iterator(node, this->_tree.getRoot()));
+		}
 
 		// Searches the container for elements with a key equivalent to k and returns the number of matches.
 		size_type count (const key_type& k) const
