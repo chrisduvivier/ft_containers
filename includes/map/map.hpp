@@ -36,7 +36,7 @@ public:
 ✅    typedef typename allocator_type::difference_type difference_type;
 
 ✅    typedef implementation-defined                   iterator;
-❌    typedef implementation-defined                   const_iterator;
+✅    typedef implementation-defined                   const_iterator;
 ❌    typedef std::reverse_iterator<iterator>          reverse_iterator;
 ❌    typedef std::reverse_iterator<const_iterator>    const_reverse_iterator;
 
@@ -65,9 +65,9 @@ public:
 
     // iterators:
 ✅    iterator begin() ;
-❌    const_iterator begin() const;
+✅    const_iterator begin() const;
 ✅    iterator end();
-❌   const_iterator end()   const;
+✅   const_iterator end()   const;
 
 ❌    reverse_iterator rbegin();
 ❌    const_reverse_iterator rbegin() const;
@@ -101,7 +101,7 @@ public:
 
     // map operations:
 ✅    iterator find(const key_type& k);
-❌    const_iterator find(const key_type& k) const;
+✅    const_iterator find(const key_type& k) const;
 
 ✅    size_type      count(const key_type& k) const;
 ✅    iterator lower_bound(const key_type& k);
@@ -201,7 +201,7 @@ namespace ft
 
 		typedef TreeIterator<bidirectional_iterator_tag, tree> 				iterator;
 		
-		typedef TreeIterator<bidirectional_iterator_tag, RBTree<const value_type, key_compare> >		const_iterator;
+		typedef TreeIterator<bidirectional_iterator_tag, const_tree, tree>	const_iterator;
 		
 		// typedef ConstTreeIterator<value_type> 						const_iterator;
 		typedef ft::reverse_tree_iterator<iterator> 						reverse_iterator;
@@ -350,9 +350,7 @@ namespace ft
 		}
 
 		// (1) Erase elements (public member function )
-		void erase (iterator position) {
-			this->erase(position->first);
-		}
+		void erase (iterator position) { this->erase(position->first); }
 
 		/* (2) For the key-based version, the function returns the number of elements erased. */
 		size_type erase(const key_type& k){	
@@ -373,26 +371,22 @@ namespace ft
 		}
 
 		//Swap content (public member function )
-		void	swap(map &x){
-			this->_tree.swap(x._tree);
-		}
-		// //Clear content (public member function )
-		// clear();
+		void	swap(map &x){ this->_tree.swap(x._tree); }
+
+		// Removes all elements from the map container (which are destroyed), leaving the container with a size of 0.
+		// void clear();
+		// {
+		// 	// this->_tree.clear();
+		// }
 
 		// /****************************
 		// *		  Observers			*
 		// ****************************/
 
 		//Return key comparison object (public member function )
-		key_compare key_comp() 
-		{
-			return (this->_tree.key_compare());
-		}
+		key_compare key_comp()  { return (this->_tree.key_compare()); }
 		//Return value comparison object (public member function )
-		value_compare value_comp() const
-		{
-			return (this->_tree.value_compare());
-		}
+		value_compare value_comp() const { return (this->_tree.value_compare()); }
 
 		// /****************************
 		// *		  Operations		*
@@ -406,12 +400,12 @@ namespace ft
 			return (iterator(node, this->_tree.getRoot()));
 		}
 
-		// const_iterator find (const key_type& k) const{
-		// 	node_ptr node = this->_tree.searchTreeKey(k);
-		// 	if (node->is_tnull())
-		// 		return (this->end());
-		// 	return (const_iterator(node));
-		// }
+		const_iterator find (const key_type& k) const{
+			node_ptr node = this->_tree.searchTreeKey(k);
+			if (node->is_tnull())
+				return (this->end());
+			return (const_iterator(node, this->_tree.getRoot()));
+		}
 
 		// Searches the container for elements with a key equivalent to k and returns the number of matches.
 		size_type count (const key_type& k) const

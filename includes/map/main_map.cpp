@@ -194,32 +194,14 @@ int main()
 	{
 		test_name("	iter on empty map ");
 		ft::map<char,int> tmp_map;
-
 		ft::map<char,int>::iterator it(tmp_map.begin());
-		std::cout << it->first << "   " << it->second << "\n";
+		ft::map<char,int>::iterator it2(tmp_map.end());
 
 		// test_name("	iter on empty map ");
 		// std::map<char,int> tmp_map;
 		// std::map<char,int>::iterator it(tmp_map.begin());
 
-		// ft::map<char,int>::iterator it2(tmp_map.end());
 		// std::cout << it2.getNode()->data.first << "\n";
-		return (0);
-	}
-	
-	{
-		ft::map<char,int> tmp_map;
-
-		tmp_map['b'] = 100;
-		tmp_map['a'] = 200;
-		tmp_map['c'] = 300;
-
-		ft::map<char,int>::iterator it_empty;
-		ft::map<char,int>::iterator it(tmp_map.begin());
-		std::cout << it.getNode()->data.first << "\n";
-		ft::map<char,int>::iterator it2(tmp_map.end());
-		std::cout << it2.getNode()->data.first << "\n";
-
 	}
 	
 	{
@@ -501,5 +483,36 @@ int main()
 		}
 	}
 
+	{
+		test_category_name("	FIND AND CONST FIND		");
+
+		ft::map<char,int> mymap;
+		ft::map<char,int>::iterator it;
+
+		mymap['a']=50;
+		mymap['b']=100;
+		mymap['c']=150;
+		mymap['d']=200;
+
+		it = mymap.find('b');
+		if (it != mymap.end())
+			mymap.erase (it);
+
+		// print content:
+		std::cout << "elements in mymap:" << '\n';
+		std::cout << "a => " << mymap.find('a')->second << '\n';
+		std::cout << "c => " << mymap.find('c')->second << '\n';
+		std::cout << "d => " << mymap.find('d')->second << '\n';
+
+		ft::map<char,int>::const_iterator cIt = mymap.find('b');
+		std::cout << "const_iterator: " << cIt->first << " => " << cIt->second << std::endl;
+		cIt = mymap.find('a');
+		std::cout << "const_iterator: " << cIt->first << " => " << cIt->second << std::endl;
+		cIt = mymap.find('d');
+		std::cout << "const_iterator: " << cIt->first << " => " << cIt->second << std::endl;
+
+	}
+
+	system("leaks a.out > .leaks_map_log");
 	return (0);
 }
