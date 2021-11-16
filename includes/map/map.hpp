@@ -36,7 +36,7 @@ public:
 ✅    typedef typename allocator_type::difference_type difference_type;
 
 ✅    typedef implementation-defined                   iterator;
-❌    typedef implementation-defined                   const_iterator;
+✅    typedef implementation-defined                   const_iterator;
 ❌    typedef std::reverse_iterator<iterator>          reverse_iterator;
 ❌    typedef std::reverse_iterator<const_iterator>    const_reverse_iterator;
 
@@ -65,9 +65,9 @@ public:
 
     // iterators:
 ✅    iterator begin() ;
-❌    const_iterator begin() const;
+✅    const_iterator begin() const;
 ✅    iterator end();
-❌   const_iterator end()   const;
+✅   const_iterator end()   const;
 
 ❌    reverse_iterator rbegin();
 ❌    const_reverse_iterator rbegin() const;
@@ -101,7 +101,7 @@ public:
 
     // map operations:
 ✅    iterator find(const key_type& k);
-❌    const_iterator find(const key_type& k) const;
+✅    const_iterator find(const key_type& k) const;
 
 ✅    size_type      count(const key_type& k) const;
 ✅    iterator lower_bound(const key_type& k);
