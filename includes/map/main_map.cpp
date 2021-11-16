@@ -513,5 +513,6 @@ int main()
 
 	}
 
+	system("leaks a.out > .leaks_map_log");
 	return (0);
 }

@@ -4,6 +4,8 @@
 *.o
 obj/*
 test
+.leaks*
+leaks*
 # Prerequisites
 *.d
 

@@ -69,7 +69,29 @@ class RBTree
 			this->_root = _tnull;
 		}
 
-		/*Need a destructor ? */
+		/* Need a destructor ? */
+		// ~RBTree()
+		// {
+		// 	destroy_tree(this->_root);
+		// 	_node_alloc.destroy(_tnull);
+		// 	_node_alloc.deallocate(_tnull, 1);
+		// }
+
+		void	destroy_tree(node_ptr node)
+		{
+			if (node)
+			{
+				// recursive call to both child node
+				if (node->left && !node->left->is_tnull())
+					destroy_tree(node->left);
+				if (node->right && !node->right->is_tnull())
+					destroy_tree(node->right);
+				
+				// delete current node
+				_alloc.destroy(&node->data);		// pair
+				_node_alloc.deallocate(node, 1);	// node itself
+			}
+		}
 
 		node_ptr	begin_node() const
 		{
@@ -553,8 +575,9 @@ class RBTree
 				y->color = z->color;
 			}
 			// delete z;
+			_alloc.destroy(&z->data);		// pair
 			_node_alloc.destroy(z);
-			_node_alloc.deallocate(z, 1);
+			_node_alloc.deallocate(z, 1);	// node itself
 			
 			if (y_original_color == 0)
 			{
