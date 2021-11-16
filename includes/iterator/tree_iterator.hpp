@@ -22,9 +22,9 @@ namespace ft
 			typedef	typename ft::Node<value_type>				Node;	//tree_node correspond to Node object with the template T.
 
 			typedef value_type&									reference;
-			// typedef const value_type&							const_reference;
+			typedef const value_type&							const_reference;
 			typedef	value_type*									pointer;
-			// typedef	const value_type*							const_pointer;
+			typedef	const value_type*							const_pointer;
 			
 			/* iterator Constructor: default, parameter, copy, assign */
 			TreeIterator() { }
