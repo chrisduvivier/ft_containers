@@ -200,9 +200,9 @@ namespace ft
 
 		typedef TreeIterator<bidirectional_iterator_tag, tree> 	iterator;
 		
-		// typedef ConstTreeIterator<value_type> 					const_iterator;
-		typedef ft::reverse_tree_iterator<iterator> 					reverse_iterator;
-		// typedef ft::reverse_iterator<const_iterator> 			const_reverse_iterator;
+		// typedef ConstTreeIterator<value_type> 						const_iterator;
+		typedef ft::reverse_tree_iterator<iterator> 						reverse_iterator;
+		// typedef ft::const_reverse_tree_iterator<const_iterator> 			const_reverse_iterator;
 
 		/****************************
 		*	   Member functions		*
@@ -277,10 +277,11 @@ namespace ft
 
 		//Return reverse iterator to reverse beginning (public member function )
 		reverse_iterator rbegin() { return (reverse_iterator( this->end() )); }
-		// // const_reverse_iterator rbegin() const;
+		// const_reverse_iterator rbegin() const { return (const_reverse_iterator( this->end() )); }
 
-		// //Return reverse iterator to reverse end (public member function )
+		//Return reverse iterator to reverse end (public member function )
 		reverse_iterator rend() { return (reverse_iterator( this->begin() )); }
+		// const_reverse_iterator rend() const { return (const_reverse_iterator( this->begin() )); }
 
 
 

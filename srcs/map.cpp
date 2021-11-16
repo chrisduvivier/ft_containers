@@ -34,13 +34,13 @@ bool operator==(ft::map<T, S> & a, std::map<T, S> & b)
 		return (false);
 	typename ft::map<T, S>::iterator it = a.begin();
 	typename std::map<T, S>::iterator it2 = b.begin();
-	// while (it != a.end())
-	// {
-	// 	if (it->first != it2->first || it->second != it2->second)
-	// 		return (false);
-	// 	++it;
-	// 	++it2;
-	// }
+	while (it != a.end())
+	{
+		if (it->first != it2->first || it->second != it2->second)
+			return (false);
+		++it;
+		++it2;
+	}
 	return (true);
 };
 
@@ -171,16 +171,24 @@ swap(map<Key, T, Compare, Allocator>& x, map<Key, T, Compare, Allocator>& y)
 static void constructors(void)
 {
 	std::cout << BLUE << "\n>Constructor" << RESET << std::endl;
-	std::pair<int, int> a[] = {std::make_pair(0, 1), std::make_pair(1, 0), std::make_pair(2, 1)};
+	// std::pair<int, int> a[] = {std::make_pair(0, 1), std::make_pair(1, 0), std::make_pair(2, 1)};
+	ft::pair<int, int> a[] = {ft::make_pair(0, 1), ft::make_pair(1, 0), ft::make_pair(2, 1)};
+
 	ft::map<int, int> m1;
 	std::map<int, int> m2;
 	check_map("default", (m1 == m2));
-// 	ft::map<int, int> m3(a, a + 3);
-// 	std::map<int, int> m4(a, a + 3);
-// 	check("range", (m3 == m4));
-// // 	ft::map<int, int> m5(m3);
-// // 	std::map<int, int> m6(m4);
-// // 	check("copy", (m5 == m6));
+	// std::map<int, int> m4(a, a + 3);
+
+	ft::map<int, int> m3(a, a + 3);
+    ft::map<int, int>::iterator it = m3.begin();
+    for (; it != m3.end(); ++it)
+        std::cout << it->first << "\n";
+
+
+	// check("range", (m3 == m4));
+	// ft::map<int, int> m5(m3);
+	// std::map<int, int> m6(m4);
+	// check("copy", (m5 == m6));
 }
 void test_map(void)
 {

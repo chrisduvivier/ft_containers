@@ -73,12 +73,13 @@ class RBTree
 
 		node_ptr	begin_node()
 		{
-			return (this->minimum(this->_root));
+			if (!this->_root->is_tnull())
+				return (this->minimum(this->_root));
+			return (this->_tnull);
 		}
 		node_ptr	end_node()
 		{
 			return (this->_tnull);
-			// return (this->maximum(this->_root)->right);
 		}
 
 		// Pre-Order traversal

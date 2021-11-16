@@ -192,6 +192,22 @@ int main()
 
 	test_category_name("	ITERATORS ");
 	{
+		test_name("	iter on empty map ");
+		ft::map<char,int> tmp_map;
+
+		ft::map<char,int>::iterator it(tmp_map.begin());
+		std::cout << it->first << "   " << it->second << "\n";
+
+		// test_name("	iter on empty map ");
+		// std::map<char,int> tmp_map;
+		// std::map<char,int>::iterator it(tmp_map.begin());
+
+		// ft::map<char,int>::iterator it2(tmp_map.end());
+		// std::cout << it2.getNode()->data.first << "\n";
+		return (0);
+	}
+	
+	{
 		ft::map<char,int> tmp_map;
 
 		tmp_map['b'] = 100;
@@ -284,7 +300,7 @@ int main()
 		std::cout << "max_size: " << tmp_map.max_size() << std::endl;
 
 	}
-	
+
 	test_category_name("	ERASE	");
 	{
 		test_name("	ERASE FUNCTIONS	FROM Cplusplus	");
