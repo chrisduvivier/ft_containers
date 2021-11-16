@@ -464,23 +464,23 @@ int main()
 	}
 
 	{
-		// test_category_name("	CITERATOR	");
-		// ft::map<char,int> mymap;
+		test_category_name("	CITERATOR	");
+		ft::map<char,int> mymap;
 
-		// // first insert function version (single parameter):
-		// mymap.insert ( ft::pair<char,int>('a',100) );
-		// mymap.insert ( ft::pair<char,int>('z',200) );
+		// first insert function version (single parameter):
+		mymap.insert ( ft::pair<char,int>('a',100) );
+		mymap.insert ( ft::pair<char,int>('z',200) );
 
-		// ft::map<char, int>::const_iterator cIt = mymap.begin();
-		// ft::map<char, int>::const_iterator cItE = mymap.end();
+		ft::map<char, int>::const_iterator cIt = mymap.begin();
+		ft::map<char, int>::const_iterator cItE = mymap.end();
 
-		// while (cIt != cItE)
-		// {
-		// 	// cIt->second = 42;
-		// 	// (*cIt).second = 42;
-		// 	std::cout << cIt->first << " => " << cIt->second << std::endl;
-		// 	cIt++;
-		// }
+		while (cIt != cItE)
+		{
+			// cIt->second = 42;
+			// (*cIt).second = 42;
+			std::cout << cIt->first << " => " << cIt->second << std::endl;
+			cIt++;
+		}
 	}
 
 	return (0);

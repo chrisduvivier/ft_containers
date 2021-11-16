@@ -201,7 +201,7 @@ namespace ft
 
 		typedef TreeIterator<bidirectional_iterator_tag, tree> 				iterator;
 		
-		typedef TreeIterator<bidirectional_iterator_tag, RBTree<const value_type, key_compare> >		const_iterator;
+		typedef TreeIterator<bidirectional_iterator_tag, const_tree, tree>	const_iterator;
 		
 		// typedef ConstTreeIterator<value_type> 						const_iterator;
 		typedef ft::reverse_tree_iterator<iterator> 						reverse_iterator;

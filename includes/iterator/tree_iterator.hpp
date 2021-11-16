@@ -10,20 +10,20 @@
 
 namespace ft
 {
-	template < class Category, class Tree >
+	template < class Category, class Tree , class not_const_Tree = Tree>
 	class TreeIterator : public ft::iterator< Category, Tree >
 	{
 		public:
 			typedef typename Tree::value_type					value_type;	// correspond to Pair
-			typedef typename value_type::first_type 			key_type;
-			typedef typename value_type::second_type 			mapped_type;
+			typedef typename Tree::key_type						key_type;
+			typedef typename Tree::mapped_type					mapped_type;
 			typedef	typename Tree::key_compare					key_compare;
 
-			typedef	typename ft::Node<value_type>				Node;	//tree_node correspond to Node object with the template T.
+			typedef	typename not_const_Tree::Node				Node;	//tree_node correspond to Node object with the template T.
 
-			typedef value_type&									reference;
+			typedef typename Tree::reference					reference;
 			typedef const value_type&							const_reference;
-			typedef	value_type*									pointer;
+			typedef	typename Tree::pointer						pointer;
 			typedef	const value_type*							const_pointer;
 			
 			/* iterator Constructor: default, parameter, copy, assign */
@@ -34,10 +34,7 @@ namespace ft
 				this->_root = root;
 			}
 
-			TreeIterator(const TreeIterator& ref) : 
-				_node_ptr(ref._node_ptr),
-				_root(ref._root)
-			{}
+			TreeIterator(const TreeIterator<Category, not_const_Tree> & ref) : _node_ptr(ref.getNode()), _root(ref.getRoot()) {}
 
 			virtual ~TreeIterator() {}
 			
@@ -157,6 +154,14 @@ namespace ft
 					}
 				}
 				return cursor;
+			}
+
+			Node *	getNode() const {
+				return (this->_node_ptr);
+			}
+
+			Node *	getRoot() const {
+				return (this->_root);
 			}
 			
 		private:
