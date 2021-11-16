@@ -249,21 +249,21 @@ int main()
 
 	test_category_name("	REVERSE ITERATORS	");
 
-	// {
-	// 	test_name(" reverse iterator");
-	// 	ft::map<char,int> mymap;
+	{
+		test_name(" reverse iterator");
+		ft::map<char,int> mymap;
 
-	// 	mymap['x'] = 100;
-	// 	mymap['y'] = 200;
-	// 	mymap['z'] = 300;
+		mymap['x'] = 100;
+		mymap['y'] = 200;
+		mymap['z'] = 300;
 
-	// 	// show content:
-	// 	ft::map<char,int>::reverse_iterator rit;
-	// 	for (rit = mymap.rbegin(); rit != mymap.rend(); ++rit)
-	// 		std::cout << rit->first << " => " << rit->second << '\n';
+		ft::map<char,int>::reverse_iterator rit_empty;
 
-	// 	return 0;
-	// }
+		// show content:
+		ft::map<char,int>::reverse_iterator rit = mymap.rbegin();
+		for (; rit != mymap.rend(); ++rit)
+			std::cout << rit->first << " => " << rit->second << '\n';
+	}
 
 	test_category_name("	CAPACITY FUNCTION	");
 	{
@@ -284,9 +284,10 @@ int main()
 		std::cout << "max_size: " << tmp_map.max_size() << std::endl;
 
 	}
-
+	
+	test_category_name("	ERASE	");
 	{
-		test_category_name("	ERASE FUNCTIONS	FROM Cplusplus	");
+		test_name("	ERASE FUNCTIONS	FROM Cplusplus	");
 		ft::map<char,int> mymap;
 		ft::map<char,int>::iterator it;
 
@@ -312,7 +313,7 @@ int main()
 	}
 
 	{
-		test_category_name("	ERASE FUNCTIONS	");
+		test_name("	ERASE FUNCTIONS	");
 
 		ft::map<char,int> mymap;
 
@@ -381,7 +382,7 @@ int main()
 	}
 
 	{
-		test_category_name("	SWAP : ITERATOR VALIDITY & TEST	");
+		test_name("	SWAP : ITERATOR VALIDITY & TEST	");
 
 		ft::map<char,int> foo,bar;
 
