@@ -67,7 +67,7 @@ public:
 ✅    iterator begin() ;
 ❌    const_iterator begin() const;
 ✅    iterator end();
-❌    const_iterator end()   const;
+❌   const_iterator end()   const;
 
 ❌    reverse_iterator rbegin();
 ❌    const_reverse_iterator rbegin() const;
@@ -183,6 +183,7 @@ namespace ft
 			typedef RBTree<value_type, key_compare> 				tree;
 			typedef ft::Node<value_type>							Node;
 			typedef Node*											node_ptr;
+			typedef RBTree<const value_type, key_compare>			const_tree;
 		
 		public:
 		class value_compare : public std::binary_function<value_type, value_type, bool>
@@ -198,9 +199,10 @@ namespace ft
 				}
 		};
 
-		typedef TreeIterator<bidirectional_iterator_tag, tree> 	iterator;
+		typedef TreeIterator<bidirectional_iterator_tag, tree> 				iterator;
 		
-		// typedef ConstTreeIterator<value_type> 					const_iterator;
+		typedef TreeIterator<bidirectional_iterator_tag, RBTree<const value_type, key_compare> >		const_iterator;
+		
 		// typedef ft::reverse_iterator<iterator> 					reverse_iterator;
 		// typedef ft::reverse_iterator<const_iterator> 			const_reverse_iterator;
 
@@ -269,11 +271,11 @@ namespace ft
 
 		//Return iterator to beginning (public member function )
 		iterator begin() { return (iterator( this->_tree.begin_node(), this->_tree.getRoot() ) ); }
-		// const_iterator begin() const;
+		const_iterator begin() const { return (const_iterator( this->_tree.begin_node(), this->_tree.getRoot() ) ); }
 
 		//Return iterator to end (public member function )
 		iterator end() { return (iterator( this->_tree.end_node(), this->_tree.getRoot() )); }
-		// const_iterator end() const;
+		const_iterator end() const { return (const_iterator( this->_tree.end_node(), this->_tree.getRoot() )); }
 
 		//Return reverse iterator to reverse beginning (public member function )
 		// reverse_iterator rbegin() { return (reverse_iterator( this->end() )); }

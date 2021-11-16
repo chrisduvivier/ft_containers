@@ -71,11 +71,11 @@ class RBTree
 
 		/*Need a destructor ? */
 
-		node_ptr	begin_node()
+		node_ptr	begin_node() const
 		{
 			return (this->minimum(this->_root));
 		}
-		node_ptr	end_node()
+		node_ptr	end_node() const
 		{
 			return (this->_tnull);
 			// return (this->maximum(this->_root)->right);
@@ -110,7 +110,7 @@ class RBTree
 		}
 
 		// find the node with the minimum key
-		node_ptr minimum(node_ptr node)
+		node_ptr minimum(node_ptr node) const
 		{
 			while (node->left != _tnull)
 			{
@@ -120,7 +120,7 @@ class RBTree
 		}
 
 		// find the node with the maximum key
-		node_ptr maximum(node_ptr node)
+		node_ptr maximum(node_ptr node) const
 		{
 			while (node->right != _tnull)
 			{
