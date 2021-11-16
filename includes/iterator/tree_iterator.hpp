@@ -10,11 +10,8 @@
 
 namespace ft
 {
-	/******************************************
-	************** TreeIterator ***************
-	*******************************************/
-	template < class Category, class Tree>
-	class TreeIterator
+	template < class Category, class Tree >
+	class TreeIterator : public ft::iterator< Category, Tree >
 	{
 		public:
 			typedef typename Tree::value_type					value_type;	// correspond to Pair

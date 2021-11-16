@@ -192,6 +192,22 @@ int main()
 
 	test_category_name("	ITERATORS ");
 	{
+		test_name("	iter on empty map ");
+		ft::map<char,int> tmp_map;
+
+		ft::map<char,int>::iterator it(tmp_map.begin());
+		std::cout << it->first << "   " << it->second << "\n";
+
+		// test_name("	iter on empty map ");
+		// std::map<char,int> tmp_map;
+		// std::map<char,int>::iterator it(tmp_map.begin());
+
+		// ft::map<char,int>::iterator it2(tmp_map.end());
+		// std::cout << it2.getNode()->data.first << "\n";
+		return (0);
+	}
+	
+	{
 		ft::map<char,int> tmp_map;
 
 		tmp_map['b'] = 100;
@@ -249,21 +265,21 @@ int main()
 
 	test_category_name("	REVERSE ITERATORS	");
 
-	// {
-	// 	test_name(" reverse iterator");
-	// 	ft::map<char,int> mymap;
+	{
+		test_name(" reverse iterator");
+		ft::map<char,int> mymap;
 
-	// 	mymap['x'] = 100;
-	// 	mymap['y'] = 200;
-	// 	mymap['z'] = 300;
+		mymap['x'] = 100;
+		mymap['y'] = 200;
+		mymap['z'] = 300;
 
-	// 	// show content:
-	// 	ft::map<char,int>::reverse_iterator rit;
-	// 	for (rit = mymap.rbegin(); rit != mymap.rend(); ++rit)
-	// 		std::cout << rit->first << " => " << rit->second << '\n';
+		ft::map<char,int>::reverse_iterator rit_empty;
 
-	// 	return 0;
-	// }
+		// show content:
+		ft::map<char,int>::reverse_iterator rit = mymap.rbegin();
+		for (; rit != mymap.rend(); ++rit)
+			std::cout << rit->first << " => " << rit->second << '\n';
+	}
 
 	test_category_name("	CAPACITY FUNCTION	");
 	{
@@ -285,8 +301,9 @@ int main()
 
 	}
 
+	test_category_name("	ERASE	");
 	{
-		test_category_name("	ERASE FUNCTIONS	FROM Cplusplus	");
+		test_name("	ERASE FUNCTIONS	FROM Cplusplus	");
 		ft::map<char,int> mymap;
 		ft::map<char,int>::iterator it;
 
@@ -312,7 +329,7 @@ int main()
 	}
 
 	{
-		test_category_name("	ERASE FUNCTIONS	");
+		test_name("	ERASE FUNCTIONS	");
 
 		ft::map<char,int> mymap;
 
@@ -381,7 +398,7 @@ int main()
 	}
 
 	{
-		test_category_name("	SWAP : ITERATOR VALIDITY & TEST	");
+		test_name("	SWAP : ITERATOR VALIDITY & TEST	");
 
 		ft::map<char,int> foo,bar;
 
