@@ -61,7 +61,7 @@ class RBTree
 
 		/* Constructor */
 		RBTree(const key_compare& comp = key_compare(),
-		const allocator_type& alloc = allocator_type()) : _alloc(alloc), _comp(comp){
+		const allocator_type& alloc = allocator_type()) : _alloc(alloc), _comp(comp) {
 			_tnull = _node_alloc.allocate(1);
 			_tnull->color = 0;
 			_tnull->left = nullptr;
@@ -70,26 +70,29 @@ class RBTree
 		}
 
 		/* Need a destructor ? */
-		// ~RBTree()
-		// {
-		// 	destroy_tree(this->_root);
-		// 	_node_alloc.destroy(_tnull);
-		// 	_node_alloc.deallocate(_tnull, 1);
-		// }
+		~RBTree()
+		{
+			// this->clear();
+			// this->_node_alloc.deallocate(this->_tnull, 1);
+		}
+
+		void	clear() {
+			// this->destroy_tree(this->_root);
+		}
 
 		void	destroy_tree(node_ptr node)
 		{
-			if (node)
+			if (node && node != _tnull)
 			{
 				// recursive call to both child node
-				if (node->left && !node->left->is_tnull())
+				if (node->left)
 					destroy_tree(node->left);
-				if (node->right && !node->right->is_tnull())
+				if (node->right)
 					destroy_tree(node->right);
 				
-				// delete current node
-				_alloc.destroy(&node->data);		// pair
-				_node_alloc.deallocate(node, 1);	// node itself
+				// delete current node and its pair
+				this->_alloc.destroy(&node->data);		// pair
+				this->_node_alloc.deallocate(node, 1);	// node itself
 			}
 		}
 
