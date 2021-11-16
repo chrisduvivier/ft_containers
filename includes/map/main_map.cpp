@@ -194,32 +194,14 @@ int main()
 	{
 		test_name("	iter on empty map ");
 		ft::map<char,int> tmp_map;
-
 		ft::map<char,int>::iterator it(tmp_map.begin());
-		std::cout << it->first << "   " << it->second << "\n";
+		ft::map<char,int>::iterator it2(tmp_map.end());
 
 		// test_name("	iter on empty map ");
 		// std::map<char,int> tmp_map;
 		// std::map<char,int>::iterator it(tmp_map.begin());
 
-		// ft::map<char,int>::iterator it2(tmp_map.end());
 		// std::cout << it2.getNode()->data.first << "\n";
-		return (0);
-	}
-	
-	{
-		ft::map<char,int> tmp_map;
-
-		tmp_map['b'] = 100;
-		tmp_map['a'] = 200;
-		tmp_map['c'] = 300;
-
-		ft::map<char,int>::iterator it_empty;
-		ft::map<char,int>::iterator it(tmp_map.begin());
-		std::cout << it.getNode()->data.first << "\n";
-		ft::map<char,int>::iterator it2(tmp_map.end());
-		std::cout << it2.getNode()->data.first << "\n";
-
 	}
 	
 	{
@@ -482,23 +464,23 @@ int main()
 	}
 
 	{
-		test_category_name("	CITERATOR	");
-		ft::map<char,int> mymap;
+		// test_category_name("	CITERATOR	");
+		// ft::map<char,int> mymap;
 
-		// first insert function version (single parameter):
-		mymap.insert ( ft::pair<char,int>('a',100) );
-		mymap.insert ( ft::pair<char,int>('z',200) );
+		// // first insert function version (single parameter):
+		// mymap.insert ( ft::pair<char,int>('a',100) );
+		// mymap.insert ( ft::pair<char,int>('z',200) );
 
-		ft::map<char, int>::const_iterator cIt = mymap.begin();
-		ft::map<char, int>::const_iterator cItE = mymap.end();
+		// ft::map<char, int>::const_iterator cIt = mymap.begin();
+		// ft::map<char, int>::const_iterator cItE = mymap.end();
 
-		while (cIt != cItE)
-		{
-			// cIt->second = 42;
-			// (*cIt).second = 42;
-			std::cout << cIt->first << " => " << cIt->second << std::endl;
-			cIt++;
-		}
+		// while (cIt != cItE)
+		// {
+		// 	// cIt->second = 42;
+		// 	// (*cIt).second = 42;
+		// 	std::cout << cIt->first << " => " << cIt->second << std::endl;
+		// 	cIt++;
+		// }
 	}
 
 	return (0);
