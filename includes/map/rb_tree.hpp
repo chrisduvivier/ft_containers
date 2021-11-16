@@ -790,6 +790,20 @@ class RBTree
 			this->_tnull = x._tnull;
 			x._tnull = temp;
 		}
+		/******************************************
+		 * Get key_compare
+		*******************************************/
+		public:
+		key_compare 	get_key_comp() const {
+			return (this->_comp);
+		}
+		/******************************************
+		 * Get value_compare
+		*******************************************/
+		public:
+		value_compare 	get_value_comp() const {
+			return (value_compare(this->_comp));
+		}
 
 		// Returns an iterator pointing to the first element in the container whose key is not considered to go before k (i.e., either it is equivalent or goes after).
 		// x >= k

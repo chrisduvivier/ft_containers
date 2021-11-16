@@ -64,51 +64,53 @@ int main()
 		}
 	}
 
-	// test_category_name("	OBSERVATIONS	");
-	// {	
-	// 	test_name("key_compare");
-	// 	ft::map<char,int> mymap;
-	// 	ft::map<char,int>::key_compare mycomp = mymap.key_comp();
-	// 	mymap['a']=100;
-	// 	mymap['b']=200;
-	// 	mymap['c']=300;
-	// 	std::cout << "mymap contains:\n";
-	// 	char highest = mymap.rbegin()->first;     // key value of last element
+	test_category_name("	OBSERVATIONS	");
+	{	
+		test_name("key_compare");
+		ft::map<char,int> mymap;
+		ft::map<char,int>::key_compare mycomp = mymap.key_comp();
+		mymap['a']=100;
+		mymap['b']=200;
+		mymap['c']=300;
+		std::cout << "mymap contains:\n";
+		char highest = mymap.rbegin()->first;     // key value of last element
 
-	// 	ft::map<char,int>::iterator it = mymap.begin();
-	// 	do {
-	// 		std::cout << it->first << " => " << it->second << '\n';
-	// 	} while ( mycomp((*it++).first, highest) );
-	// 	std::cout << '\n';
+		ft::map<char,int>::iterator it = mymap.begin();
+		do {
+			std::cout << it->first << " => " << it->second << '\n';
+		} while ( mycomp((*it++).first, highest) );
+		std::cout << '\n';
 
-	// 	/* expected:
-	// 		mymap contains:
-	// 		a => 100
-	// 		b => 200
-	// 		c => 300
-	// 	*/
-	// }
+		/* expected:
+			mymap contains:
+			a => 100
+			b => 200
+			c => 300
+		*/
+	}
 
-	// {
-	// 	test_name("value_compare");
-	// 	ft::map<char,int> mymap;
-	// 	mymap['x']=1001;
-	// 	mymap['y']=2002;
-	// 	mymap['z']=3003;
-	// 	std::cout << "mymap contains:\n";
-	// 	ft::pair<char,int> highest = *mymap.rbegin();          // last element
-	// 	ft::map<char,int>::iterator it = mymap.begin();
-	// 	do {
-	// 		std::cout << it->first << " => " << it->second << '\n';
-	// 	} while ( mymap.value_comp()(*it++, highest) );
+	{
+		test_name("value_compare");
+		ft::map<char,int> mymap;
+		mymap['x']=1001;
+		mymap['y']=2002;
+		mymap['z']=3003;
+		std::cout << "mymap contains:\n";
+		ft::pair<char,int> highest = *mymap.rbegin();          // last element
+		ft::map<char,int>::iterator it = mymap.begin();
+		do {
+			std::cout << it->first << " => " << it->second << '\n';
+		} while ( mymap.value_comp()(*it++, highest) );
 
-	// 	/* expected:
-	// 		mymap contains:
-	// 		x => 1001
-	// 		y => 2002
-	// 		z => 3003
-	// 	*/
-	// }
+		/* expected:
+			mymap contains:
+			x => 1001
+			y => 2002
+			z => 3003
+		*/
+	}
+
+	return 0;
 
 	test_category_name("	OPERATIONS FUNCTION	");
 	{
@@ -536,6 +538,6 @@ int main()
 
 	}
 
-	system("leaks a.out > .leaks_map_log");
+	//system("leaks a.out > .leaks_map_log");
 	return (0);
 }

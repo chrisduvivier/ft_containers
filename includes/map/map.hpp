@@ -96,8 +96,8 @@ public:
 
     // observers:
 ✅    allocator_type get_allocator() const noexcept;
-❔    key_compare    key_comp()      const;
-❔    value_compare  value_comp()    const;
+✅    key_compare    key_comp()      const;
+✅    value_compare  value_comp()    const;
 
     // map operations:
 ✅    iterator find(const key_type& k);
@@ -180,24 +180,14 @@ namespace ft
 		typedef typename allocator_type::difference_type		difference_type;
 		
 		private:
-			typedef RBTree<value_type, key_compare> 				tree;
-			typedef ft::Node<value_type>							Node;
-			typedef Node*											node_ptr;
-			typedef RBTree<const value_type, key_compare>			const_tree;
+		typedef RBTree<value_type, key_compare> 				tree;
+		typedef ft::Node<value_type>							Node;
+		typedef Node*											node_ptr;
+		typedef RBTree<const value_type, key_compare>			const_tree;
 		
 		public:
-		class value_compare : public std::binary_function<value_type, value_type, bool>
-		{
-			friend class map;
-			private:
-				key_compare comp;
-			public:
-				value_compare(const key_compare &x) : comp(x) {}
-				bool operator()(const value_type &x, const value_type &y) const
-				{
-					return comp(x.first, y.first);
-				}
-		};
+
+		typedef typename tree::value_compare								value_compare;
 
 		typedef TreeIterator<bidirectional_iterator_tag, tree> 				iterator;
 		
@@ -386,9 +376,9 @@ namespace ft
 		// ****************************/
 
 		//Return key comparison object (public member function )
-		key_compare key_comp()  { return (this->_tree.key_compare()); }
+		key_compare key_comp() const { return (this->_tree.get_key_comp()); }
 		//Return value comparison object (public member function )
-		value_compare value_comp() const { return (this->_tree.value_compare()); }
+		value_compare value_comp() const { return (this->_tree.get_value_comp()); }
 
 		// /****************************
 		// *		  Operations		*
