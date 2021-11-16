@@ -243,7 +243,9 @@ namespace ft
 
 		map(const map &x)
 		{
-			*this = x;
+			iterator it = x.begin();
+			for (; it != x.end(); ++it)
+				this->insert(it);
 		}
 
 		/*
@@ -252,10 +254,12 @@ namespace ft
 		*/
 
 		map& operator=( const map& other ){
-			//Need to overload the '=' operator of tree
 			if (this == &other)
 				return ;
-			this->_tree = other._tree;
+			this->clear();	//clean current Tree
+			iterator it = other.begin();
+			for (; it != other.end(); ++it)
+				this->insert(it);
 			return (*this);
 		}
 
@@ -264,6 +268,7 @@ namespace ft
 
 		~map()
 		{
+			this->clear();
 		}
 
 		/****************************
@@ -374,10 +379,7 @@ namespace ft
 		void	swap(map &x){ this->_tree.swap(x._tree); }
 
 		// Removes all elements from the map container (which are destroyed), leaving the container with a size of 0.
-		// void clear();
-		// {
-		// 	// this->_tree.clear();
-		// }
+		void clear() { this->_tree.clear(); }
 
 		// /****************************
 		// *		  Observers			*
