@@ -158,6 +158,29 @@ int main()
 	}
 
 	{
+		test_name("lower_bound/upper_bond - const_iterator");
+		ft::map<char,int> tmp_map;
+		ft::map<char,int>::const_iterator itlow,itup;
+
+		tmp_map['a']=20;
+		tmp_map['b']=40;
+		tmp_map['c']=60;
+		tmp_map['d']=80;
+		tmp_map['e']=100;
+
+		itlow = tmp_map.lower_bound ('b');  // itlow points to b
+		itup = tmp_map.upper_bound ('d');   // itup points to e (not d!)
+
+		std::cout << "itlow: " << itlow->first << " => " << itlow->second << '\n';
+		std::cout << "itup: " << itup->first << " => " << itup->second << '\n';
+
+		// print content:
+		for (ft::map<char,int>::iterator it = tmp_map.begin(); it != tmp_map.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
+		// expected: "a => 20; e => 100"
+	}
+
+	{
 		test_name("equal_range");
 		ft::map<char,int> mymap;
 

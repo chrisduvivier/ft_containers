@@ -105,11 +105,11 @@ public:
 
 ✅    size_type      count(const key_type& k) const;
 ✅    iterator lower_bound(const key_type& k);
-❌    const_iterator lower_bound(const key_type& k) const;
+✅    const_iterator lower_bound(const key_type& k) const;
 
 
 ✅    iterator upper_bound(const key_type& k);
-❌    const_iterator upper_bound(const key_type& k) const;
+✅    const_iterator upper_bound(const key_type& k) const;
 
 
 ✅    pair<iterator,iterator>             equal_range(const key_type& k);
@@ -423,7 +423,9 @@ namespace ft
 			return (iterator(this->_tree.lower_bound(k), this->_tree.getRoot() ));
 		}
 
-		// const_iterator lower_bound (const key_type& k) const;
+		const_iterator lower_bound (const key_type& k) const{
+			return (const_iterator(this->_tree.lower_bound(k), this->_tree.getRoot() ));
+		}
 
 		/*
 			Returns an iterator pointing to the first element in the container whose key is considered to go after k.
@@ -434,7 +436,9 @@ namespace ft
 			return (iterator(this->_tree.upper_bound(k), this->_tree.getRoot() ));
 		}
 
-		// const_iterator upper_bound (const key_type& k) const;
+		const_iterator upper_bound (const key_type& k) const{
+			return (const_iterator(this->_tree.upper_bound(k), this->_tree.getRoot() ));
+		}
 
 		//Get range of equal elements (public member function )
 		pair<iterator,iterator>	equal_range (const key_type& k)
