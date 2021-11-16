@@ -350,9 +350,7 @@ namespace ft
 		}
 
 		// (1) Erase elements (public member function )
-		void erase (iterator position) {
-			this->erase(position->first);
-		}
+		void erase (iterator position) { this->erase(position->first); }
 
 		/* (2) For the key-based version, the function returns the number of elements erased. */
 		size_type erase(const key_type& k){	
@@ -373,26 +371,22 @@ namespace ft
 		}
 
 		//Swap content (public member function )
-		void	swap(map &x){
-			this->_tree.swap(x._tree);
-		}
-		// //Clear content (public member function )
-		// clear();
+		void	swap(map &x){ this->_tree.swap(x._tree); }
+
+		// Removes all elements from the map container (which are destroyed), leaving the container with a size of 0.
+		// void clear();
+		// {
+		// 	// this->_tree.clear();
+		// }
 
 		// /****************************
 		// *		  Observers			*
 		// ****************************/
 
 		//Return key comparison object (public member function )
-		key_compare key_comp() 
-		{
-			return (this->_tree.key_compare());
-		}
+		key_compare key_comp()  { return (this->_tree.key_compare()); }
 		//Return value comparison object (public member function )
-		value_compare value_comp() const
-		{
-			return (this->_tree.value_compare());
-		}
+		value_compare value_comp() const { return (this->_tree.value_compare()); }
 
 		// /****************************
 		// *		  Operations		*
