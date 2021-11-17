@@ -110,8 +110,6 @@ int main()
 		*/
 	}
 
-	return 0;
-
 	test_category_name("	OPERATIONS FUNCTION	");
 	{
 		ft::map<char,int> tmp_map;
@@ -284,9 +282,62 @@ int main()
 
 		// show content:
 		ft::map<char,int>::reverse_iterator rit = mymap.rbegin();
+
+		std::cout << "rbegin : " << rit->first << " => " << rit->second << std::endl;
+		std::cout << "rend   : " << mymap.rend()->first << " => " << mymap.rend()->second << std::endl;
+
 		for (; rit != mymap.rend(); ++rit)
 			std::cout << rit->first << " => " << rit->second << '\n';
+		std::cout << "base() : " << rit.base()->first << std::endl;
 	}
+
+	test_category_name("	CONST REVERSE ITERATORS	");
+
+	{
+		test_name(" const reverse iterator");
+		ft::map<char,int> mymap;
+
+		mymap['x'] = 100;
+		mymap['y'] = 200;
+		mymap['z'] = 300;
+
+		ft::map<char,int>::const_reverse_iterator cRIt_empty;
+
+		// show content:
+		ft::map<char,int>::const_reverse_iterator cRIt = mymap.rbegin();
+		std::cout << "crbegin : " << cRIt->first << " => " << cRIt->second << std::endl;
+		std::cout << "crend   : " << mymap.rend()->first << " => " << mymap.rend()->second << std::endl;
+		for (; cRIt != mymap.rend() ;++cRIt)
+			std::cout << cRIt->first << " => " << cRIt->second << '\n';
+		// cRIt->second = 42; //---> error because const_reverse_iterator
+
+		std::cout << "base() : " << cRIt.base()->first << std::endl;
+	} 
+
+	{
+		test_name(" other test reverse iterator");
+
+		ft::map<char,int> mymap;
+		mymap['x'] = 100;
+		mymap['y'] = 200;
+		mymap['z'] = 300;
+		mymap['c'] = 400;
+		mymap['b'] = 500;
+		mymap['a'] = 600;
+
+		typedef ft::map<char,int>::iterator iter_type;
+
+		ft::reverse_iterator<iter_type> rev_end (mymap.begin());
+		ft::reverse_iterator<iter_type> rev_begin (mymap.end());
+
+		std::cout << "mymap:" << std::endl;
+		for (iter_type it = rev_end.base(); it != rev_begin.base(); ++it)
+			std::cout << " " << it->first << " => " << (*it).second << std::endl;
+
+		return 0;
+	}	
+
+	return (0);
 
 	test_category_name("	CAPACITY FUNCTION	");
 	{
