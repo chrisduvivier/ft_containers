@@ -8,7 +8,7 @@
 # include "pair.hpp"
 # include "rb_tree.hpp"
 # include "../iterator/tree_iterator.hpp"
-# include "../iterator/reverse_tree_iterator.hpp"
+# include "../iterator/reverse_iterator_final.hpp"
 # include "node.hpp"
 
 /*
@@ -186,16 +186,13 @@ namespace ft
 		typedef RBTree<const value_type, key_compare>			const_tree;
 		
 		public:
-
 		typedef typename tree::value_compare								value_compare;
 
 		typedef TreeIterator<bidirectional_iterator_tag, tree> 				iterator;
-		
 		typedef TreeIterator<bidirectional_iterator_tag, const_tree, tree>	const_iterator;
-		
-		// typedef ConstTreeIterator<value_type> 						const_iterator;
-		typedef ft::reverse_tree_iterator<iterator> 						reverse_iterator;
-		// typedef ft::const_reverse_tree_iterator<const_iterator> 			const_reverse_iterator;
+
+		typedef ft::reverse_iterator<iterator> 						reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator> 				const_reverse_iterator;
 
 		/****************************
 		*	   Member functions		*
@@ -275,11 +272,11 @@ namespace ft
 
 		//Return reverse iterator to reverse beginning (public member function )
 		reverse_iterator rbegin() { return (reverse_iterator( this->end() )); }
-		// const_reverse_iterator rbegin() const { return (const_reverse_iterator( this->end() )); }
+		const_reverse_iterator rbegin() const { return (const_reverse_iterator( this->end() )); }
 
 		//Return reverse iterator to reverse end (public member function )
 		reverse_iterator rend() { return (reverse_iterator( this->begin() )); }
-		// const_reverse_iterator rend() const { return (const_reverse_iterator( this->begin() )); }
+		const_reverse_iterator rend() const { return (const_reverse_iterator( this->begin() )); }
 
 
 
