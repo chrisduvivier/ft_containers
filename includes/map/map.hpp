@@ -37,8 +37,8 @@ public:
 
 ✅    typedef implementation-defined                   iterator;
 ✅    typedef implementation-defined                   const_iterator;
-❌    typedef std::reverse_iterator<iterator>          reverse_iterator;
-❌    typedef std::reverse_iterator<const_iterator>    const_reverse_iterator;
+✅    typedef ft::reverse_iterator<iterator>          reverse_iterator;
+✅    typedef ft::reverse_iterator<const_iterator>    const_reverse_iterator;
 
 ✅    class value_compare
           : public binary_function<value_type, value_type, bool>
@@ -69,10 +69,10 @@ public:
 ✅    iterator end();
 ✅   const_iterator end()   const;
 
-❌    reverse_iterator rbegin();
-❌    const_reverse_iterator rbegin() const;
-❌    reverse_iterator rend();
-❌    const_reverse_iterator rend() const;
+✅    reverse_iterator rbegin();
+✅    const_reverse_iterator rbegin() const;
+✅    reverse_iterator rend();
+✅    const_reverse_iterator rend() const;
 
     // capacity:
 ✅    bool      empty()    const noexcept;
