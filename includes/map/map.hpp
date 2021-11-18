@@ -8,7 +8,7 @@
 # include "pair.hpp"
 # include "rb_tree.hpp"
 # include "../iterator/tree_iterator.hpp"
-# include "../iterator/reverse_iterator_final.hpp"
+# include "../iterator/reverse_iterator.hpp"
 # include "node.hpp"
 
 /*
@@ -228,11 +228,11 @@ namespace ft
 		**	Constructs a container with a copy of each of the elements in x, in the same order.
 		*/
 
-		map(const map &x)
+		map(const map &x): _tree(x._tree)
 		{
-			iterator it = x.begin();
-			for (; it != x.end(); ++it)
-				this->insert(it);
+			//iterator it = x.begin();
+			//for (; it != x.end(); ++it)
+			//	this->insert(it);
 		}
 
 		/*
@@ -241,13 +241,16 @@ namespace ft
 		*/
 
 		map& operator=( const map& other ){
-			if (this == &other)
-				return ;
-			this->clear();	//clean current Tree
-			iterator it = other.begin();
-			for (; it != other.end(); ++it)
-				this->insert(it);
-			return (*this);
+			//if (this == &other)
+			//	return *this;
+			//this->clear();	//clean current Tree
+			//iterator it = other.begin();
+			//for (; it != other.end(); ++it)
+			//	this->insert(it);
+			//return (*this);
+			if (this != &other)
+				_tree = other._tree;
+			return *this;
 		}
 
 		/*	Think of the _alloc object as an array of objects. Therefore we need to destroy each obj in the array,
