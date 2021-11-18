@@ -123,7 +123,7 @@ namespace ft
 		** Returns a reverse iterator pointing to the element located n positions before 
 		** the element the iterator currently points to.
 		*/
-		reference operator- (difference_type n) const{
+		reverse_iterator operator- (difference_type n) const{
 			return (reverse_iterator(this->base() + n));
 		}
 

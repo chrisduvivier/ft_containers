@@ -22,18 +22,11 @@ namespace ft
 	{
 		public:
 			
-			//typedef random_access_iterator															It;
 			typedef	typename ft::iterator<random_access_iterator_tag, T>::iterator_category			iterator_category;
 			typedef	typename ft::iterator<random_access_iterator_tag, T>::pointer					pointer;
 			typedef	typename ft::iterator<random_access_iterator_tag, T>::reference					reference;
 			typedef	typename ft::iterator<random_access_iterator_tag, not_const_T>::value_type		value_type;
 			typedef	typename ft::iterator<random_access_iterator_tag, T>::difference_type			difference_type;
-
-			// typedef random_access_iterator_tag	iterator_category;
-			// typedef	T*							pointer;
-			// typedef	T&							reference;
-			// typedef	T							value_type;
-			// typedef	ptrdiff_t					difference_type;
 			
 			/* iterator Constructor: default, parameter, copy, assign */
 			random_access_iterator() : _ptr(nullptr) {}
@@ -59,7 +52,6 @@ namespace ft
 
 			/* Can be dereferenced as an rvalue (if in a dereferenceable state). */
 			reference 			operator*() const { return *_ptr; }
-			//const reference 	operator*() const { return *_ptr; }
 			pointer 			operator->()  { return _ptr; }
 			reference			operator[](int i) { return this->_ptr[i]; }
 
