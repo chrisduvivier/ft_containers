@@ -18,6 +18,7 @@ namespace ft
         Node			*left;	  	// pointer to left child
         Node			*right;  	// pointer to right child
         int				color;	  	// 1 -> Red, 0 -> Black
+        bool			dummy;	  	// 1 -> TNULL node, 0 -> Valid node
 
         Node* leftMost()
         {
@@ -61,12 +62,7 @@ namespace ft
             return (cursor);
         }
 
-        bool is_tnull()
-        {
-            Node *cursor = this;
-            return (cursor->color == 0 && cursor->left == nullptr && 
-                cursor->right == nullptr && (!cursor->data.first || !cursor->data.second));
-        }
+        bool is_tnull() { return (this->dummy); }
     };
 };
 

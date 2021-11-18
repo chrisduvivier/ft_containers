@@ -25,6 +25,8 @@ class RBTree
 
 		typedef typename T::first_type 		key_type;
 		typedef typename T::second_type 	mapped_type;
+		typedef typename T::second_type 	pair;
+		
 		typedef	Compare						key_compare;
 		typedef value_type&					reference;
 		typedef const value_type&			const_reference;
@@ -60,29 +62,44 @@ class RBTree
 	public:
 
 		/* Constructor */
-		RBTree(const key_compare& comp = key_compare(),
-		const allocator_type& alloc = allocator_type()) : _alloc(alloc), _comp(comp) {
+		RBTree(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
+			_alloc(alloc),
+			_comp(comp) 
+		{
 			_tnull = _node_alloc.allocate(1);
+			_tnull->dummy = 1;
 			_tnull->color = 0;
 			_tnull->left = nullptr;
 			_tnull->right = nullptr;
 			this->_root = _tnull;
 		}
 
+
+		// TODO
+		// Tree(const Tree& x) { *this = x; }
+			
+		// 	Tree(const Node& node, const key_compare& comp = key_compare(),
+		// 	const allocator_type& alloc = allocator_type()) :
+		// 		_comp(comp), _allocValue(alloc) {
+		// 			this->_root = &node;
+		// 			this->_end_node = this->_allocNode.allocate(1);
+		// 			this->set_end_node();
+		// 	}
+
 		/* Need a destructor ? */
 		~RBTree()
 		{
-			// this->clear();
-			// this->_node_alloc.deallocate(this->_tnull, 1);
+			this->clear();
+			this->_node_alloc.deallocate(this->_tnull, 1);
 		}
 
 		void	clear() {
-			// this->destroy_tree(this->_root);
+			this->destroy_tree(this->_root);
 		}
 
 		void	destroy_tree(node_ptr node)
 		{
-			if (node && node != _tnull)
+			if (node && !node->dummy)
 			{
 				// recursive call to both child node
 				if (node->left)
@@ -98,10 +115,11 @@ class RBTree
 
 		node_ptr	begin_node() const
 		{
-			if (!this->_root->is_tnull())
+			if (this->_root && this->_root != this->_tnull)
 				return (this->minimum(this->_root));
 			return (this->_tnull);
 		}
+		
 		node_ptr	end_node() const
 		{
 			return (this->_tnull);
@@ -263,6 +281,7 @@ class RBTree
 
 			node_ptr node = _node_alloc.allocate(1);
 			node->parent = nullptr;
+			node->dummy = 0;
 
 			this->_alloc.construct(&node->data, key); //construct the key into data
 			
@@ -579,7 +598,6 @@ class RBTree
 			}
 			// delete z;
 			_alloc.destroy(&z->data);		// pair
-			_node_alloc.destroy(z);
 			_node_alloc.deallocate(z, 1);	// node itself
 			
 			if (y_original_color == 0)

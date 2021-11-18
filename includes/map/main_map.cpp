@@ -35,6 +35,11 @@ int main()
 {
 	std::cout << "---------- TEST MAP ----------\n";
 	{
+		ft::map<std::string, int> 	tmp_map;
+		tmp_map["Hello"] = 199;
+	}
+
+	{
 		test_category_name("	MODIFIERS FUNCTION	");
 		ft::map<std::string, int> 	tmp_map;
 		ft::pair<std::string, int>	tmp_pair("42", 19);
@@ -215,11 +220,15 @@ int main()
 
 	test_category_name("	ITERATORS ");
 	{
+		test_name("	empty iter ");
+		ft::map<char,int>::iterator it;
+	}
+
+	{
 		test_name("	iter on empty map ");
 		ft::map<char,int> tmp_map;
 		ft::map<char,int>::iterator it(tmp_map.begin());
 		ft::map<char,int>::iterator it2(tmp_map.end());
-
 		// test_name("	iter on empty map ");
 		// std::map<char,int> tmp_map;
 		// std::map<char,int>::iterator it(tmp_map.begin());
@@ -249,7 +258,7 @@ int main()
 
 		// show content:
 		std::map<char,int>::iterator it = tmp_map.end();
-
+		--it;
 		for (; it != tmp_map.begin(); --it)
 			std::cout << it->first << " => " << it->second << '\n';
 	}
@@ -263,7 +272,7 @@ int main()
 
 		// show content:
 		ft::map<char,int>::iterator it = tmp_map.end();
-
+		--it;
 		for (; it != tmp_map.begin(); --it)
 			std::cout << it->first << " => " << it->second << '\n';
 	}
@@ -589,6 +598,6 @@ int main()
 
 	}
 
-	//system("leaks a.out > .leaks_map_log");
+	system("leaks a.out > .leaks_map_log");
 	return (0);
 }

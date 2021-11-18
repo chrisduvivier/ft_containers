@@ -179,13 +179,13 @@ namespace ft
 		typedef typename allocator_type::size_type				size_type;
 		typedef typename allocator_type::difference_type		difference_type;
 		
-		private:
-		typedef RBTree<value_type, key_compare> 				tree;
-		typedef ft::Node<value_type>							Node;
-		typedef Node*											node_ptr;
-		typedef RBTree<const value_type, key_compare>			const_tree;
+	private:
+		typedef RBTree<value_type, key_compare, allocator_type> 				tree;
+		typedef ft::Node<value_type>											Node;
+		typedef Node*															node_ptr;
+		typedef RBTree<const value_type, key_compare, allocator_type>			const_tree;
 		
-		public:
+	public:
 		typedef typename tree::value_compare								value_compare;
 
 		typedef TreeIterator<bidirectional_iterator_tag, tree> 				iterator;
@@ -204,10 +204,8 @@ namespace ft
 		*/
 
 		explicit map(const key_compare &comp = key_compare(), 
-					const allocator_type &alloc = allocator_type())
-		{
-			this->_tree	= RBTree<value_type, Compare, Alloc>(comp, alloc);
-		}
+					const allocator_type &alloc = allocator_type()) : _tree(comp, alloc)
+		{ }
 
 		/*
 		**	(2) range constructor
@@ -218,8 +216,8 @@ namespace ft
 		template <class InputIterator>
 		map(InputIterator first, InputIterator last,
 			const key_compare &comp = key_compare(),
-			const allocator_type &alloc = allocator_type()) {
-				this->_tree = RBTree<value_type, Compare, Alloc>(comp, alloc);
+			const allocator_type &alloc = allocator_type()) : _tree(comp, alloc) 
+		{
 				this->insert(first, last);
 		}
 
@@ -254,9 +252,7 @@ namespace ft
 			*	and then destroy the array itself. */
 
 		~map()
-		{
-			this->clear();
-		}
+		{ }
 
 		/****************************
 		*	   	   Iterators		*
