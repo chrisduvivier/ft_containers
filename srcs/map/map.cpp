@@ -36,7 +36,7 @@ void test_get_allocator(void);
 
 
 std::ofstream outputfile;
-
+//# define outputfile std::cout
 int main(void)
 {
 	if (FT == 1)
@@ -105,7 +105,7 @@ struct classcomp
 
 void test_constructors(void)
 {
-
+	
 	NAMESPACE::map<char, int> first;
 
 	first['a'] = 10;
@@ -115,13 +115,14 @@ void test_constructors(void)
 
 	NAMESPACE::map<char, int> second(first.begin(), first.end());
 
+
 	NAMESPACE::map<char, int> third(second);
+
 
 	NAMESPACE::map<char, int, classcomp> fourth; // class as Compare
 
 	bool (*fn_pt)(char, char) = fncomp;
 	NAMESPACE::map<char, int, bool (*)(char, char)> fifth(fn_pt); // function pointer as Compare
-
 	// show content:
 	outputfile << "first\n";
 	for (NAMESPACE::map<char, int>::iterator it = first.begin(); it != first.end(); ++it)
@@ -244,6 +245,8 @@ void test_insert(void)
 	NAMESPACE::map<char, int> mymap;
 
 	// first insert function version (single parameter):
+	mymap.insert(NAMESPACE::pair<char, int>('a', 100));
+	mymap.insert(NAMESPACE::pair<char, int>('a', 100));
 	mymap.insert(NAMESPACE::pair<char, int>('a', 100));
 	mymap.insert(NAMESPACE::pair<char, int>('z', 200));
 

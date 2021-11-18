@@ -54,3 +54,7 @@ else
     printf $YELLOW"------------------\n"$RESET
     cat -e diff.out
 fi
+
+sleep 10 
+
+rm -rf *.dSYM *.out
