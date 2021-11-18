@@ -45,7 +45,8 @@ int main()
 
 		empty_map = tmp_map;
 		tmp_map.clear();
-		empty_map.prettyPrint();
+
+		ft::map<char, int> 	copy_map(empty_map);
 	}
 
 	{

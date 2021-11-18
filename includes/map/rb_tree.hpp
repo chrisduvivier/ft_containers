@@ -73,7 +73,21 @@ class RBTree
 			this->_root = _tnull;
 		}
 
-		RBTree(const RBTree& x) { *this = x; }
+		RBTree(const RBTree& x)
+		{
+			this->_alloc = x._alloc;
+			this->_node_alloc = x._node_alloc;
+			this->_comp = x._comp;
+			
+			_tnull = _node_alloc.allocate(1);
+			_tnull->dummy = 1;
+			_tnull->color = 0;
+			_tnull->left = nullptr;
+			_tnull->right = nullptr;
+			this->_root = _tnull;
+
+			this->_root = this->copy_tree(nullptr, this->_root, x._root);
+		}
 
 		RBTree &		operator=(const RBTree& x)
 		{		
