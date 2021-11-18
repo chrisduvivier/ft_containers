@@ -73,7 +73,7 @@ namespace ft
 		*/
 		template <class U>
 		reverse_iterator& operator=(const reverse_iterator<U>& rev_it){
-			if (this == rev_it)
+			if (this->base() == rev_it.base())
 				return (*this);
 			this->_it = rev_it.base();
 			return (*this);
