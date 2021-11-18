@@ -41,7 +41,6 @@ class RBTree
 		allocator_type											_alloc;
 		node_ptr												_root;
 		node_ptr												_tnull;
-		size_type												_size;
 		key_compare												_comp;
 
 	public:
@@ -74,17 +73,51 @@ class RBTree
 			this->_root = _tnull;
 		}
 
+		RBTree(const RBTree& x) { *this = x; }
 
-		// TODO
-		// Tree(const Tree& x) { *this = x; }
+		RBTree &		operator=(const RBTree& x)
+		{		
+			if (this == &x)
+				return *this;
 			
-		// 	Tree(const Node& node, const key_compare& comp = key_compare(),
-		// 	const allocator_type& alloc = allocator_type()) :
-		// 		_comp(comp), _allocValue(alloc) {
-		// 			this->_root = &node;
-		// 			this->_end_node = this->_allocNode.allocate(1);
-		// 			this->set_end_node();
-		// 	}
+			// clean previous content
+			this->clear();
+			
+			this->_alloc = x._alloc;
+			this->_node_alloc = x._node_alloc;
+			this->_comp = x._comp;
+			
+			this->_root = _tnull;
+			this->_root = this->copy_tree(nullptr, this->_root, x._root);
+
+			return *this;
+		}
+
+		node_ptr	copy_tree(node_ptr parent, node_ptr node, const node_ptr ref)
+		{
+			if (ref && !ref->dummy)
+			{
+				node = copy_node(parent, node, ref);
+				if (ref->left && !ref->left->dummy)
+					node->left = copy_tree(node, node->left, ref->left);
+				if (ref->right && !ref->right->dummy)
+					node->right = copy_tree(node, node->right, ref->right);
+			}
+			return (node);
+		}
+
+		// called when ref is valid and node is needed to be created
+		node_ptr	copy_node(node_ptr parent, node_ptr node, const node_ptr ref)
+		{
+			node = this->_node_alloc.allocate(1);
+			node->parent = parent;
+			node->dummy = 0;
+			node->left = this->_tnull;
+			node->right = this->_tnull;
+			node->color = ref->color;
+			this->_alloc.construct(&node->data, ref->data); //construct the key into data
+			return (node);
+		}
 
 		/* Need a destructor ? */
 		~RBTree()
@@ -95,6 +128,7 @@ class RBTree
 
 		void	clear() {
 			this->destroy_tree(this->_root);
+			this->_root = this->_tnull;
 		}
 
 		void	destroy_tree(node_ptr node)
@@ -102,9 +136,9 @@ class RBTree
 			if (node && !node->dummy)
 			{
 				// recursive call to both child node
-				if (node->left)
+				if (node->left && !node->left->dummy)
 					destroy_tree(node->left);
-				if (node->right)
+				if (node->right && !node->right->dummy)
 					destroy_tree(node->right);
 				
 				// delete current node and its pair

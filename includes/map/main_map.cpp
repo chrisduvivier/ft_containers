@@ -35,8 +35,17 @@ int main()
 {
 	std::cout << "---------- TEST MAP ----------\n";
 	{
-		ft::map<std::string, int> 	tmp_map;
-		tmp_map["Hello"] = 199;
+		test_category_name("	CONSTRUCTORS	");
+		ft::map<char, int> 	empty_map;
+		
+		ft::map<char, int> tmp_map;
+		tmp_map['b'] = 100;
+		tmp_map['a'] = 200;
+		tmp_map['d'] = 400;
+
+		empty_map = tmp_map;
+		tmp_map.clear();
+		empty_map.prettyPrint();
 	}
 
 	{

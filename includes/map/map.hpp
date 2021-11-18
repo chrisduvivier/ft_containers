@@ -227,11 +227,7 @@ namespace ft
 		*/
 
 		map(const map &x): _tree(x._tree)
-		{
-			//iterator it = x.begin();
-			//for (; it != x.end(); ++it)
-			//	this->insert(it);
-		}
+		{ }
 
 		/*
 		**	(1) operator= overloading
@@ -239,13 +235,6 @@ namespace ft
 		*/
 
 		map& operator=( const map& other ){
-			//if (this == &other)
-			//	return *this;
-			//this->clear();	//clean current Tree
-			//iterator it = other.begin();
-			//for (; it != other.end(); ++it)
-			//	this->insert(it);
-			//return (*this);
 			if (this != &other)
 				_tree = other._tree;
 			return *this;
