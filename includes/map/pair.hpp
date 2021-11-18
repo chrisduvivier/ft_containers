@@ -47,17 +47,17 @@ namespace ft
 			return *this;
 		}
 
-		bool operator==(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return this->first == rhs.first && this->second == rhs.second; }
-		bool operator!=(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return !(*this == rhs); }
-		bool operator<(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return this->first < rhs.first || (!(rhs.first < this->first) && this->second < rhs.second);}
-		bool operator>(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return (rhs < *this); }
-		bool operator<=(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return !(rhs < *this) ;}
-		bool operator>=(/*const pair<T1, T2> &lhs, */const ft::pair<T1, T2> &rhs) const { return !(*this < rhs);}
+		bool operator==(const ft::pair<T1, T2> &rhs) const { return this->first == rhs.first && this->second == rhs.second; }
+		bool operator!=(const ft::pair<T1, T2> &rhs) const { return !(*this == rhs); }
+		bool operator<(const ft::pair<T1, T2> &rhs) const { return this->first < rhs.first || (!(rhs.first < this->first) && this->second < rhs.second);}
+		bool operator>(const ft::pair<T1, T2> &rhs) const { return (rhs < *this); }
+		bool operator<=(const ft::pair<T1, T2> &rhs) const { return !(rhs < *this) ;}
+		bool operator>=(const ft::pair<T1, T2> &rhs) const { return !(*this < rhs);}
 		
 	};
 
 	template <class T1, class T2>
-	pair<T1, T2> make_pair(T1 x, T2 y)
+	pair<T1, T2> make_pair(const T1 &x, const T2 &y)
 	{
 		return (pair<T1, T2>(x, y));
 	}
