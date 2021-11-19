@@ -440,7 +440,7 @@ namespace ft
 			while (it + i != position && i < _size)
 				i++;
 			if (_capacity < _size + 1)
-				reserve(_size + 1);
+				reserve(_capacity * 2);
 			while (j > i)
 			{
 				_array[j] = _array[j - 1];
@@ -449,7 +449,7 @@ namespace ft
 			_array[i] = val;
 			_size++;
 			return (iterator(&_array[i]));
-		}
+		}	
 
 		/* fill (2) */
 		

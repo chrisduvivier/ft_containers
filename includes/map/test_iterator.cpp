@@ -461,141 +461,141 @@ int main()
 		std::cout << std::endl;
 	}
 
-	// {
-	// 	test_name("Cplusplus insert");
-	// 	ft::vector<int> myvector (3,100);
-	// 	ft::vector<int>::iterator it;
+	{
+		test_name("Cplusplus insert");
+		ft::vector<int> myvector (3,100);
+		ft::vector<int>::iterator it;
 
-	// 	it = myvector.begin();
-	// 	it = myvector.insert ( it , 200 );
-	// 	myvector.insert (it,2,300);
+		it = myvector.begin();
+		it = myvector.insert ( it , 200 );
+		myvector.insert (it,2,300);
 
-	// 	// "it" no longer valid, get a new one:
-	// 	it = myvector.begin();
+		// "it" no longer valid, get a new one:
+		it = myvector.begin();
 
-	// 	ft::vector<int> anothervector (2,400);
-	// 	myvector.insert (it+2,anothervector.begin(),anothervector.end());
+		ft::vector<int> anothervector (2,400);
+		myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
-	// 	int myarray [] = { 501,502,503 };
-	// 	myvector.insert (myvector.begin(), myarray, myarray+3);
+		int myarray [] = { 501,502,503 };
+		myvector.insert (myvector.begin(), myarray, myarray+3);
 
-	// 	std::cout << "myvector contains:";
-	// 	for (it=myvector.begin(); it<myvector.end(); it++)
-	// 		std::cout << ' ' << *it;
-	// 	std::cout << '\n';
-	// 	test_output("myvector contains: 501 502 503 300 300 400 400 200 100 100 100");
+		std::cout << "myvector contains:";
+		for (it=myvector.begin(); it<myvector.end(); it++)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+		test_output("myvector contains: 501 502 503 300 300 400 400 200 100 100 100");
 
-	// }
+	}
 
-	// {
-	// 	test_name("FT INSERT (1)");
-	// 	ft::vector<int> myvector (3,100);
-	// 	ft::vector<int>::iterator it;
+	{
+		test_name("FT INSERT (1)");
+		ft::vector<int> myvector (3,100);
+		ft::vector<int>::iterator it;
 
-	// 	it = myvector.begin();
-	// 	it = myvector.insert ( it , 200 );
-	// 	it = myvector.insert (it, 1);
-	// 	it = myvector.insert (it, 3);
-	// 	it = myvector.insert (it, 2);
+		it = myvector.begin();
+		it = myvector.insert ( it , 200 );
+		it = myvector.insert (it, 1);
+		it = myvector.insert (it, 3);
+		it = myvector.insert (it, 2);
 
-	// 	std::cout << "myvector contains:";
-	// 	for (it=myvector.begin(); it<myvector.end(); it++)
-	// 		std::cout << ' ' << *it;
-	// 	std::cout << '\n';
-	// }
-	// {
-	// 	test_name("STD INSERT (1)");
-	// 	std::vector<int> myvector (3,100);
-	// 	std::vector<int>::iterator it;
+		std::cout << "myvector contains:";
+		for (it=myvector.begin(); it<myvector.end(); it++)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+	}
+	{
+		test_name("STD INSERT (1)");
+		std::vector<int> myvector (3,100);
+		std::vector<int>::iterator it;
 
-	// 	it = myvector.begin();
-	// 	it = myvector.insert ( it , 200 );
-	// 	it = myvector.insert(it, 1);
-	// 	it = myvector.insert(it, 3);
-	// 	it = myvector.insert(it, 2);
+		it = myvector.begin();
+		it = myvector.insert ( it , 200 );
+		it = myvector.insert(it, 1);
+		it = myvector.insert(it, 3);
+		it = myvector.insert(it, 2);
 
-	// 	std::cout << "myvector contains:";
-	// 	for (it=myvector.begin(); it<myvector.end(); it++)
-	// 		std::cout << ' ' << *it;
-	// 	std::cout << '\n';
-	// }
+		std::cout << "myvector contains:";
+		for (it=myvector.begin(); it<myvector.end(); it++)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+	}
 
-	// {
-	// 	test_name("FT INSERT (2)");
-	// 	ft::vector<int> myvector (3,100);
-	// 	ft::vector<int>::iterator it;
+	{
+		test_name("FT INSERT (2)");
+		ft::vector<int> myvector (3,100);
+		ft::vector<int>::iterator it;
 
-	// 	it = myvector.begin();
-	// 	myvector.insert ( it , 2,  200 );
-	// 	it = myvector.begin();
-	// 	myvector.insert (it, 3, 1);
-	// 	it = myvector.begin();
-	// 	myvector.insert (it, 4, 3);
-	// 	it = myvector.begin();
-	// 	myvector.insert (it, 5, 2);
+		it = myvector.begin();
+		myvector.insert ( it , 2,  200 );
+		it = myvector.begin();
+		myvector.insert (it, 3, 1);
+		it = myvector.begin();
+		myvector.insert (it, 4, 3);
+		it = myvector.begin();
+		myvector.insert (it, 5, 2);
 
-	// 	std::cout << "myvector contains:";
-	// 	for (it=myvector.begin(); it<myvector.end(); it++)
-	// 		std::cout << ' ' << *it;
-	// 	std::cout << '\n';
-	// }
-	// {
-	// 	test_name("STD INSERT (2)");
-	// 	std::vector<int> myvector (3,100);
-	// 	std::vector<int>::iterator it;
+		std::cout << "myvector contains:";
+		for (it=myvector.begin(); it<myvector.end(); it++)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+	}
+	{
+		test_name("STD INSERT (2)");
+		std::vector<int> myvector (3,100);
+		std::vector<int>::iterator it;
 
-	// 	it = myvector.begin();
-	// 	myvector.insert ( it , 2,  200 );
-	// 	it = myvector.begin();
-	// 	myvector.insert (it, 3, 1);
-	// 	it = myvector.begin();
-	// 	myvector.insert (it, 4, 3);
-	// 	it = myvector.begin();
-	// 	myvector.insert (it, 5, 2);
+		it = myvector.begin();
+		myvector.insert ( it , 2,  200 );
+		it = myvector.begin();
+		myvector.insert (it, 3, 1);
+		it = myvector.begin();
+		myvector.insert (it, 4, 3);
+		it = myvector.begin();
+		myvector.insert (it, 5, 2);
 
-	// 	std::cout << "myvector contains:";
-	// 	for (it=myvector.begin(); it<myvector.end(); it++)
-	// 		std::cout << ' ' << *it;
-	// 	std::cout << '\n';
-	// }
+		std::cout << "myvector contains:";
+		for (it=myvector.begin(); it<myvector.end(); it++)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+	}
 
-	// {
-	// 	test_name("FT INSERT (3)");
-	// 	ft::vector<int> myvector (3,100);
-	// 	ft::vector<int>::iterator it;
+	{
+		test_name("FT INSERT (3)");
+		ft::vector<int> myvector (3,100);
+		ft::vector<int>::iterator it;
 
-	// 	it = myvector.begin();
+		it = myvector.begin();
 
-	// 	ft::vector<int> anothervector (2,400);
-	// 	myvector.insert (it+2,anothervector.begin(),anothervector.end());
+		ft::vector<int> anothervector (2,400);
+		myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
-	// 	int myarray [] = { 501,502,503 };
-	// 	myvector.insert (myvector.begin(), myarray, myarray+3);
+		int myarray [] = { 501,502,503 };
+		myvector.insert (myvector.begin(), myarray, myarray+3);
 
-	// 	std::cout << "myvector contains:";
-	// 	for (it=myvector.begin(); it<myvector.end(); it++)
-	// 		std::cout << ' ' << *it;
-	// 	std::cout << '\n';
+		std::cout << "myvector contains:";
+		for (it=myvector.begin(); it<myvector.end(); it++)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
 
-	// }
-	// {
-	// 	test_name("STD INSERT (3)");
-	// 	std::vector<int> myvector (3,100);
-	// 	std::vector<int>::iterator it;
+	}
+	{
+		test_name("STD INSERT (3)");
+		std::vector<int> myvector (3,100);
+		std::vector<int>::iterator it;
 
-	// 	it = myvector.begin();
+		it = myvector.begin();
 
-	// 	std::vector<int> anothervector (2,400);
-	// 	myvector.insert (it+2,anothervector.begin(),anothervector.end());
+		std::vector<int> anothervector (2,400);
+		myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
-	// 	int myarray [] = { 501,502,503 };
-	// 	myvector.insert (myvector.begin(), myarray, myarray+3);
+		int myarray [] = { 501,502,503 };
+		myvector.insert (myvector.begin(), myarray, myarray+3);
 
-	// 	std::cout << "myvector contains:";
-	// 	for (it=myvector.begin(); it<myvector.end(); it++)
-	// 		std::cout << ' ' << *it;
-	// 	std::cout << '\n';
-	// }
+		std::cout << "myvector contains:";
+		for (it=myvector.begin(); it<myvector.end(); it++)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+	}
 
 	return (0);
 }
