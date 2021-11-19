@@ -456,7 +456,7 @@ namespace ft
 		void insert (iterator position, size_type n, const value_type& val)
 		{
 			while (n--)
-				position = insert(position, val);
+				position = insert(position, val) + 1;
 		}
 
 		/* range  (3) */
