@@ -461,7 +461,7 @@ namespace ft
 
 		/* range  (3) */
 		template <class InputIterator>
-		iterator insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0)
+		void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0)
 		{
 			for (iterator it = first; it != last; it++)
 				position = insert(position, *it) + 1;
