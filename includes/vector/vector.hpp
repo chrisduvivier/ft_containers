@@ -465,7 +465,6 @@ namespace ft
 		{
 			for (iterator it = first; it != last; it++)
 				position = insert(position, *it) + 1;
-			return (position);
 		}
 
 		/* Removes from the vector either a single element (position) or a range of elements ([first,last)).
