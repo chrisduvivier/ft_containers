@@ -9,8 +9,6 @@
 #include "../iterator/reverse_iterator.hpp"
 #include "../utils/utils.hpp"
 
-#define MAX_SIZE_64BIT 4611686018427387903
-
 /*
     vector synopsis
 
@@ -269,7 +267,7 @@ namespace ft
 		*	it can still fail to allocate storage at any point before that size is reached.
 		*	4611686018427387903 if built as 64-bit target  */
 
-		size_type max_size() const { return (MAX_SIZE_64BIT); }
+		size_type max_size() const { return (this->_alloc.max_size()); }
 
 		/*	Resizes the container so that it contains n elements.
 		*	If n < container size, the content is reduced to its first n elements, removing those beyond (and destroying them).

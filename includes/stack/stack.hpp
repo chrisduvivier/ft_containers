@@ -10,10 +10,6 @@
 # include "../iterator/iterator.hpp"
 # include "../utils/utils.hpp"
 
-# define MAX_SIZE_64BIT 4611686018427387903
-
-
-
 namespace ft
 {
 	template <class T, class Container = ft::vector<T> >
