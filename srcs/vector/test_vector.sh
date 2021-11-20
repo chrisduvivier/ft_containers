@@ -8,7 +8,7 @@ BOLD="\033[1m"
 RESET="\033[0m"
 
 # compile vector with ft::vector
-clang++ -Wall -Wextra -Werror -g vector.cpp -D NAMESPACE=ft -D FT=1 -o vector.ft.out
+clang++ -Wall -Wextra -Werror -g -std=c++98 vector.cpp -D NAMESPACE=ft -D FT=1 -o vector.ft.out
 if [[ $? != 0 ]]
 then
     printf $RED"compilation error vector.ft.out\n"$RESET
@@ -16,7 +16,7 @@ then
 fi
 
 # compile vector with std::vector
-clang++ -Wall -Wextra -Werror -g vector.cpp -D NAMESPACE=std -D FT=0 -o vector.std.out
+clang++ -Wall -Wextra -Werror -g -std=c++98 vector.cpp -D NAMESPACE=std -D FT=0 -o vector.std.out
 if [[ $? != 0 ]]
 then
     printf $RED"compilation error vector.std.out\n"$RESET

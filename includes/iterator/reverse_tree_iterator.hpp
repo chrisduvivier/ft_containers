@@ -6,6 +6,7 @@
 # include <memory>
 # include "iterator.hpp"
 # include "tree_iterator.hpp"
+# include "../utils/utils.hpp"
 /* 
 **	https://en.cppreference.com/w/cpp/iterator/reverse_iterator
 */

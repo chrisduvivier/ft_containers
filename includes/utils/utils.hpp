@@ -7,6 +7,22 @@
 
 namespace ft
 {
+	const // It is a const object...
+	class nullptr_t 
+	{
+		public:
+			template<class T>
+			inline operator T*() const // convertible to any type of null non-member pointer...
+			{ return 0; }
+
+			template<class C, class T>
+			inline operator T C::*() const   // or any type of null member pointer...
+			{ return 0; }
+
+		private:
+			void operator&() const;  // Can't take address of nullptr
+	} nullptr = {};
+	
 	/* If B is true, std::enable_if has a public member typedef type, equal to T; otherwise, there is no member typedef. */
 	template <bool B, class T = void>
 	struct enable_if
@@ -20,8 +36,8 @@ namespace ft
 	};
 
 	/*
-*   Returns true if T is an integral, false otherwise.
-*/
+	*   Returns true if T is an integral, false otherwise.
+	*/
 
 	template <class T>
 	struct is_integral
@@ -37,18 +53,6 @@ namespace ft
 
 	template <>
 	struct is_integral<char>
-	{
-		static const bool value = true;
-	};
-
-	template <>
-	struct is_integral<char16_t>
-	{
-		static const bool value = true;
-	};
-
-	template <>
-	struct is_integral<char32_t>
 	{
 		static const bool value = true;
 	};

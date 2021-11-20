@@ -5,6 +5,7 @@
 # include <string>
 # include <memory>
 # include "iterator.hpp"
+# include "../utils/utils.hpp"
 
 /*
 	This is a base class template that can be used to derive iterator classes from it.
