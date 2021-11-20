@@ -8,7 +8,7 @@ BOLD="\033[1m"
 RESET="\033[0m"
 
 # compile map with ft::map
-clang++ -Wall -Wextra -Werror -g map.cpp -D NAMESPACE=ft -D FT=1 -o map.ft.out
+clang++ -Wall -Wextra -Werror -g -std=c++98 map.cpp -D NAMESPACE=ft -D FT=1 -o map.ft.out
 if [[ $? != 0 ]]
 then
     printf $RED"compilation error map.ft.out\n"$RESET
@@ -16,7 +16,7 @@ then
 fi
 
 # compile map with std::map
-clang++ -Wall -Wextra -Werror -g map.cpp -D NAMESPACE=std -D FT=0 -o map.std.out
+clang++ -Wall -Wextra -Werror -g -std=c++98 map.cpp -D NAMESPACE=std -D FT=0 -o map.std.out
 if [[ $? != 0 ]]
 then
     printf $RED"compilation error map.std.out\n"$RESET
