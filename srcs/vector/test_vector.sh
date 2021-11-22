@@ -53,3 +53,10 @@ else
     printf $YELLOW"------------------\n"$RESET
     cat -e diff.out
 fi
+
+echo
+read -r -p "Do you want to remove out files ? [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
+then
+	rm -rf *.dSYM *.out
+fi
