@@ -1,19 +1,32 @@
 #! /bin/bash
 
-clang++ -Wall -Werror -Wextra -std=c++98 -g -D NAMESPACE=ft -D FT=1 stack.cpp -o stack.ft.out
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[0;33m"
+HONEY="\e[38;5;214m"
+BOLD="\033[1m"
+RESET="\033[0m"
 
-clang++ -Wall -Werror -Wextra -std=c++98 -g -D NAMESPACE=std -D FT=0 stack.cpp -o stack.std.out
+# compile vector with ft::vector
+clang++ -Wall -Wextra -Werror -g -std=c++98 stack.cpp -D NAMESPACE=ft -D FT=1 -o stack.ft.out
+if [[ $? != 0 ]]
+then
+    printf $RED"compilation error stack.ft.out\n"$RESET
+    exit 1
+fi
 
-./stack.ft.out > ft.log
-
-./stack.std.out > std.log
-
-diff ft.log std.log > diff.out
-
+# compile vector with std::vector
+clang++ -Wall -Wextra -Werror -g -std=c++98 stack.cpp -D NAMESPACE=std -D FT=0 -o stack.std.out
+if [[ $? != 0 ]]
+then
+    printf $RED"compilation error stack.std.out\n"$RESET
+    exit 1
+fi
 printf $YELLOW"running main.ft.out...\n"$RESET
 if [[ $1 = "-v" ]]
 then
-    valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind.out ./stack.ft.out
+    valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind.out ./stack.ft.out;
+	tail 9 valgrind.out
 else
     START_TIME=$(perl -MTime::HiRes -e 'printf("%.0f\n",Time::HiRes::time()*1000)')
     ./stack.ft.out
@@ -28,6 +41,9 @@ START_TIME=$(perl -MTime::HiRes -e 'printf("%.0f\n",Time::HiRes::time()*1000)')
 END_TIME=$(perl -MTime::HiRes -e 'printf("%.0f\n",Time::HiRes::time()*1000)')
 echo "elapsed time std: $(($END_TIME - $START_TIME)) ms"
 
-
-sleep 10
-rm ft.log std.log stack.ft.out stack.std.out output.ft.out output.std.out diff.out valgrind.out
+echo
+read -r -p "Do you want to remove out files ? [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
+then
+	rm -rf *.dSYM *.out
+fi

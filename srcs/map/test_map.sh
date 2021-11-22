@@ -28,6 +28,7 @@ printf $YELLOW"running map.ft.out...\n"$RESET
 if [[ $1 = "-v" ]]
 then
     valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind.out ./map.ft.out
+	tail -9 valgrind.out
 else
     START_TIME=$(perl -MTime::HiRes -e 'printf("%.0f\n",Time::HiRes::time()*1000)')
     ./map.ft.out
@@ -55,6 +56,9 @@ else
     cat -e diff.out
 fi
 
-sleep 10 
-
-rm -rf *.dSYM *.out
+echo
+read -r -p "Do you want to remove out files ? [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
+then
+	rm -rf *.dSYM *.out
+fi

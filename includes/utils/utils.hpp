@@ -7,7 +7,7 @@
 
 namespace ft
 {
-	const // It is a const object...
+	//const // It is a const object...
 	class nullptr_t 
 	{
 		public:
@@ -21,7 +21,8 @@ namespace ft
 
 		private:
 			void operator&() const;  // Can't take address of nullptr
-	} nullptr = {};
+	};
+	// nullptr = {};
 	
 	/* If B is true, std::enable_if has a public member typedef type, equal to T; otherwise, there is no member typedef. */
 	template <bool B, class T = void>
