@@ -7,6 +7,20 @@ HONEY="\e[38;5;214m"
 BOLD="\033[1m"
 RESET="\033[0m"
 
+echo
+printf $HONEY
+printf   "__      ________ _____ _______ ____  _____  \n"
+printf   "\ \    / /  ____/ ____|__   __/ __ \|  __ \ \n"
+printf   " \ \  / /| |__ | |       | | | |  | | |__) |\n"
+printf   "  \ \/ / |  __|| |       | | | |  | |  _  / \n"
+printf   "   \  /  | |___| |____   | | | |__| | | \ \ \n"
+printf   "    \/   |______\_____|  |_|  \____/|_|  \_\\n"$RESET
+
+echo
+echo
+
+
+
 # compile vector with ft::vector
 clang++ -Wall -Wextra -Werror -g -std=c++98 vector.cpp -D NAMESPACE=ft -D FT=1 -o vector.ft.out
 if [[ $? != 0 ]]
@@ -28,6 +42,7 @@ printf $YELLOW"running vector.ft.out...\n"$RESET
 if [[ $1 = "-v" ]]
 then
     valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind.out ./vector.ft.out
+	tail -9 valgrind.out
 else
     START_TIME=$(perl -MTime::HiRes -e 'printf("%.0f\n",Time::HiRes::time()*1000)')
     ./vector.ft.out
@@ -60,3 +75,5 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
 then
 	rm -rf *.dSYM *.out
 fi
+clear
+echo

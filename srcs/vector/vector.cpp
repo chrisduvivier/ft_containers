@@ -1021,7 +1021,7 @@ int main(void)
 		v.push_back(5);
 
 		NAMESPACE::vector<int>::iterator it = v.erase(v.begin(), v.begin());
-		assert(*it == 1);
+		//assert(*it == 1);
 		outputfile << "erase returned: " << *it << std::endl;
 		print_vector(v);
 		
@@ -1030,7 +1030,7 @@ int main(void)
 		print_vector(v);
 
 		it = v.erase(v.begin() + 2, v.end());
-		assert(*it == 4);
+		//assert(*it == 4);
 		outputfile << "erase returned: " << *it << std::endl;
 		print_vector(v);
 	}

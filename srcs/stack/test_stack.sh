@@ -7,6 +7,18 @@ HONEY="\e[38;5;214m"
 BOLD="\033[1m"
 RESET="\033[0m"
 
+echo
+printf $HONEY
+printf	"     _____ _______       _____ _  __\n"
+printf	"    / ____|__   __|/\   / ____| |/ /\n"
+printf	"   | (___    | |  /  \ | |    | ' / \n"
+printf	"    \___ \   | | / /\ \| |    |  <  \n"
+printf	"    ____) |  | |/ ____ \ |____| . \ \n"
+printf	"   |_____/   |_/_/    \_\_____|_|\_\\n"$RED
+echo
+echo
+
+
 # compile vector with ft::vector
 clang++ -Wall -Wextra -Werror -g -std=c++98 stack.cpp -D NAMESPACE=ft -D FT=1 -o stack.ft.out
 if [[ $? != 0 ]]
@@ -41,9 +53,22 @@ START_TIME=$(perl -MTime::HiRes -e 'printf("%.0f\n",Time::HiRes::time()*1000)')
 END_TIME=$(perl -MTime::HiRes -e 'printf("%.0f\n",Time::HiRes::time()*1000)')
 echo "elapsed time std: $(($END_TIME - $START_TIME)) ms"
 
+diff --text output.ft.out output.std.out > diff.out
+if [[ $? = 0 ]]
+then
+    printf $GREEN"no differences found\n"$RESET
+    # cat output.ft.out
+else
+    printf $YELLOW"differences found:\n"$RESET
+    printf $YELLOW"------------------\n"$RESET
+    cat -e diff.out
+fi
+
 echo
 read -r -p "Do you want to remove out files ? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
 then
 	rm -rf *.dSYM *.out
 fi
+clear
+echo

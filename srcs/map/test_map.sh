@@ -6,7 +6,16 @@ YELLOW="\033[0;33m"
 HONEY="\e[38;5;214m"
 BOLD="\033[1m"
 RESET="\033[0m"
-
+echo
+printf $HONEY
+printf			" __  __          _____  \n"
+printf 			"|  \/  |   /\   |  __ \ \n"
+printf 			"| \  / |  /  \  | |__) |\n"
+printf 			"| |\/| | / /\ \ |  ___/ \n"
+printf 			"| |  | |/ ____ \| |     \n"
+printf 			"|_|  |_/_/    \_\_|	\n"$RESET
+echo
+echo
 # compile map with ft::map
 clang++ -Wall -Wextra -Werror -g -std=c++98 map.cpp -D NAMESPACE=ft -D FT=1 -o map.ft.out
 if [[ $? != 0 ]]
@@ -62,3 +71,5 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
 then
 	rm -rf *.dSYM *.out
 fi
+clear
+echo

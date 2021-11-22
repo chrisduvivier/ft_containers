@@ -365,7 +365,7 @@ namespace ft
 		template <class InputIterator>
 		void assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0)
 		{
-			std::cout << "(assign) iterator overload used" << std::endl;
+			//std::cout << "(assign) iterator overload used" << std::endl;
 
 			size_type new_size = last - first; // check how much space is needed
 			if (new_size > this->max_size())
@@ -472,24 +472,22 @@ namespace ft
 
 		iterator erase(iterator position)
 		{
-			iterator replace_pos = position;
-			while (replace_pos < end())
-			{
-				*replace_pos = *(replace_pos + 1); // removes the value at 'position' and shift all the following positions
-				replace_pos++;
-			}
-			_size--;
-			return (position);
+			return erase(position, position + 1);
 		}
 
 		iterator erase(iterator first, iterator last)
 		{
-			while(first != last)
+			size_type n = first - this->begin();
+			size_type len = last - first;
+
+			for (size_type i = n; i < this->_size && i + len < this->_size; i++)
 			{
-				erase(first);
-				last--;
+				(*this)[i] = (*this)[i + len];
 			}
-			return(first);
+			for (difference_type i = 0; i < last - first; i++)
+				this->pop_back();
+			//vector<value_type>::iterator ret = this->begin() + n; 
+			return this->begin() + n;
 		}
 
 		/*	Removes all elements from the vector (which are destroyed), leaving the container with a size of 0.
