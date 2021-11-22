@@ -28,7 +28,10 @@ namespace ft
 			typedef	const value_type*							const_pointer;
 			
 			/* iterator Constructor: default, parameter, copy, assign */
-			TreeIterator() { }
+			TreeIterator() {
+				this->_node_ptr = nullptr;
+				this->_root = nullptr;
+			}
 
 			TreeIterator(Node* node, Node* root) { 
 				this->_node_ptr = node;
