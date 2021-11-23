@@ -24,9 +24,9 @@ END_TIME=$(perl -MTime::HiRes -e 'printf("%.0f\n",Time::HiRes::time()*1000)')
 echo "elapsed time std: $(($END_TIME - $START_TIME))"
 echo
 sleep 1
+read -n1 -s -r -p $'\033[1mPress any key to start our own tester:\n' key
 echo "removing executables..."
 sleep 2
-read -n1 -s -r -p $'\033[1mPress any key to start our own tester:\n' key
 rm -rf *.dSYM *.out
 clear
 
