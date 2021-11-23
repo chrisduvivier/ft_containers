@@ -310,7 +310,7 @@ namespace ft
 			if (n > this->max_size())
 				throw std::length_error("size requested is greater than the maximum size (vector::max_size)\n");
 			if (n > this->capacity())
-				reallocateVec(n);
+				_reallocateVec(n);
 		}
 
 		/****************************
@@ -410,7 +410,7 @@ namespace ft
 		void push_back(const value_type &val)
 		{
 			if (_size + 1 > _capacity)
-				(_capacity == 0) ? reallocateVec(1) : reallocateVec(_capacity * 2);
+				(_capacity == 0) ? _reallocateVec(1) : _reallocateVec(_capacity * 2);
 			_alloc.construct(&_array[_size++], val);
 		}
 
@@ -459,12 +459,19 @@ namespace ft
 				position = insert(position, val) + 1;
 		}
 
-		/* range  (3) */
+		/* range  (3) 
+		**	Insert values from [first,last), starting from the position passed as parameter.
+		**	Notice that the range includes all the elements between first and last, including the element pointed by first but not the one pointed by last.
+		*/
+
 		template <class InputIterator>
 		void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0)
 		{
-			for (iterator it = first; it != last; it++)
+			ft::vector<value_type> tmp(first, last);
+			for (iterator it = tmp.begin(); it != tmp.end(); it++)
+			{
 				position = insert(position, *it) + 1;
+			}
 		}
 
 		/* Removes from the vector either a single element (position) or a range of elements ([first,last)).
@@ -534,7 +541,7 @@ namespace ft
 		/*	Reallocate a vector with the newCapacity, and copy previous contents to the new one. 
 		Previous allocator is destroyed calling the destrcutor */
 
-		void reallocateVec(size_type newCapacity)
+		void _reallocateVec(size_type newCapacity)
 		{
 			pointer tmp = _alloc.allocate(newCapacity);		// create new array with newCap
 			size_type size = _size;							// keep previous size
