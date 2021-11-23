@@ -438,11 +438,6 @@ namespace ft
 
 		RBTree<value_type, Compare, Alloc>	&getTree() { return _tree; }
 
-		void	prettyPrint()
-		{
-			this->_tree.prettyPrint();
-		}
-
 	private:
 		RBTree<value_type, Compare, Alloc>	_tree;
 	};
