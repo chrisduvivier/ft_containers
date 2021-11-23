@@ -59,10 +59,10 @@ public:
 ✅    iterator               end();
 ✅    const_iterator         end()		const;
 
-    reverse_iterator       rbegin();
-    const_reverse_iterator rbegin()		const;
-    reverse_iterator       rend();
-    const_reverse_iterator rend()		const;
+✅    reverse_iterator       rbegin();
+✅    const_reverse_iterator rbegin()		const;
+✅    reverse_iterator       rend();
+✅    const_reverse_iterator rend()		const;
 
 	*****************************
 	*	   	   Capacity			*
@@ -93,23 +93,23 @@ public:
 	*		  Modifiers			*
 	*****************************
     
-✅    template <class InputIterator>
-        void assign(InputIterator first, InputIterator last);
-✅    void assign(size_type n, const value_type& u);
-✅    void push_back(const value_type& x);
-✅    void pop_back();
+✅	template <class InputIterator>
+		void assign(InputIterator first, InputIterator last);
+✅	void assign(size_type n, const value_type& u);
+✅	void push_back(const value_type& x);
+✅	void pop_back();
 
-🏗️    iterator insert(const_iterator position, const value_type& x);
-🏗️    template <class InputIterator>
-        void insert (iterator position, size_type n, const value_type& val);
-🏗️    iterator insert(iterator position, InputIterator first, InputIterator last);
+✅	iterator insert(const_iterator position, const value_type& x);
+✅	template <class InputIterator>
+		void insert (iterator position, size_type n, const value_type& val);
+✅	iterator insert(iterator position, InputIterator first, InputIterator last);
 
-    iterator erase(iterator position);
-    iterator erase(iterator first, iterator last);
-
-✅    void clear() ;
+✅	iterator erase(iterator position);
+✅	iterator erase(iterator first, iterator last);
 
 ✅    void swap(vector& x);
+
+✅    void clear() ;
 
 	*****************************
 	*		  Allocator			*
@@ -122,7 +122,21 @@ public:
 	*	Non-member function overloads	*
 	*************************************
 
+✅	template <class T, class Alloc>
+		void swap (vector<T,Alloc>& x, vector<T,Alloc>& y);
 
+✅	template <class T, class Alloc>
+		bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+✅	template <class T, class Alloc>
+		bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+✅	template <class T, class Alloc>
+		bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+✅	template <class T, class Alloc>
+  		bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+✅	template <class T, class Alloc>
+		bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+✅	template <class T, class Alloc>
+  		bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
 */
 
 namespace ft
@@ -213,7 +227,7 @@ namespace ft
 		/* Assigns new contents to the container, replacing its current contents, and modifying its size accordingly. */
 		vector &operator=(const vector &x)
 		{
-			// if (*this != x)			// TODO
+			if (*this != x)
 			{
 				this->clear();
 				this->_alloc.deallocate(this->_array, this->capacity());
