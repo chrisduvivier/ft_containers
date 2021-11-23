@@ -41,19 +41,7 @@ public:
 ✅    typedef ft::reverse_iterator<iterator>          reverse_iterator;
 ✅    typedef ft::reverse_iterator<const_iterator>    const_reverse_iterator;
 
-✅    class value_compare
-          : public binary_function<value_type, value_type, bool>
-      {
-          friend class map;
-      protected:
-          key_compare comp;
-
-          value_compare(key_compare c);
-      public:
-          bool operator()(const value_type& x, const value_type& y) const;
-      };
-
-    // construct/copy/destroy:
+✅    class value_compare (inside tree)
 
 ✅    explicit map(const key_compare& comp, const allocator_type& a);
 ✅    template <class InputIterator>
@@ -62,7 +50,7 @@ public:
 ✅    map(const map& m);
 ✅    ~map();
 
-❔    map& operator=(const map& m); // We should implement operator= for the rb for this to work as a deep copy
+✅     map& operator=(const map& m); // We should implement operator= for the rb for this to work as a deep copy
 
     // iterators:
 ✅    iterator begin() ;
@@ -91,7 +79,7 @@ public:
 ✅    void erase(iterator position);
 ✅    size_type erase(const key_type& k);
 ✅    void  erase(iterator first, iterator last);
-❌    void clear();
+✅    void clear();
 
 ✅    void swap(map& m);
 

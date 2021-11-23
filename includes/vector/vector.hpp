@@ -578,8 +578,6 @@ namespace ft
 		x.swap(y);
 	}
 
-	// std::ostream &			operator<<( std::ostream & o, vector const & i );
-
 	/********************************
 	* Non-member operators overloads*
 	********************************/

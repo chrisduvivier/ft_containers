@@ -48,7 +48,7 @@ class RBTree
 
 		class value_compare : public std::binary_function<value_type, value_type, bool>
 		{
-			friend class RBTree;
+			class RBTree;
 			private:
 				key_compare comp;
 			public:

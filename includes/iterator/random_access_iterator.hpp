@@ -66,19 +66,19 @@ namespace ft
 			random_access_iterator operator--(int) { random_access_iterator tmp = *this; --(_ptr); return (tmp); }
 
 			// arithmetics
-			friend random_access_iterator	operator+(const random_access_iterator& a, difference_type b) { return random_access_iterator(a._ptr + b); }
-			friend random_access_iterator	operator+(difference_type b, const random_access_iterator& a) { return random_access_iterator(a._ptr + b); }
-			friend random_access_iterator	operator-(const random_access_iterator& a, difference_type b) { return random_access_iterator(a._ptr - b); }
-			friend random_access_iterator	operator-(difference_type b, const random_access_iterator& a) { return random_access_iterator(a._ptr - b); }
-			friend difference_type	operator-(const random_access_iterator& a, const random_access_iterator& b) { return (a._ptr - b._ptr); }
+			friend random_access_iterator	operator+(const random_access_iterator& a, difference_type b) { return random_access_iterator(a.base() + b); }
+			friend random_access_iterator	operator+(difference_type b, const random_access_iterator& a) { return random_access_iterator(a.base() + b); }
+			friend random_access_iterator	operator-(const random_access_iterator& a, difference_type b) { return random_access_iterator(a.base() - b); }
+			friend random_access_iterator	operator-(difference_type b, const random_access_iterator& a) { return random_access_iterator(a.base() - b); }
+			friend difference_type	operator-(const random_access_iterator& a, const random_access_iterator& b) { return (a.base() - b.base()); }
 
 			// comparable with another iterator
-			friend bool operator== (const random_access_iterator& a, const random_access_iterator& b) { return (a._ptr == b._ptr); }
-			friend bool operator!= (const random_access_iterator& a, const random_access_iterator& b) { return (a._ptr != b._ptr); }
-			friend bool operator<= (const random_access_iterator& a, const random_access_iterator& b) { return (a._ptr <= b._ptr); }
-			friend bool operator>= (const random_access_iterator& a, const random_access_iterator& b) { return (a._ptr >= b._ptr); }
-			friend bool operator< (const random_access_iterator& a, const random_access_iterator& b) { return (a._ptr < b._ptr); }
-			friend bool operator> (const random_access_iterator& a, const random_access_iterator& b) { return (a._ptr > b._ptr); }
+			friend bool operator== (const random_access_iterator& a, const random_access_iterator& b) { return (a.base() == b.base()); }
+			friend bool operator!= (const random_access_iterator& a, const random_access_iterator& b) { return (a.base() != b.base()); }
+			friend bool operator<= (const random_access_iterator& a, const random_access_iterator& b) { return (a.base() <= b.base()); }
+			friend bool operator>= (const random_access_iterator& a, const random_access_iterator& b) { return (a.base() >= b.base()); }
+			friend bool operator< (const random_access_iterator& a, const random_access_iterator& b) { return (a.base() < b.base()); }
+			friend bool operator> (const random_access_iterator& a, const random_access_iterator& b) { return (a.base() > b.base()); }
 		private:
 			pointer				_ptr;
 

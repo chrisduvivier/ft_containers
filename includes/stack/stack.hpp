@@ -4,11 +4,11 @@
 # include <iostream>
 # include <string>
 # include <memory>
-# include <algorithm>
 # include "../vector/vector.hpp"
 # include "../iterator/reverse_iterator.hpp"
 # include "../iterator/iterator.hpp"
 # include "../utils/utils.hpp"
+# include <list>
 
 namespace ft
 {
@@ -43,18 +43,17 @@ namespace ft
 			void push (const value_type& val) { return (c.push_back(val)); }
 
 			void pop() { return (c.pop_back()); }
-
-
+		
+		protected:
+			container_type	c;
+		
+		private:
 			// this part comes from stl_stack.h
-
 			template<typename _T, typename C>
 			friend bool operator==(const stack<_T, C>&, const stack<_T, C>&);
 
 			template<typename _T, typename C>
 			friend bool operator<(const stack<_T, C>&, const stack<_T, C>&);
-		
-		protected:
-			container_type	c;
 	};
 
 	/********************************
