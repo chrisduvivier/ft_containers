@@ -50,11 +50,6 @@ namespace ft
 		template< class U >
 		reverse_iterator( const reverse_iterator<U>& other ): _it(other.base()) {}
 
-		/* remove this template as it is used to convert std::reverse_iterator to ft::reverse_iterator (used to test main_iterator.cpp)*/
-		/* /!\ */
-		template< class U >
-		reverse_iterator( const std::reverse_iterator<U>& other ): _it(other.base()) {}
-
 		/*****---------------- BASE ----------------*****/
 
 		/* 	Return a copy of the base iterator
@@ -75,14 +70,6 @@ namespace ft
 		reverse_iterator& operator=(const reverse_iterator<U>& rev_it){
 			if (this->base() == rev_it.base())
 				return (*this);
-			this->_it = rev_it.base();
-			return (*this);
-		}
-
-		/* remove this template as it is used to assign std::reverse_iterator to ft::reverse_iterator (used to test main_iterator.cpp)*/
-		/* /!\ */
-		template <class U>
-		reverse_iterator& operator=(const std::reverse_iterator<U>& rev_it){
 			this->_it = rev_it.base();
 			return (*this);
 		}
