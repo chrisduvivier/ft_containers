@@ -424,7 +424,10 @@ namespace ft
 			return (pair<iterator, iterator>(this->lower_bound(k), this->upper_bound(k)));
 		}
 		
-		// pair<const_iterator,const_iterator> equal_range (const key_type& k) const;
+		pair<const_iterator, const_iterator>	equal_range (const key_type& k) const
+		{
+			return (pair<const_iterator, const_iterator>(this->lower_bound(k), this->upper_bound(k)));
+		}
 
 		/****************************
 		*		  Allocator			*
