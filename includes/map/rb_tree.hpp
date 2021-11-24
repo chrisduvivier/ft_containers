@@ -134,7 +134,6 @@ class RBTree
 			return (node);
 		}
 
-		/* Need a destructor ? */
 		~RBTree()
 		{
 			this->clear();
@@ -344,8 +343,7 @@ class RBTree
 			while (x != _tnull)
 			{
 				y = x;
-				// if (node->data < x->data)
-				if (this->_comp(node->data.first, x->data.first)) //if key.first < node->left->data.first using compare as std::less
+				if (this->_comp(node->data.first, x->data.first)) //if key.first < node->left->data.first
 				{
 					x = x->left;
 				}
@@ -361,7 +359,6 @@ class RBTree
 			{
 				_root = node;
 			}
-			// else if (node->data < y->data)
 			else if (this->_comp(node->data.first, y->data.first))
 			{
 				y->left = node;
@@ -476,7 +473,6 @@ class RBTree
 				return node;
 			}
 
-			// if (key < node->data)
 			if (this->_comp(key.first, node->data.first))
 			{
 				return searchTreeHelper(node->left, key);
@@ -609,7 +605,6 @@ class RBTree
 
 			if (z == _tnull)
 			{
-				// std::cout << "Couldn't find key in the tree" << std::endl;
 				return (false);
 			}
 
@@ -722,9 +717,9 @@ class RBTree
 			_root->color = 0;
 		}
 
+		// print the tree structure on the screen
 		void printHelper(node_ptr root, std::string indent, bool last)
 		{
-			// print the tree structure on the screen
 			if (root != _tnull)
 			{
 				std::cout << indent;
@@ -744,7 +739,6 @@ class RBTree
 				printHelper(root->left, indent, false);
 				printHelper(root->right, indent, true);
 			}
-			// cout<<root->left->data<<endl;
 		}
 		
 		/******************************************
@@ -767,7 +761,6 @@ class RBTree
 					return node;
 				}
 
-				// if (key < node->data.first)
 				if (this->_comp(key, node->data.first))
 				{
 					return searchTreeHelperKey(node->left, key);
