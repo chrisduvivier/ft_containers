@@ -28,8 +28,9 @@ All function templates are given, so it's quite straitforward. Just be careful w
 
 ## Reference
 
-- https://www.cplusplus.com/
-- https://en.cppreference.com/w/ 
+- Main reference for the 3 containers to implement: [https://www.cplusplus.com/], [https://en.cppreference.com/w/]
 - The bible of custom iterator: "Writing a custom iterator in modern C++" [https://internalpointers.com/post/writing-custom-iterators-modern-cpp]
 - `friend` function: [https://www.section.io/engineering-education/introduction-to-friend-functions-in-c++/#:~:text=A%20friend%20function%20is%20a,of%20its%20members%20are%20friends]
-- https://github.com/Bibeknam/algorithmtutorprograms/blob/master/data-structures/red-black-trees/RedBlackTree.cpp
+- Data Structure for Map. Fantastic course: [https://www.coursera.org/lecture/algorithms-part1/red-black-bsts-GZe13]
+- Implementation of a Read-Black Tree(RBTree): [https://github.com/Bibeknam/algorithmtutorprograms/blob/master/data-structures/red-black-trees/RedBlackTree.cpp]
+- `Traversing Trees with Iterators`: [https://www.cs.odu.edu/~zeil/cs361/latest/Public/treetraversal/index.html]

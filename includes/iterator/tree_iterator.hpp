@@ -78,12 +78,12 @@ namespace ft
 				return (tmp); 
 			}
 
-			friend bool operator== (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr == b._node_ptr); }
-			friend bool operator!= (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr != b._node_ptr); }
-			friend bool operator<= (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr <= b._node_ptr); }
-			friend bool operator>= (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr >= b._node_ptr); }
-			friend bool operator< (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr < b._node_ptr); }
-			friend bool operator> (const TreeIterator& a, const TreeIterator& b) { return (a._node_ptr > b._node_ptr); }
+			friend bool operator!= (const TreeIterator& a, const TreeIterator& b) { return (a.getNode() != b.getNode()); }
+			friend bool operator== (const TreeIterator& a, const TreeIterator& b) { return (a.getNode() == b.getNode()); }
+			friend bool operator<= (const TreeIterator& a, const TreeIterator& b) { return (a.getNode() <= b.getNode()); }
+			friend bool operator>= (const TreeIterator& a, const TreeIterator& b) { return (a.getNode() >= b.getNode()); }
+			friend bool operator< (const TreeIterator& a, const TreeIterator& b) { return (a.getNode() < b.getNode()); }
+			friend bool operator> (const TreeIterator& a, const TreeIterator& b) { return (a.getNode() > b.getNode()); }
 
 			Node* getNode(void)
 			{
