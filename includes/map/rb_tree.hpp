@@ -344,8 +344,8 @@ class RBTree
 			while (x != _tnull)
 			{
 				y = x;
-				if (node->data < x->data)
-				//if (this->_comp(key.first, node->left->data.first)) //if key.first < node->left->data.first using compare as std::less
+				// if (node->data < x->data)
+				if (this->_comp(node->data.first, x->data.first)) //if key.first < node->left->data.first using compare as std::less
 				{
 					x = x->left;
 				}
@@ -361,8 +361,8 @@ class RBTree
 			{
 				_root = node;
 			}
-			else if (node->data < y->data)
-			//else if (this->_comp(key.first, node->left->data.first))
+			// else if (node->data < y->data)
+			else if (this->_comp(node->data.first, y->data.first))
 			{
 				y->left = node;
 			}
@@ -476,7 +476,8 @@ class RBTree
 				return node;
 			}
 
-			if (key < node->data)
+			// if (key < node->data)
+			if (this->_comp(key.first, node->data.first))
 			{
 				return searchTreeHelper(node->left, key);
 			}
@@ -766,8 +767,8 @@ class RBTree
 					return node;
 				}
 
-				if (key < node->data.first)
-				//if (this->_comp(key, node->data.first))
+				// if (key < node->data.first)
+				if (this->_comp(key, node->data.first))
 				{
 					return searchTreeHelperKey(node->left, key);
 				}
