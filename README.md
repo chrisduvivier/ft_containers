@@ -5,7 +5,8 @@ Recreate C++ containers (vector, map, stack) using C++98.
 Thanks to: [@chrisduvivier](https://github.com/chrisduvivier)  [@Kovlin](https://github.com/Kovlin)    [@NathanColin](https://github.com/NathanColin27)
 
 # To test:
-We provide a comparaison test between std containers and our own containers with main.cpp
+We provide a comparaison test between std containers and our own containers with our script.
+Execute `sh test.sh` to test.
 
 ## Steps we took
 0. Copy paste the generic template from vector reference
