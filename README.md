@@ -1,8 +1,13 @@
 # ft_containers
-Recreate C++ containers (vector, map, stack) using C++98 (which means, many stuff are deprecated/deleted by now in the current C++)
+Recreate C++ containers (vector, map, stack) using C++98.
 
-# README: WIP
-## Steps I took
+# Credit:
+Thanks to: [@chrisduvivier](https://github.com/chrisduvivier)  [@Kovlin](https://github.com/Kovlin)    [@NathanColin](https://github.com/NathanColin27)
+
+# To test:
+We provide a comparaison test between std containers and our own containers with main.cpp
+
+## Steps we took
 0. Copy paste the generic template from vector reference
 `template < class T, class Alloc = allocator<T> > class vector; // generic template` (https://www.cplusplus.com/reference/vector/vector/)
 We will essentially implement one by one the members attributes/functions etc. This of this as your list of TODOs.
